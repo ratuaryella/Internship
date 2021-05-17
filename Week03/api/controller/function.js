@@ -31,8 +31,9 @@ exports.findOne = (req, res) => {
         message: "Error retrieving Issue with id=" + id
       });
     });
+  }
 
-    exports.create = (req, res) => {
+  exports.create = (req, res) => {
       if(!req.body.label){
           res.status(400).send({
               message:"Content can not be empty!"
@@ -56,8 +57,8 @@ exports.findOne = (req, res) => {
               err.message || "Some error occurred while creating the Issue."
           })
       })
+    }
     
-  };
   
   exports.update = (req, res) => {
       const id = req.params.id;
@@ -121,8 +122,4 @@ exports.deleteAll = (req, res) => {
               err.message || "Error occured while removing all data"
           });
         });
-};
-};
-
-
-
+}
