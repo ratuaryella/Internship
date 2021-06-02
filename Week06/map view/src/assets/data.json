@@ -1,0 +1,44 @@
+{
+    "venues": [
+        {
+            "description": "The city is built on the banks of two small rivers, the river of Babura and the river of Deli, which flow into the waters of the Malacca Strait. ",
+            "name": "Istana Maimun",
+            "geometry": [
+                3.597031,
+                98.678513
+            ]
+        },
+        {
+            "description": "Tempat makan yang enak ",
+            "name": "Merdeka Walk",
+            "geometry": [
+                3.590538,
+                98.677501
+            ]
+        },
+        {
+            "description": "Merupakan sebuah Universitas",
+            "name": "Universitas Sumatera Utara",
+            "geometry": [
+                3.5617,
+                98.6563
+            ]
+        },
+        {
+            "description": "Universitas Negri Medan",
+            "name": "Unimed",
+            "geometry": [
+                3.6065,
+                98.7160
+            ]
+        },
+        {
+            "description": "Mall",
+            "name": "Plaza Medan Fair",
+            "geometry": [
+                3.59331,
+                98.664143
+            ]
+        }
+    ]
+}
