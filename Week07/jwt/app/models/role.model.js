@@ -8,6 +8,11 @@ module.exports = (sequelize, Sequelize) => {
     role_name: {
         type: Sequelize.STRING
       },
+    created_at: {
+        type: 'TIMESTAMP',
+        // defaultValue: Sequelize.NOW,
+        allowNull: true,
+    }
 }, {
     freezeTableName: true,
     timestamps: false,

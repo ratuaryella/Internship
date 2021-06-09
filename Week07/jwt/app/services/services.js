@@ -7,7 +7,7 @@ const Role = db.role;
 
 // Get All
 const getAll = (req) => {
-    const query = `SELECT * FROM table_users where "deletedAt" is NULL ORDER BY id`;
+    const query = `SELECT * FROM table_users where "deleted_at" is NULL ORDER BY id`;
     return User.sequelize.query(query, {
         type: QueryTypes.SELECT,
     })
@@ -61,7 +61,7 @@ const updateUser = (dataInsert) => {
         password: dataInsert.password,
         username: dataInsert.username,
         email: dataInsert.email,
-        updatedAt: currentDate.dateAsiaJakarta,
+        updated_at: currentDate.dateAsiaJakarta,
         tableRoleId: dataInsert.tableRoleId},
         
         
@@ -80,7 +80,7 @@ const deleteUser = (id) => {
     const currentDate = getCurrentDate();
 
     return User.update({
-        deletedAt: currentDate.dateAsiaJakarta
+        deleted_at: currentDate.dateAsiaJakarta
     }, {
         where: { id: id }
     }).then(docs => {

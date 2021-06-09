@@ -17,10 +17,10 @@ exports.signup = (req, res) => {
             nama: req.body.nama,
             nip: req.body.nip,
             no_HP: req.body.no_HP,
-            password: req.body.password,
+            password: bcrypt.hashSync(req.body.password, 8),
             username: req.body.username,
             email: req.body.email,
-            createdAt: currentDate.dateAsiaJakarta,
+            created_at: currentDate.dateAsiaJakarta,
             tableRoleId: req.body.tableRoleId
         }
     
@@ -52,8 +52,7 @@ exports.signup = (req, res) => {
     exports.signin = (req, res) => {
         User.findOne({
             where: {
-              username: req.body.username,
-              password: req.body.password
+              username: req.body.username
             }
           })
             .then(user => {
@@ -61,8 +60,17 @@ exports.signup = (req, res) => {
                 return res.status(404).send({ message: "Invalid credentials." });
               }
         
-      
+              var passwordIsValid = bcrypt.compareSync(
+                req.body.password,
+                user.password
+              );
         
+              if (!passwordIsValid) {
+                return res.status(401).send({
+                  accessToken: null,
+                  message: "Invalid Password!"
+                });
+              }
               var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 10800 // 3 hours
               });

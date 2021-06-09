@@ -50,7 +50,7 @@ exports.updateUser = (req, res) => {
       password: req.body.password,
       username: req.body.username,
       email: req.body.email,
-      updatedAt: currentDate.dateAsiaJakarta,
+      updated_at: currentDate.dateAsiaJakarta,
       tableRoleId: req.body.tableRoleId
   }
 

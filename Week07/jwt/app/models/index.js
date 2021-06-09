@@ -26,6 +26,7 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.tatanan = require("../models/tatanan.model.js")(sequelize, Sequelize);
 
 db.role.hasMany(db.user, {
     foreignKey: 'tableRoleId'

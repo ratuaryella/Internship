@@ -1,56 +1,44 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('table_users', {
-    id: {
+    const Tatanan = sequelize.define('table_tatanan', {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-    },
-    nama: {
+      },
+      jenis_indikator: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      kategori: {
+        type: Sequelize.STRING,
+      },
+      nama_indikator: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      subindikator: {
         type: Sequelize.STRING
       },
-      nip: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      no_HP: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      username: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: true
-      },
-    created_at: {
+      created_at: {
         type: 'TIMESTAMP',
         // defaultValue: Sequelize.NOW,
         allowNull: true,
-    },
-    updated_at: {
+      },
+      updated_at: {
         type: 'TIMESTAMP',
         // defaultValue: Sequelize.NOW,
         allowNull: true,
-    },
-    deleted_at: {
+      },
+      deleted_at: {
         type: 'TIMESTAMP',
         // defaultValue: Sequelize.NOW,
         allowNull: true,
-    },
-    tableRoleId: {
-      type: Sequelize.INTEGER
-  },
+      }
 
 }, {
     freezeTableName: true,
     timestamps: false,
 });
 
-return User;
+return Tatanan;
 }
