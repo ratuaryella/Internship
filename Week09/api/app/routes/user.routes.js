@@ -74,5 +74,41 @@ module.exports = function(app) {
     "/api/test/role/delete-role",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.deleteRole
+  );
+
+  //Create Tatanan
+  app.post(
+    "/api/test/tatanan/create-tatanan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.createTatanan
     );
-};
+
+   //Get All Tatanan
+   app.get(
+    "/api/test/tatanan/viewTatanan", 
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getTatanan
+  );
+
+  //Get Tatanan By Id
+  app.get(
+    "/api/test/tatanan/get-by-id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getTatananById
+  );
+
+  //Update User
+  app.patch(
+    "/api/test/tatanan/update-tatanan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateTatanan
+    );
+
+  //Delete User
+  app.patch(
+    "/api/test/tatanan/delete-tatanan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.deleteTatanan
+    );
+
+}

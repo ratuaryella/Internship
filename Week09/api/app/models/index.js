@@ -27,12 +27,21 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.tatanan = require("../models/tatanan.model.js")(sequelize, Sequelize);
+db.kegiatan = require("../models/kegiatan.model.js")(sequelize, Sequelize);
 
 db.role.hasMany(db.user, {
     foreignKey: 'tableRoleId'
 });
 
 db.user.belongsTo(db.role);
+
+db.tatanan.hasMany(db.kegiatan, {
+  foreignKey: 'tableTatananId'
+});
+
+db.user.hasMany(db.kegiatan, {
+  foreignKey: 'tableUserId'
+});
 
 db.ROLES = ["1", "2", "3"];
 

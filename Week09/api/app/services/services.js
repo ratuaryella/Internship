@@ -7,7 +7,7 @@ const Role = db.role;
 const Tatanan = db.tatanan;
 
 // Get All User
-const getAll = (req) => {
+exports.getAll = (req) => {
     const query = `SELECT * FROM table_users where "deleted_at" is NULL ORDER BY id`;
     return User.sequelize.query(query, {
         type: QueryTypes.SELECT,
@@ -20,7 +20,7 @@ const getAll = (req) => {
 }
 
 // Get User By Id
-const getById = (id) => {
+exports.getById = (id) => {
     return User.findAll({
         where: {
             id: id 
@@ -31,7 +31,7 @@ const getById = (id) => {
 }
 
 // Create User
-const createUser = (dataInsert) => {
+exports.createUser = (dataInsert) => {
     return Role.findOne({
         where: {
             id: dataInsert.tableRoleId
@@ -52,7 +52,7 @@ const createUser = (dataInsert) => {
 
 
 // Update User
-const updateUser = (dataInsert) => {
+exports.updateUser = (dataInsert) => {
     const currentDate = getCurrentDate();
 
     return User.update({
@@ -77,7 +77,7 @@ const updateUser = (dataInsert) => {
 }
 
 // Delete User
-const deleteUser = (id) => {
+exports.deleteUser = (id) => {
     const currentDate = getCurrentDate();
 
     return User.update({
@@ -94,7 +94,7 @@ const deleteUser = (id) => {
 }
 
 //Get All Role
-const getAllRole = (req) => {
+exports.getAllRole = (req) => {
     const query = `SELECT * FROM table_role where "deleted_at" is NULL ORDER BY id`;
     return User.sequelize.query(query, {
         type: QueryTypes.SELECT,
@@ -107,7 +107,7 @@ const getAllRole = (req) => {
 }
 
 // Create Role
-const createRole = (dataRole) => {
+exports.createRole = (dataRole) => {
     return Role.create(dataRole)
     .then(docs => {
         return {
@@ -120,7 +120,7 @@ const createRole = (dataRole) => {
 }
 
 // Delete Role
-const deleteRole = (id) => {
+exports.deleteRole = (id) => {
     const currentDate = getCurrentDate();
 
     return Role.update({
@@ -137,7 +137,7 @@ const deleteRole = (id) => {
 }
 
 // Get Role By Id
-const getRoleById = (id) => {
+exports.getRoleById = (id) => {
     return Role.findAll({
         where: {
             id: id 
@@ -147,14 +147,79 @@ const getRoleById = (id) => {
     });
 }
 
-module.exports = {
-    getAll,
-    getById,
-    createUser,
-    updateUser,
-    deleteUser,
-    getAllRole,
-    createRole,
-    deleteRole,
-    getRoleById
+// Get All Tatanan
+exports.getTatanan = (req) => {
+    const query = `SELECT * FROM table_tatanan where "deleted_at" is NULL ORDER BY id`;
+    return Tatanan.sequelize.query(query, {
+        type: QueryTypes.SELECT,
+    })
+    .then(data => {
+        return {
+            data: data
+        }
+    })
+}
+
+// Get Tatanan by Id
+exports.getTatananById = (id) => {
+    return Tatanan.findAll({
+        where: {
+            id: id 
+        }
+      }).then(docs => {
+        return docs;
+    });
+}
+
+// Create Tatanan
+exports.createTatanan = (dataTatanan) => {
+    return Tatanan.create(dataTatanan)
+    .then(docs => {
+        return {
+            docs: docs,
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+// Update Tatanan
+exports.updateTatanan = (dataTatanan) => {
+    const currentDate = getCurrentDate();
+
+    return Tatanan.update({
+        nama_tatanan: dataTatanan.nama_tatanan,
+        jenis_indikator: dataTatanan.jenis_indikator,
+        kategori: dataTatanan.kategori,
+        nama_indikator: dataTatanan.nama_indikator,
+        subindikator: dataTatanan.subindikator,
+        updated_at: currentDate.dateAsiaJakarta},
+
+        {where: { id: dataTatanan.id }
+
+    }).then(docs => {
+        return {
+            docs: docs,
+        }
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+// Delete Tatanan
+exports.deleteTatanan = (id) => {
+    const currentDate = getCurrentDate();
+
+    return Tatanan.update({
+        deleted_at: currentDate.dateAsiaJakarta
+    }, {
+        where: { id: id }
+    }).then(docs => {
+        return {
+            docs: docs,
+        }
+    }).catch(error => {
+        console.log(error)
+    })
 }

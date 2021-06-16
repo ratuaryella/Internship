@@ -4,20 +4,20 @@ const getCurrentDate = require('../helper/current-date');
 //Public Content
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
-  };
+};
   
 //User Content
-  exports.userBoard = (req, res) => {
+exports.userBoard = (req, res) => {
     res.status(200).send("User Content.");
-  };
+};
   
 //Admin Content
-  exports.adminBoard = (req, res) => {
+exports.adminBoard = (req, res) => {
     res.status(200).send("Admin Content.");
-  };
+};
   
 //Get All Users
-  exports.getAll = (req, res) => {
+exports.getAll = (req, res) => {
     userServices.getAll(req)
     .then(docs => {
         if (docs.data.length > 0) {
@@ -41,7 +41,7 @@ exports.allAccess = (req, res) => {
             error: err
         })
     })
-}
+};
 
 //Update User
 exports.updateUser = (req, res) => {
@@ -89,8 +89,7 @@ exports.updateUser = (req, res) => {
           error : err
       });
   });
-}
-
+};
 
 //Delete User
 exports.deleteUser = (req, res) => {
@@ -126,8 +125,7 @@ exports.deleteUser = (req, res) => {
           error : err
       });
   });
-}
-
+};
 
 //GetUserById
 exports.getById = (req, res, next) => {
@@ -152,7 +150,7 @@ exports.getById = (req, res, next) => {
           });
       }
   })
-}
+};
 
 //Get All Roles
 exports.getAllRole = (req, res) => {
@@ -179,8 +177,7 @@ exports.getAllRole = (req, res) => {
             error: err
         })
     })
-}
-
+};
 
 //Delete Roles
 exports.deleteRole = (req, res) => {
@@ -216,7 +213,7 @@ exports.deleteRole = (req, res) => {
           error : err
       });
   });
-}
+};
 
 //Create Role
 exports.createRole = (req, res) => {
@@ -244,4 +241,171 @@ exports.createRole = (req, res) => {
             error : err
         });
     });
+};
+
+//Create Tatanan
+exports.createTatanan = (req, res) => {
+    const currentDate = getCurrentDate();
+
+    const dataTatanan = {
+        nama_tatanan: req.body.nama_tatanan,
+        jenis_indikator: req.body.jenis_indikator,
+        kategori: req.body.kategori,
+        nama_indikator: req.body.nama_indikator,
+        subindikator: req.body.subindikator,
+        created_at: currentDate.dateAsiaJakarta
+    }
+
+    userServices.createTatanan(dataTatanan)
+    .then(() => {
+        res.status(201).json({
+            status: 'Created',
+            message: 'Successfully Created Tatanan',
+            dataTatanan: dataTatanan,
+            request: {
+                type: "POST",
+                url: "/tatanan/create-tatanan"
+            }
+        }); 
+    })
+    .catch(err => {
+        res.status(500).json({
+            error : err
+        });
+    });
+};
+
+//Get All Tatanan
+exports.getTatanan = (req, res) => {
+    userServices.getTatanan(req)
+    .then(docs => {
+        if (docs.data.length > 0) {
+            const response = {
+                data: docs.data,
+                request: {
+                    type: 'GET',
+                    url: '/tatanan/viewTatanan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+
+//Update Tatanan
+exports.updateTatanan = (req, res) => {
+  const currentDate = getCurrentDate();
+
+  const dataTatanan = {
+      id: req.query.id,
+      nama_tatanan: req.body.nama_tatanan,
+      jenis_indikator: req.body.jenis_indikator,
+      kategori: req.body.kategori,
+      nama_indikator: req.body.nama_indikator,
+      subindikator: req.body.subindikator,
+      updated_at: currentDate.dateAsiaJakarta
+  }
+
+  userServices.getTatananById(dataTatanan.id)
+  .then(docs => {  
+      if(docs.length > 0) {
+          userServices.updateTatanan(dataTatanan)
+          .then(() => {
+              res.status(200).json({
+                  message: 'Successfully Update Tatanan',
+                  dataTatanan: dataTatanan,
+                  request: {
+                      type: "PATCH",
+                      url: "/tatanan/update-tatanan"
+                  }
+              });
+          })
+          .catch(err => {
+              res.status(500).json({
+                  message: "Failed Update a Tatanan"
+              });
+          })
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${dataUpdate.id}`
+          });
+      }
+  })
+  .catch(err => {
+      res.status(500).json({
+          error : err
+      });
+  });
+}
+
+//Delete Tatanan
+exports.deleteTatanan = (req, res) => {
+  const id = req.query.id;
+
+  userServices.getTatananById(id)
+  .then(docs => {  
+      if(docs.length > 0) {
+          userServices.deleteTatanan(id)
+          .then(() => {
+              res.status(200).json({
+                  message: 'Successfully Delete Tatanan',
+                  id: id,
+                  request: {
+                      type: "PATCH",
+                      url: "/tatanan/delete-tatanan"
+                  }
+              });
+          })
+          .catch(err => {
+              res.status(500).json({
+                  message: "Failed Delete a Tatanan"
+              });
+          })
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${id}`
+          });
+      }
+  })
+  .catch(err => {
+      res.status(500).json({
+          error : err
+      });
+  });
+}
+
+
+//Get Tatanan By Id
+exports.getTatananById = (req, res, next) => {
+  const id = req.query.id;
+  userServices.getTatananById(id)
+  .then(docs => {
+      if (docs.length > 0) {
+          const response = {
+              status: 'OK',
+              message: 'Successfully Get Tatanan By Id',
+              data: docs,
+              request: {
+                  type: 'GET',
+                  url: '/tatanan/get-by-id'
+              }
+          }
+
+          res.status(200).json(response);
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${id}`
+          });
+      }
+  })
 }
