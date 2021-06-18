@@ -43,6 +43,9 @@ db.user.hasMany(db.kegiatan, {
   foreignKey: 'tableUserId'
 });
 
+db.kegiatan.belongsTo(db.tatanan);
+db.kegiatan.belongsTo(db.user);
+
 db.ROLES = ["1", "2", "3"];
 
 module.exports = db;

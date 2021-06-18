@@ -5,6 +5,7 @@ const getCurrentDate = require('../helper/current-date');
 const User = db.user;
 const Role = db.role;
 const Tatanan = db.tatanan;
+const Kegiatan = db.kegiatan;
 
 // Get All User
 exports.getAll = (req) => {
@@ -173,12 +174,27 @@ exports.getTatananById = (id) => {
 
 // Create Tatanan
 exports.createTatanan = (dataTatanan) => {
-    return Tatanan.create(dataTatanan)
-    .then(docs => {
-        return {
-            docs: docs,
+    return Tatanan.findOne({
+        where: {
+            id: dataKegiatan.tableTatananId
         }
     })
+    .then(() => {
+        return User.findOne({
+            where: {
+                id: dataKegiatan.tableUserId
+            }
+        })
+        .then(()=> {
+            return Kegiatan.create(dataKegiatan)
+            .then(docs => {
+                return {
+                docs: docs,
+            }
+        })
+
+    })
+})
     .catch(error => {
         console.log(error);
     })
@@ -212,6 +228,92 @@ exports.deleteTatanan = (id) => {
     const currentDate = getCurrentDate();
 
     return Tatanan.update({
+        deleted_at: currentDate.dateAsiaJakarta
+    }, {
+        where: { id: id }
+    }).then(docs => {
+        return {
+            docs: docs,
+        }
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+// Get All Kegiatan
+exports.getKegiatan = (req) => {
+    const query = `SELECT * FROM table_kegiatan where "deleted_at" is NULL ORDER BY id`;
+    return Kegiatan.sequelize.query(query, {
+        type: QueryTypes.SELECT,
+    })
+    .then(data => {
+        return {
+            data: data
+        }
+    })
+}
+
+// Get Kegiatan by Id
+exports.getKegiatanById = (id) => {
+    return Kegiatan.findAll({
+        where: {
+            id: id 
+        }
+      }).then(docs => {
+        return docs;
+    });
+}
+
+// Create Kegiatan
+exports.createKegiatan = (dataKegiatan) => {
+    return Kegiatan.create(dataKegiatan)
+    .then(docs => {
+        return {
+            docs: docs,
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+// Update Kegiatan
+exports.updateKegiatan = (dataKegiatan) => {
+    const currentDate = getCurrentDate();
+
+    return Kegiatan.update({
+        tableTatananId: dataKegiatan.tableTatananId,
+        nama_kegiatan: dataKegiatan.nama_kegiatan,
+        nama_tatanan: dataKegiatan.nama_tatanan,
+        jenis_indikator: dataKegiatan.jenis_indikator,
+        kategori: dataKegiatan.kategori,
+        nama_indikator: dataKegiatan.nama_indikator,
+        subindikator: dataKegiatan.subindikator,
+        pelaksana: dataKegiatan.pelaksana,
+        tanggal_kegiatan: dataKegiatan.tanggal_kegiatan,
+        longitude: dataKegiatan.longitude,
+        latitude: dataKegiatan.latitude,
+        deskripsi: dataKegiatan.deskripsi,
+        gambar: dataKegiatan.gambar,
+        tableUserId: dataKegiatan.tableUserId,
+        updated_at: currentDate.dateAsiaJakarta},
+
+        {where: { id: dataKegiatan.id }
+
+    }).then(docs => {
+        return {
+            docs: docs,
+        }
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+// Delete Kegiatan
+exports.deleteKegiatan = (id) => {
+    const currentDate = getCurrentDate();
+
+    return Kegiatan.update({
         deleted_at: currentDate.dateAsiaJakarta
     }, {
         where: { id: id }

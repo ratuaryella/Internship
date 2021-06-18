@@ -97,18 +97,53 @@ module.exports = function(app) {
     controller.getTatananById
   );
 
-  //Update User
+  //Update Tatanan
   app.patch(
     "/api/test/tatanan/update-tatanan",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.updateTatanan
     );
 
-  //Delete User
+  //Delete Tatanan
   app.patch(
     "/api/test/tatanan/delete-tatanan",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.deleteTatanan
+    );
+
+  //Create Kegiatan
+  app.post(
+    "/api/test/kegiatan/create-kegiatan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.createKegiatan
+    );
+
+   //Get All Kegiatan
+   app.get(
+    "/api/test/kegiatan/viewKegiatan", 
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getKegiatan
+  );
+
+  //Get Kegiatan By Id
+  app.get(
+    "/api/test/kegiatan/get-by-id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getKegiatanById
+  );
+
+  //Update Kegiatan
+  app.patch(
+    "/api/test/kegiatan/update-kegiatan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateKegiatan
+    );
+
+  //Delete Kegiatan
+  app.patch(
+    "/api/test/kegiatan/delete-kegiatan",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.deleteKegiatan
     );
 
 }

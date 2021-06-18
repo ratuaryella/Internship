@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
     tableTatananId: {
         type: Sequelize.INTEGER,
       },
+      nama_kegiatan: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       nama_tatanan: {
         type: Sequelize.STRING,
         allowNull: false
@@ -39,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       deskripsi: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       gambar: {
         type: Sequelize.BLOB

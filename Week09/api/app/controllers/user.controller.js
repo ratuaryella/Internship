@@ -1,5 +1,7 @@
 const userServices = require('../services/services');
 const getCurrentDate = require('../helper/current-date');
+const db = require("../models");
+const Kegiatan = db.kegiatan;
 
 //Public Content
 exports.allAccess = (req, res) => {
@@ -384,7 +386,6 @@ exports.deleteTatanan = (req, res) => {
   });
 }
 
-
 //Get Tatanan By Id
 exports.getTatananById = (req, res, next) => {
   const id = req.query.id;
@@ -398,6 +399,191 @@ exports.getTatananById = (req, res, next) => {
               request: {
                   type: 'GET',
                   url: '/tatanan/get-by-id'
+              }
+          }
+
+          res.status(200).json(response);
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${id}`
+          });
+      }
+  })
+}
+
+//Create Kegiatan
+exports.createKegiatan = (req, res) => {
+    const currentDate = getCurrentDate();
+
+    const dataKegiatan = {
+        tableTatananId: req.body.tableTatananId,
+        nama_kegiatan: req.body.nama_kegiatan,
+        nama_tatanan: req.body.nama_tatanan,
+        jenis_indikator: req.body.jenis_indikator,
+        kategori: req.body.kategori,
+        nama_indikator: req.body.nama_indikator,
+        subindikator: req.body.subindikator,
+        pelaksana: req.body.pelaksana,
+        tanggal_kegiatan: req.body.tanggal_kegiatan,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        deskripsi: req.body.deskripsi,
+        gambar: req.body.gambar,
+        tableUserId: req.body.tableUserId,
+        created_at: currentDate.dateAsiaJakarta
+    }
+
+    userServices.createKegiatan(dataKegiatan)
+    .then(() => {
+        res.status(201).json({
+            status: 'Created',
+            message: 'Successfully Created Kegiatan',
+            dataKegiatan: dataKegiatan,
+            request: {
+                type: "POST",
+                url: "/Kegiatan/create-Kegiatan"
+            }
+        }); 
+    })
+    .catch(err => {
+        res.status(500).json({
+            error : err
+        });
+    });
+};
+
+//Get All Kegiatan
+exports.getKegiatan = (req, res) => {
+    userServices.getKegiatan(req)
+    .then(docs => {
+        if (docs.data.length > 0) {
+            const response = {
+                data: docs.data,
+                request: {
+                    type: 'GET',
+                    url: '/Kegiatan/viewKegiatan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+
+//Update Kegiatan
+exports.updateKegiatan = (req, res) => {
+  const currentDate = getCurrentDate();
+
+  const dataKegiatan = {
+      id: req.query.id,
+      tableTatananId: req.body.tableTatananId,
+      nama_kegiatan: req.body.nama_kegiatan,
+      nama_tatanan: req.body.nama_tatanan,
+      jenis_indikator: req.body.jenis_indikator,
+      kategori: req.body.kategori,
+      nama_indikator: req.body.nama_indikator,
+      subindikator: req.body.subindikator,
+      pelaksana: req.body.pelaksana,
+      tanggal_kegiatan: req.body.tanggal_kegiatan,
+      longitude: req.body.longitude,
+      latitude: req.body.latitude,
+      deskripsi: req.body.deskripsi,
+      gambar: req.body.gambar,
+      tableUserId: req.body.tableUserId,
+      updated_at: currentDate.dateAsiaJakarta
+  }
+
+  userServices.getKegiatanById(dataKegiatan.id)
+  .then(docs => {  
+      if(docs.length > 0) {
+          userServices.updateKegiatan(dataKegiatan)
+          .then(() => {
+              res.status(200).json({
+                  message: 'Successfully Update Kegiatan',
+                  dataKegiatan: dataKegiatan,
+                  request: {
+                      type: "PATCH",
+                      url: "/Kegiatan/update-Kegiatan"
+                  }
+              });
+          })
+          .catch(err => {
+              res.status(500).json({
+                  message: "Failed Update a Kegiatan"
+              });
+          })
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${dataKegiatan.id}`
+          });
+      }
+  })
+  .catch(err => {
+      res.status(500).json({
+          error : err
+      });
+  });
+}
+
+//Delete Kegiatan
+exports.deleteKegiatan = (req, res) => {
+  const id = req.query.id;
+
+  userServices.getKegiatanById(id)
+  .then(docs => {  
+      if(docs.length > 0) {
+          userServices.deleteKegiatan(id)
+          .then(() => {
+              res.status(200).json({
+                  message: 'Successfully Delete Kegiatan',
+                  id: id,
+                  request: {
+                      type: "PATCH",
+                      url: "/Kegiatan/delete-Kegiatan"
+                  }
+              });
+          })
+          .catch(err => {
+              res.status(500).json({
+                  message: "Failed Delete a Kegiatan"
+              });
+          })
+      } else {
+          res.status(404).json({
+              message: `Data not found with id ${id}`
+          });
+      }
+  })
+  .catch(err => {
+      res.status(500).json({
+          error : err
+      });
+  });
+}
+
+
+//Get Kegiatan By Id
+exports.getKegiatanById = (req, res, next) => {
+  const id = req.query.id;
+  userServices.getKegiatanById(id)
+  .then(docs => {
+      if (docs.length > 0) {
+          const response = {
+              status: 'OK',
+              message: 'Successfully Get Kegiatan By Id',
+              data: docs,
+              request: {
+                  type: 'GET',
+                  url: '/Kegiatan/get-by-id'
               }
           }
 

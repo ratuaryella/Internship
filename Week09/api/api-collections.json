@@ -572,6 +572,182 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET ALL KEGIATAN",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IlNhcmFoIiwidXNlcm5hbWUiOiJzYXJhaGNocnN0bmUiLCJlbWFpbCI6InNhcmFoQGdtYWlsLmNvbSIsIm5vX0hQIjoiMDgyMTc2NzM1NTU3Iiwia29kZV93aWxheWFoIjp7ImtvZGVfZGVzYSI6IiIsImtvZGVfa2VjYW1hdGFuIjoiMTI3NTAyMCJ9LCJpYXQiOjE2MjM5MjY5NzksImV4cCI6MTYyMzkzNzc3OX0.pfer9cf9dLMJE5qB3kvtkI8pc0lUHrwiPWVUVs7Tawg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/test/kegiatan/viewKegiatan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test",
+						"kegiatan",
+						"viewKegiatan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET KEGIATAN BY ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IlNhcmFoIiwidXNlcm5hbWUiOiJzYXJhaGNocnN0bmUiLCJlbWFpbCI6InNhcmFoQGdtYWlsLmNvbSIsIm5vX0hQIjoiMDgyMTc2NzM1NTU3Iiwia29kZV93aWxheWFoIjp7ImtvZGVfZGVzYSI6IiIsImtvZGVfa2VjYW1hdGFuIjoiMTI3NTAyMCJ9LCJpYXQiOjE2MjM4MjczNDksImV4cCI6MTYyMzgzODE0OX0.RIUW2MVhuicTpUfZOZ8I5wbaM5hIHivasphhEXqPL1U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/test/kegiatan/get-by-id?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test",
+						"kegiatan",
+						"get-by-id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE KEGIATAN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IlNhcmFoIiwidXNlcm5hbWUiOiJzYXJhaGNocnN0bmUiLCJlbWFpbCI6InNhcmFoQGdtYWlsLmNvbSIsIm5vX0hQIjoiMDgyMTc2NzM1NTU3Iiwia29kZV93aWxheWFoIjp7ImtvZGVfZGVzYSI6IiIsImtvZGVfa2VjYW1hdGFuIjoiMTI3NTAyMCJ9LCJpYXQiOjE2MjM5MjY5NzksImV4cCI6MTYyMzkzNzc3OX0.pfer9cf9dLMJE5qB3kvtkI8pc0lUHrwiPWVUVs7Tawg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_tatanan\": \"1\",\r\n    \"nama_kegiatan\": \"Pengadaan Imunisasi di Kota Medan\",\r\n    \"nama_tatanan\": \"Kesehatan Masyarakat\",\r\n    \"jenis_indikator\": \"Pokok\",\r\n    \"kategori\": \"\",\r\n    \"nama_indikator\": \"Posyandu\",\r\n    \"subindikator\": \"Vaksinasi Polio Balita\",\r\n    \"pelaksana\": \"Dinas Kesehatan\",\r\n    \"tanggal_kegiatan\": \"06/17/2021\",\r\n    \"longitude\": \"3.2227\",\r\n    \"latitude\": \"4.11119\",\r\n    \"deskripsi\": \"Merupakan kegiatan yang dilakukan secara rutin untuk menjaga kesehatan para balita\",\r\n    \"gambar\": \"\",\r\n    \"author\": \"5\",\r\n    \"created_at\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/test/kegiatan/create-kegiatan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test",
+						"kegiatan",
+						"create-kegiatan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE KEGIATAN",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IlNhcmFoIiwidXNlcm5hbWUiOiJzYXJhaGNocnN0bmUiLCJlbWFpbCI6InNhcmFoQGdtYWlsLmNvbSIsIm5vX0hQIjoiMDgyMTc2NzM1NTU3Iiwia29kZV93aWxheWFoIjp7ImtvZGVfZGVzYSI6IiIsImtvZGVfa2VjYW1hdGFuIjoiMTI3NTAyMCJ9LCJpYXQiOjE2MjM4MjczNDksImV4cCI6MTYyMzgzODE0OX0.RIUW2MVhuicTpUfZOZ8I5wbaM5hIHivasphhEXqPL1U",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"jenis_indikator\": \"Sekunder\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/test/kegiatan/update-kegiatan?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test",
+						"kegiatan",
+						"update-kegiatan"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE KEGIATAN",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IlNhcmFoIiwidXNlcm5hbWUiOiJzYXJhaGNocnN0bmUiLCJlbWFpbCI6InNhcmFoQGdtYWlsLmNvbSIsIm5vX0hQIjoiMDgyMTc2NzM1NTU3Iiwia29kZV93aWxheWFoIjp7ImtvZGVfZGVzYSI6IiIsImtvZGVfa2VjYW1hdGFuIjoiMTI3NTAyMCJ9LCJpYXQiOjE2MjM4MjczNDksImV4cCI6MTYyMzgzODE0OX0.RIUW2MVhuicTpUfZOZ8I5wbaM5hIHivasphhEXqPL1U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/test/kegiatan/delete-kegiatan?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"test",
+						"kegiatan",
+						"delete-kegiatan"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
