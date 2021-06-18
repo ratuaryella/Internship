@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       deskripsi: {
-        type: Sequelize.STRING
+        type: "varchar"
       },
       gambar: {
         type: Sequelize.BLOB

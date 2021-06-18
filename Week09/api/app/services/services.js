@@ -174,27 +174,12 @@ exports.getTatananById = (id) => {
 
 // Create Tatanan
 exports.createTatanan = (dataTatanan) => {
-    return Tatanan.findOne({
-        where: {
-            id: dataKegiatan.tableTatananId
+    return Tatanan.create(dataTatanan)
+    .then(docs => {
+        return {
+            docs: docs,
         }
     })
-    .then(() => {
-        return User.findOne({
-            where: {
-                id: dataKegiatan.tableUserId
-            }
-        })
-        .then(()=> {
-            return Kegiatan.create(dataKegiatan)
-            .then(docs => {
-                return {
-                docs: docs,
-            }
-        })
-
-    })
-})
     .catch(error => {
         console.log(error);
     })
@@ -266,12 +251,27 @@ exports.getKegiatanById = (id) => {
 
 // Create Kegiatan
 exports.createKegiatan = (dataKegiatan) => {
-    return Kegiatan.create(dataKegiatan)
-    .then(docs => {
-        return {
-            docs: docs,
+    return Tatanan.findOne({
+        where: {
+            id: dataKegiatan.tableTatananId
         }
     })
+    .then(() => {
+        return User.findOne({
+            where: {
+                id: dataKegiatan.tableUserId
+            }
+        })
+        .then(()=> {
+            return Kegiatan.create(dataKegiatan)
+            .then(docs => {
+                return {
+                docs: docs,
+            }
+        })
+
+    })
+})
     .catch(error => {
         console.log(error);
     })
