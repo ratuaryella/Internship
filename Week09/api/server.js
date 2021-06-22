@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const expressLayouts = require('express-ejs-layouts')
 
 const app = express();
 
@@ -25,8 +26,22 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to application." });
 });
 
+// View
+app.use(express.static('public'))
+// app.use('/css',express.static(__dirname+ 'public/css'))
+// app.use('/js', express.static(__dirname+'public/js'))
+
+// Set
+app.use(expressLayouts)
+app.set('views', './views')
+app.set('view engine', 'ejs')
+
+app.get('/home', (req, res)=>{
+  res.render('index', { title: 'Home Page'})
+})
+
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
