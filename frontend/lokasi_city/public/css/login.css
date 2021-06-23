@@ -1,0 +1,40 @@
+.column-login {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: 2fr 1fr;
+}
+
+.img-medan-city {
+    background-image: url('../images/content/medan.jpg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.card-login {
+    padding: 20px;
+    margin: auto 20px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.intro-login {
+    text-align: center;
+}
+
+.icon-user-login i {
+    margin: 40px 0;
+}
+
+
+.intro-login h2 {
+    font-size: 25px;
+    margin: 5px 0 30px 0;
+    color: #1E56BA;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
