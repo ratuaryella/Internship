@@ -118,7 +118,37 @@
 		},
 		{
 			"name": "kegiatan-tatanan",
-			"item": [],
+			"item": [
+				{
+					"name": "SAMPLE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbXplc21vcm8wMDNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJhbXplc21vcm8wMDMiLCJmaXJzdG5hbWUiOiJhbXplc21vcm8iLCJsYXN0bmFtZSI6IjAwMyIsIm1vYmlsZV9udW1iZXIiOiI4MjIyOTg5ODEwMTAiLCJzdGF0dXMiOnRydWUsImtvZGVfd2lsYXlhaCI6eyJrb2RlX2tlYyI6WyIxMjc1MDYwIiwiMTI3NTA0MCJdLCJrb2RlX2Rlc2EiOlsiIiwiIl0sImtvZGVfcHJvdiI6WyIxMiIsIjEyIl0sImtvZGVfa2Fia290IjpbIjEyNzUiLCIxMjc1Il19LCJjcmVhdGVkX2F0IjoiMjAyMS0wNi0yNFQxNToxOTozOC4wMDBaIiwiY3JlYXRlZF9ieSI6MSwicm9sZSI6eyJpZCI6MiwiZGVzY3JpcHRpb24iOiJyb2xlIHBldHVnYXMiLCJuYW1lIjoicGV0dWdhcyJ9LCJpYXQiOjE2MjQ1NDgwMDAsImV4cCI6MTYyNDU1ODgwMH0.zQxVvn_8omDwSHn5VrFhfPhubfPDQcpa8_xKHWte21Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/welcome",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"welcome"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"event": [
 				{
 					"listen": "prerequest",
