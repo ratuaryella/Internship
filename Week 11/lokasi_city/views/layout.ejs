@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ./partials/header.ejs %>
+</head>
+<body>
+    <div id="main">
+        <%- body -%>        
+    </div>
+    <%- include ./partials/footer.ejs %>
+    <%- block('extendScripts').toString() %>
+</body>
+</html>
