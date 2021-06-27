@@ -8,8 +8,6 @@ const globalVariable = require('../helper/globalVarible');
 
 //Create Tatanan
 const createTatanan = async (req, res, next) => {
-    const currentDate = getCurrentDate();
-
     try{
     
     if (req.userData.role.id == globalVariable.ROLE_ADMIN) {
@@ -59,12 +57,12 @@ const getTatanan = (req, res, next) => {
 
     try{
     
-    if (req.userData.role.id == globalVariable.ROLE_ADMIN) {
-    TatananServices.getTatanan(req)
-    .then(docs => {
-        if (docs.data.length > 0) {
-            const response = {
-                total: docs.data.count,
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER) {
+        TatananServices.getTatanan(req)
+        .then(docs => {
+            if (docs.data.rows.length > 0) {
+                const response = {
+                        total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
                         results: docs.data.rows.map((doc) => {
@@ -80,7 +78,7 @@ const getTatanan = (req, res, next) => {
                         }),
                 request: {
                     type: 'GET',
-                    url: '/tatanan/viewTatanan/' ,
+                    url: '/get-all-tatanan' ,
                 }
             }
             res.status(200).json(response);
@@ -111,65 +109,49 @@ else {
 
 //Update Tatanan
 const updateTatanan = async (req, res, next) => {
-  const currentDate = getCurrentDate();
-
-  try{
-    
-    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
-
-  const dataTatanan = {
-      id: req.query.id,
-      nama_tatanan: req.body.nama_tatanan,
-      jenis_indikator: req.body.jenis_indikator,
-      kategori: req.body.kategori,
-      nama_indikator: req.body.nama_indikator,
-      subindikator: req.body.subindikator,
-      updated_at: currentDate.dateAsiaJakarta,
-      updated_by: req.userData.id
-  }
-
-  TatananServices.getTatananById(dataTatanan.id)
-  .then(docs => {  
-      if(docs.length > 0) {
-          TatananServices.updateTatanan(dataTatanan)
-          .then(() => {
-              res.status(200).json({
-                  message: 'Successfully Update Tatanan',
-                  dataTatanan: dataTatanan,
-                  request: {
-                      type: "PATCH",
-                      url: "/tatanan/update-tatanan"
-                  }
-              });
-          })
-          .catch(err => {
-              res.status(500).json({
-                  message: "Failed Update a Tatanan"
-              });
-          })
+    try{
+      const currentDate = getCurrentDate();
+      const id = req.query.id;
+  
+      if (req.userData.role.id == globalVariable.ROLE_ADMIN) {
+  
+      let detailTatanan = await TatananServices.getTatananById(id);
+      if (detailTatanan.length > 0) {
+        const updateDataTatanan = {
+          nama_tatanan: req.body.nama_tatanan,
+          jenis_indikator: req.body.jenis_indikator,
+          kategori: req.body.kategori,
+          nama_indikator: req.body.nama_indikator,
+          subindikator: req.body.subindikator,
+          updated_at: currentDate.dateAsiaJakarta,
+          updated_by: req.userData.id
+        };
+        const updateTatanan = await TatananServices.updateTatanan(id, updateDataTatanan);
+        const response = {
+            message: `Successfully Updated Tatanan with id: ${id}`,
+            totalUpdated: updateTatanan[0],
+            request: {
+                        type: 'PATCH',
+                        url: `/update-tatanan?id=${id}`
+                      }
+        };
+        res.status(200).json(response);
       } else {
-          res.status(404).json({
-              message: `Data not found with id ${dataUpdate.id}`
-          });
+                  res.status(404).json({
+                      message: `Can't find Tatanan with id: ${id}`
+                  });
+              }
+              
+          } else {
+              return res.status(403).json({
+                  status: 'Forbidden',
+                  message: 'Only admin can access!'
+              });
+          }
+      } catch (err) {
+          next(err);
       }
-  })
-  .catch(err => {
-      res.status(500).json({
-          error : err
-      });
-  });
-}
-else {
-    return res.status(403).json({
-        status: 'Forbidden',
-        message: 'Only admin can access!'
-        });
-        }
-    }
-    catch(err) {
-    next(err);
-    }
-};
+  }
 
 //Delete Tatanan
 const deleteTatanan = async (req, res, next) => {
@@ -186,7 +168,7 @@ const deleteTatanan = async (req, res, next) => {
                     status: 0,
                     deleted_by: req.userData.id
                 };
-                const deleteTatanan = await KegiatanServices.deleteTatanan(id, deleteDataTatanan);
+                const deleteTatanan = await TatananServices.deleteTatanan(id, deleteDataTatanan);
                 const response = {
                     message: `Successfully Deleted Tatanan with id: ${id}`,
                     totalDeleted: deleteTatanan[0],
@@ -227,12 +209,12 @@ const getTatananById = (req, res, next) => {
             data: docs.map(doc => {
                 return {
                     nama_tatanan: doc.nama_tatanan,
-                                jenis_indikator: doc.jenis_indikator,
-                                kategori: doc.kategori,
-                                nama_indikator: doc.nama_indikator,
-                                subindikator: doc.subindikator,
-                                created_at: doc.created_at,
-                                created_by: doc.created_by
+                    jenis_indikator: doc.jenis_indikator,
+                    kategori: doc.kategori,
+                    nama_indikator: doc.nama_indikator,
+                    subindikator: doc.subindikator,
+                    created_at: doc.created_at,
+                    created_by: doc.created_by
                 }
             }),
               request: {

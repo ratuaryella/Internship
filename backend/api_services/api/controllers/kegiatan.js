@@ -3,8 +3,8 @@ const TatananServices = require('../services/tatanan');
 const getCurrentDate = require('../helper/current-date');
 const config = require('../../config/config');
 const jwt = require('jsonwebtoken');
-const currentDate = getCurrentDate();
 const globalVariable = require('../helper/globalVarible');
+const { Tatanan } = require('../../sequelize');
 
 //Create Kegiatan
 const createKegiatan = async (req, res, next) => {
@@ -70,7 +70,7 @@ const getKegiatan = (req, res, next) => {
     if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
     KegiatanServices.getKegiatan(req)
     .then(docs => {
-        if (docs.data.length > 0) {
+        if (docs.data.rows.length > 0) {
             const response = {
                 total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
@@ -119,73 +119,58 @@ else {
 
 //Update Kegiatan
 const updateKegiatan = async (req, res, next) => {
-  const currentDate = getCurrentDate();
+    try{
+      const currentDate = getCurrentDate();
+      const id = req.query.id;
+  
+      if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER) {
 
-  try{
-    
-    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
-
-  const dataKegiatan = {
-      id: req.query.id,
-      id_tatanan: req.body.id_tatanan,
-      nama_kegiatan: req.body.nama_kegiatan,
-      nama_tatanan: req.body.nama_tatanan,
-      jenis_indikator: req.body.jenis_indikator,
-      kategori: req.body.kategori,
-      nama_indikator: req.body.nama_indikator,
-      subindikator: req.body.subindikator,
-      pelaksana: req.body.pelaksana,
-      tanggal_kegiatan: req.body.tanggal_kegiatan,
-      longitude: req.body.longitude,
-      latitude: req.body.latitude,
-      deskripsi: req.body.deskripsi,
-      gambar: req.body.gambar,
-      updated_at: currentDate.dateAsiaJakarta,
-      updated_by: req.userData.id
-  }
-
-  KegiatanServices.getKegiatanById(dataKegiatan.id)
-  .then(docs => {  
-      if(docs.length > 0) {
-          KegiatanServices.updateKegiatan(dataKegiatan)
-          .then(() => {
-              res.status(200).json({
-                  message: 'Successfully Update Kegiatan',
-                  dataKegiatan: dataKegiatan,
-                  request: {
-                      type: "PATCH",
-                      url: "/Kegiatan/update-Kegiatan"
-                  }
-              });
-          })
-          .catch(err => {
-              res.status(500).json({
-                  message: "Failed Update a Kegiatan"
-              });
-          })
+      let detailKegiatan = await KegiatanServices.getKegiatanById(id);
+      if (detailKegiatan.length > 0) {
+        const updateDataKegiatan = {
+          id: req.query.id,
+          id_tatanan: req.body.id_tatanan,
+          nama_kegiatan: req.body.nama_kegiatan,
+          nama_tatanan: req.body.nama_tatanan,
+          jenis_indikator: req.body.jenis_indikator,
+          kategori: req.body.kategori,
+          nama_indikator: req.body.nama_indikator,
+          subindikator: req.body.subindikator,
+          pelaksana: req.body.pelaksana,
+          tanggal_kegiatan: req.body.tanggal_kegiatan,
+          longitude: req.body.longitude,
+          latitude: req.body.latitude,
+          deskripsi: req.body.deskripsi,
+          gambar: req.body.gambar,
+          updated_at: currentDate.dateAsiaJakarta,
+          updated_by: req.userData.id
+        };
+        const updateKegiatan = await KegiatanServices.updateKegiatan(id, updateDataKegiatan);
+        const response = {
+            message: `Successfully Updated Kegiatan with id: ${id}`,
+            totalUpdated: updateKegiatan[0],
+            request: {
+                        type: 'PATCH',
+                        url: `/update-kegiatan?id=${id}`
+                      }
+        };
+        res.status(200).json(response);
       } else {
-          res.status(404).json({
-              message: `Data not found with id ${dataKegiatan.id}`
-          });
+                  res.status(404).json({
+                      message: `Can't find Kegiatan with id: ${id}`
+                  });
+              }
+              
+          } else {
+              return res.status(403).json({
+                  status: 'Forbidden',
+                  message: 'Only registered users can access!'
+              });
+          }
+      } catch (err) {
+          next(err);
       }
-  })
-  .catch(err => {
-      res.status(500).json({
-          error : err
-      });
-  });
-}
-else {
-    return res.status(403).json({
-        status: 'Forbidden',
-        message: 'Only registered users can access!'
-    });
-}
-}
-catch(err) {
-next(err);
-}
-};
+  }
 
 //Delete Kegiatan
 const deleteKegiatan = async (req, res, next) => {
@@ -248,6 +233,15 @@ const getKegiatanById = (req, res, next) => {
                     nama_kegiatan: doc.nama_kegiatan,
                     nama_tatanan: doc.nama_tatanan,
                     jenis_indikator: doc.jenis_indikator,
+                    kategori: doc.kategori,
+                    nama_indikator: doc.nama_indikator,
+                    subindikator: doc.subindikator,
+                    pelaksana: doc.pelaksana,
+                    tanggal_kegiatan: doc.tanggal_kegiatan,
+                    longitude: doc.longitude,
+                    latitude: doc.latitude,
+                    deskripsi: doc.deskripsi,
+                    gambar: doc.gambar,
                     pelaksana: doc.pelaksana,
                     tanggal_kegiatan: doc.tanggal_kegiatan,
                     created_at: doc.created_at,

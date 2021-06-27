@@ -9,7 +9,6 @@ const getTatanan = (req) => {
     const offset = pagination.offset;
     return Tatanan.findAndCountAll({
         where: { deleted_at: null },
-        attributes,
         limit, 
         offset,
         order: [['created_at', 'DESC']]
@@ -28,7 +27,6 @@ const getTatananById = (id) => {
             id: id,
             deleted_at: null
         },
-        attributes,
         limit: 1
       }).then(docs => {
         return docs;
@@ -49,28 +47,10 @@ const createTatanan = (dataTatanan) => {
 }
 
 // Update Tatanan
-const updateTatanan = (dataTatanan) => {
-    const currentDate = getCurrentDate();
-
-    return Tatanan.update({
-        nama_tatanan: dataTatanan.nama_tatanan,
-        jenis_indikator: dataTatanan.jenis_indikator,
-        kategori: dataTatanan.kategori,
-        nama_indikator: dataTatanan.nama_indikator,
-        subindikator: dataTatanan.subindikator,
-        updated_at: currentDate.dateAsiaJakarta,
-        updated_by: dataTatanan.updated_by,
-    },
-
-        {where: { id: dataTatanan.id }
-
-    }).then(docs => {
-        return {
-            docs: docs,
-        }
-    }).catch(error => {
-        console.log(error)
-    })
+const updateTatanan = (id, updateTatanan) => {
+    return Tatanan.update(updateTatanan, {
+        where: { id: id }
+    });
 }
 
 // Delete Tatanan

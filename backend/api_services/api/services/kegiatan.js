@@ -9,14 +9,9 @@ const getKegiatan = (req) => {
     const offset = pagination.offset;
     return Kegiatan.findAndCountAll({
         where: { deleted_at: null },
-        attributes,
         limit, 
         offset,
-        order: [['created_at', 'DESC']],
-        include: {
-            model: Tatanan,
-            as: 'tatanan'
-        }
+        order: [['created_at', 'DESC']]
     }).then(docs => {
         return {
             data: docs,
@@ -32,14 +27,7 @@ const getKegiatanById = (id) => {
             id: id,
             deleted_at: null
         },
-        attributes,
         limit: 1,
-        include: [
-            {
-                model: Tatanan,
-                as: 'tatanan'
-            }
-        ]
       }).then(docs => {
         return docs;
     });
@@ -67,36 +55,10 @@ const createKegiatan = (dataKegiatan) => {
 }
 
 // Update Kegiatan
-const updateKegiatan = (dataKegiatan) => {
-    const currentDate = getCurrentDate();
-
-    return Kegiatan.update({
-        id_tatanan: dataKegiatan.tableTatananId,
-        nama_kegiatan: dataKegiatan.nama_kegiatan,
-        nama_tatanan: dataKegiatan.nama_tatanan,
-        jenis_indikator: dataKegiatan.jenis_indikator,
-        kategori: dataKegiatan.kategori,
-        nama_indikator: dataKegiatan.nama_indikator,
-        subindikator: dataKegiatan.subindikator,
-        pelaksana: dataKegiatan.pelaksana,
-        tanggal_kegiatan: dataKegiatan.tanggal_kegiatan,
-        longitude: dataKegiatan.longitude,
-        latitude: dataKegiatan.latitude,
-        deskripsi: dataKegiatan.deskripsi,
-        gambar: dataKegiatan.gambar,
-        updated_at: currentDate.dateAsiaJakarta,
-        updated_by: dataKegiatan.updated_by,
-    },
-
-        {where: { id: dataKegiatan.id }
-
-    }).then(docs => {
-        return {
-            docs: docs,
-        }
-    }).catch(error => {
-        console.log(error)
-    })
+const updateKegiatan = (id, updateKegiatan) => {
+    return Kegiatan.update(updateKegiatan, {
+        where: { id: id }
+    });
 }
 
 // Delete Kegiatan

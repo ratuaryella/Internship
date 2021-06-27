@@ -47,7 +47,7 @@ module.exports = (sequelize, type) => {
         type: type.STRING
       },
     deskripsi: {
-        type: "varchar"
+        type: type.STRING
       },
     gambar: {
         type: type.BLOB
