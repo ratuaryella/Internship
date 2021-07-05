@@ -1,0 +1,43 @@
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">LokasiCITY</div>
+    <div class="list-group list-group-flush my-3">
+        <a href="/home-petugas" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/berita-petugas" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                class="fas fa-tasks me-2"></i>Berita</a>
+        <a href="/kegiatan-petugas" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                class="fas fa-map-marked me-2"></i>Dokumentasi Kegiatan</a>
+    </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+    <div class="d-flex align-items-center">
+        <button onclick="openNav()" class="toggle-btn"><i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i></button>
+        <h2 class="fs-2 m-0">Lokasi City</h2>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user me-2"></i>Kevin
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
