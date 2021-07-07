@@ -3,11 +3,11 @@ const router = express.Router();
 
 const mapsController = require('../controllers/maps/maps');
 
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
     res.render('./pages/login/login');
 });
 
-router.get('/home', (req, res) => {
+router.get('/', (req, res) => {
     res.render('./pages/home/home');
 });
 
