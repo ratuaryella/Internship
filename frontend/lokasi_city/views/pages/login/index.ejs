@@ -8,17 +8,23 @@
                     <span class="icon-user-login"><i class="fas fa-user-alt" style="font-size: 50px; color: #1E56BA;"></i></span>
                     <h2>Silahkan Masuk</h2>
                 </div>
-                <form method="POST">
+                <% if (typeof auth_failed != 'undefined') { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  <p><%= auth_failed %></p>
+                </div>
+                <% } %>
+                <form method="POST" action="/login">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInputEmail" placeholder="bvt@gmail.com">
+                        <input type="text" class="form-control" id="floatingInputEmail" placeholder="bvt@gmail.com" name="username">
                         <label for="floatingInputEmail">Email address</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
                         <label for="floatingPassword">Password</label>
                     </div>
                     <div class="d-grid mt-20">
-                        <button class="btn btn-primary" type="button">Login</button>
+                        <button class="btn btn-primary" type="submit">Login</button>
                       </div>
                 </form>
             </div>
