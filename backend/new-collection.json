@@ -1,0 +1,784 @@
+{
+	"info": {
+		"_postman_id": "2fde67ca-2c6d-4df9-8d73-175cdbdb7636",
+		"name": "intern-del-2021",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin001\",\n    \"password\": \"admin001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHECK TOKEN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwiY3JlYXRlZF9hdCI6bnVsbCwiY3JlYXRlZF9ieSI6bnVsbCwicm9sZSI6eyJpZCI6MSwiZGVzY3JpcHRpb24iOiJyb2xlIGFkbWluIiwibmFtZSI6ImFkbWluIn0sImlhdCI6MTYyNDU0NjIzMywiZXhwIjoxNjI0NTU3MDMzfQ.yOh9q-egsBS9OFyRLzKZx7K4xwKxplCIrbAoPIqBJ6U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/check-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"check-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGOUT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhbXplc21vcm8wMDJAZ21haWwuY29tIiwidXNlcm5hbWUiOiJhbXplc21vcm8wMDIiLCJmaXJzdG5hbWUiOiJhbXplc21vcm8iLCJsYXN0bmFtZSI6IjAwMiIsIm1vYmlsZV9udW1iZXIiOiI4MjIyOTg5ODEwMTAiLCJzdGF0dXMiOnRydWUsImtvZGVfd2lsYXlhaCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjEtMDYtMjRUMTU6MDk6MTMuMDAwWiIsImNyZWF0ZWRfYnkiOjEsInJvbGUiOnsiaWQiOjIsImRlc2NyaXB0aW9uIjoicm9sZSBwZXR1Z2FzIiwibmFtZSI6InBldHVnYXMifSwiaWF0IjoxNjI0NTQ3NTgxLCJleHAiOjE2MjQ1NTgzODF9.9mJTf5XkknslgXcnsEZSH_cDf-TCcgMvld6Pcy3LfV0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "GET ROLES",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwiY3JlYXRlZF9hdCI6bnVsbCwiY3JlYXRlZF9ieSI6bnVsbCwicm9sZSI6eyJpZCI6MSwiZGVzY3JpcHRpb24iOiJyb2xlIGFkbWluIiwibmFtZSI6ImFkbWluIn0sImlhdCI6MTYyNDU0NjQ1OCwiZXhwIjoxNjI0NTU3MjU4fQ.nRBFyLlA_1TxyJMN8ky624gAAtxPcos7YIcERumS1tc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/get-roles?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"get-roles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL USERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0NzY4MzQ2LCJleHAiOjE2MjQ3NzkxNDZ9.wFO9QqKxFrUncFeR1dl23pyJ58gSkAo1dtp-uIURDHA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/get-all-users?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"get-all-users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DETAIL USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbXplc21vcm8wMDFAZ21haWwuY29tIiwidXNlcm5hbWUiOiJhbXplc21vcm8wMDEiLCJmaXJzdG5hbWUiOiJhbXplc21vcm8iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MjIyOTg5ODEyMTIiLCJzdGF0dXMiOnRydWUsImNyZWF0ZWRfYXQiOiIyMDIxLTA2LTI0VDE1OjAxOjE2LjAwMFoiLCJjcmVhdGVkX2J5IjoxLCJyb2xlIjp7ImlkIjoyLCJkZXNjcmlwdGlvbiI6InJvbGUgcGV0dWdhcyIsIm5hbWUiOiJwZXR1Z2FzIn0sImlhdCI6MTYyNDU0NzAzOCwiZXhwIjoxNjI0NTU3ODM4fQ.vH0-J7N_YLsI26TCNgQ3XwfyYDr4cpjvt9S7MICiQps",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/detail-user?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"detail-user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwiY3JlYXRlZF9hdCI6bnVsbCwiY3JlYXRlZF9ieSI6bnVsbCwicm9sZSI6eyJpZCI6MSwiZGVzY3JpcHRpb24iOiJyb2xlIGFkbWluIiwibmFtZSI6ImFkbWluIn0sImlhdCI6MTYyNDU0NjQ1OCwiZXhwIjoxNjI0NTU3MjU4fQ.nRBFyLlA_1TxyJMN8ky624gAAtxPcos7YIcERumS1tc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_role\": 2,\n    \"email\": \"amzesmoro003@gmail.com\",\n    \"password\": \"amzesmoro003\",\n    \"password_confirmation\": \"amzesmoro003\",\n    \"username\": \"amzesmoro003\",\n    \"firstname\": \"amzesmoro\",\n    \"lastname\": \"003\",\n    \"mobile_number\": 822298981010,\n    \"status\": true,\n    \"kode_wilayah\": {\n        \"kode_prov\": [\n            \"12\",\n            \"12\"\n        ],\n        \"kode_kabkot\": [\n            \"1275\",\n            \"1275\"\n        ],\n        \"kode_kec\": [\n            \"1275060\",\n            \"1275040\"\n        ],\n        \"kode_desa\": [\n            \"\",\n            \"\"\n        ]\n    },\n    \"created_at\": \"\",\n    \"created_by\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/create-user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"create-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwiY3JlYXRlZF9hdCI6bnVsbCwiY3JlYXRlZF9ieSI6bnVsbCwicm9sZSI6eyJpZCI6MSwiZGVzY3JpcHRpb24iOiJyb2xlIGFkbWluIiwibmFtZSI6ImFkbWluIn0sImlhdCI6MTYyNDU0NjQ1OCwiZXhwIjoxNjI0NTU3MjU4fQ.nRBFyLlA_1TxyJMN8ky624gAAtxPcos7YIcERumS1tc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/delete-user?id=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"delete-user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tatanan",
+			"item": [
+				{
+					"name": "CREATE TATANAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzc4MTU4LCJleHAiOjE2MjQ3ODg5NTh9.9HpbTYjmRwhqGznuikU-L-SmJxRKjtEB2O2dONkKx5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_tatanan\": \"Kesehatan Lingkungan\",\r\n    \"jenis_indikator\": \"Sekunder\",\r\n    \"kategori\": \"\",\r\n    \"nama_indikator\": \"Sungai\",\r\n    \"subindikator\": \"Program Kerja Bakti\",\r\n    \"created_at\": \"\",\r\n    \"created_by\": \"\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/create-tatanan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"create-tatanan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL TATANAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzc4MTU4LCJleHAiOjE2MjQ3ODg5NTh9.9HpbTYjmRwhqGznuikU-L-SmJxRKjtEB2O2dONkKx5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/get-all-tatanan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"get-all-tatanan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TATANAN BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0NzY4MzQ2LCJleHAiOjE2MjQ3NzkxNDZ9.wFO9QqKxFrUncFeR1dl23pyJ58gSkAo1dtp-uIURDHA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/get-tatanan?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"get-tatanan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE TATANAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzc4MTU4LCJleHAiOjE2MjQ3ODg5NTh9.9HpbTYjmRwhqGznuikU-L-SmJxRKjtEB2O2dONkKx5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/delete-tatanan?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"delete-tatanan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE TATANAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzg4MTA3LCJleHAiOjE2MjQ3OTg5MDd9.DDsN5NX-9SRIjY13VBrRPNhvK6y82kQEpfdY5q66A5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"kategori\": \"kebersihan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/update-tatanan?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"update-tatanan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "kegiatan",
+			"item": [
+				{
+					"name": "CREATE KEGIATAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI1ODIwMDM0LCJleHAiOjE2MjU4MzA4MzR9.t15exPP5sbrF4k9ORLSK9P3TKQIa-lNyZbU0lHXHXSY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_tatanan",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "nama_kegiatan",
+									"value": "Pengadaan Sekolah Gratis Kelurahan Medan Demai",
+									"type": "text"
+								},
+								{
+									"key": "nama_tatanan",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "jenis_indikator",
+									"value": "Pokok",
+									"type": "text"
+								},
+								{
+									"key": "kategori",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "nama_indikator",
+									"value": "Belajar 9 tahun",
+									"type": "text"
+								},
+								{
+									"key": "subindikator",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "pelaksana",
+									"value": "Dinas Pendidikan",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_kegiatan",
+									"value": "07/01/2021",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "3.2227",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "4.11119",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi",
+									"value": "Merupakan kegiatan yang dilakukan secara untuk memastikan anak Indonesia mendapat pendidikan layak",
+									"type": "text"
+								},
+								{
+									"key": "created_at",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "created_by",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "gambar",
+									"type": "file",
+									"src": "/E:/Kuliah/Kerja Praktek (Bvarta)/gambar/sekolah.jpeg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/create-kegiatan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"create-kegiatan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL KEGIATAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzc4OTk0LCJleHAiOjE2MjQ3ODk3OTR9.zGcMl3PQhLwQ7PunXvzy3PGY_rjnOdSxRwpV4ZCav-I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/get-all-kegiatan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"get-all-kegiatan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET KEGIATAN BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let gitdata = pm.response.json().data[0];;\r",
+									"console.log(gitdata);\r",
+									"let template = `\r",
+									"<html>\r",
+									"<body>\r",
+									"<h1 style=\"color:Tomato;\"> {{nama_kegiatan}} </h1>\r",
+									"<img src='{{gambar}}'></img>\r",
+									"</body>\r",
+									"</html>\r",
+									"`\r",
+									"pm.visualizer.set(template, gitdata);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI1ODIwMDM0LCJleHAiOjE2MjU4MzA4MzR9.t15exPP5sbrF4k9ORLSK9P3TKQIa-lNyZbU0lHXHXSY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/get-kegiatan?id=34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"get-kegiatan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "34"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE KEGIATAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzc4OTk0LCJleHAiOjE2MjQ3ODk3OTR9.zGcMl3PQhLwQ7PunXvzy3PGY_rjnOdSxRwpV4ZCav-I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/delete-kegiatan?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"delete-kegiatan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE KEGIATAN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjAwMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImFkbWluMDAxIiwiZmlyc3RuYW1lIjoiYWRtaW4iLCJsYXN0bmFtZSI6IjAwMSIsIm1vYmlsZV9udW1iZXIiOiI4MTI5MDkwMTIxMiIsInN0YXR1cyI6dHJ1ZSwia29kZV93aWxheWFoIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJjcmVhdGVkX2J5IjpudWxsLCJyb2xlIjp7ImlkIjoxLCJkZXNjcmlwdGlvbiI6InJvbGUgYWRtaW4iLCJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjI0Nzg5OTQwLCJleHAiOjE2MjQ4MDA3NDB9.XscLrR9rdCMu9kdktJMYnXs8UP14LSWWS4ktTDxenHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pelaksana\": \"Dinas Kebersihan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/update-kegiatan?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"update-kegiatan"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

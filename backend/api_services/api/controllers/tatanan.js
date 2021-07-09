@@ -65,7 +65,7 @@ const getTatanan = (req, res, next) => {
                         total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
-                        results: docs.data.rows.map((doc) => {
+                        result: docs.data.rows.map((doc) => {
                             return {
                                 nama_tatanan: doc.nama_tatanan,
                                 jenis_indikator: doc.jenis_indikator,

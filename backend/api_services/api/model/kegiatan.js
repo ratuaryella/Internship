@@ -50,7 +50,7 @@ module.exports = (sequelize, type) => {
         type: type.STRING
       },
     gambar: {
-        type: type.BLOB
+        type: type.STRING
       },
     created_at: {
         type: 'TIMESTAMP',

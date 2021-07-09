@@ -5,6 +5,17 @@ const config = require('../../config/config');
 const jwt = require('jsonwebtoken');
 const globalVariable = require('../helper/globalVarible');
 const { Tatanan } = require('../../sequelize');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../api_services/api/uploads');
+      },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+var uploadImg = multer({storage: storage});
 
 //Create Kegiatan
 const createKegiatan = async (req, res, next) => {
@@ -15,7 +26,7 @@ const createKegiatan = async (req, res, next) => {
     if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
 
     const dataKegiatan = {
-        id_tatanan: req.body.id_tatanan,
+        id_tatanan: "",
         nama_kegiatan: req.body.nama_kegiatan,
         nama_tatanan: req.body.nama_tatanan,
         jenis_indikator: req.body.jenis_indikator,
@@ -27,9 +38,9 @@ const createKegiatan = async (req, res, next) => {
         longitude: req.body.longitude,
         latitude: req.body.latitude,
         deskripsi: req.body.deskripsi,
-        gambar: req.body.gambar,
         created_at: currentDate.dateAsiaJakarta,
-        created_by: req.userData.id
+        created_by: req.userData.id,
+        gambar: req.file.path,
     }
 
     KegiatanServices.createKegiatan(dataKegiatan)
@@ -141,9 +152,9 @@ const updateKegiatan = async (req, res, next) => {
           longitude: req.body.longitude,
           latitude: req.body.latitude,
           deskripsi: req.body.deskripsi,
-          gambar: req.body.gambar,
           updated_at: currentDate.dateAsiaJakarta,
-          updated_by: req.userData.id
+          updated_by: req.userData.id,
+          gambar: req.file.path
         };
         const updateKegiatan = await KegiatanServices.updateKegiatan(id, updateDataKegiatan);
         const response = {
@@ -241,11 +252,11 @@ const getKegiatanById = (req, res, next) => {
                     longitude: doc.longitude,
                     latitude: doc.latitude,
                     deskripsi: doc.deskripsi,
-                    gambar: doc.gambar,
                     pelaksana: doc.pelaksana,
                     tanggal_kegiatan: doc.tanggal_kegiatan,
                     created_at: doc.created_at,
                     created_by: doc.created_by,
+                    gambar: doc.gambar,
 
                 }
             }),
@@ -280,5 +291,6 @@ module.exports = {
     getKegiatanById,
     getKegiatan,
     updateKegiatan,
-    deleteKegiatan
+    deleteKegiatan,
+    uploadImg
 }

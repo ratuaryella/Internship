@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const KegiatanController = require('../controllers/kegiatan');
-const TatananController = require('../controllers/tatanan')
+const TatananController = require('../controllers/tatanan');
+const KegiatanService = require('../services/kegiatan');
 
 const { checkAuth } = require('../middleware/check-auth');
 
@@ -12,7 +13,7 @@ router.get('/welcome', checkAuth, (req, res) => {
     })
 })
 
-router.post('/create-kegiatan', checkAuth, KegiatanController.createKegiatan);
+router.post('/create-kegiatan', checkAuth, KegiatanController.uploadImg.single("gambar"), KegiatanController.createKegiatan);
 router.get('/get-all-kegiatan', checkAuth, KegiatanController.getKegiatan);
 router.get('/get-kegiatan', checkAuth, KegiatanController.getKegiatanById);
 router.patch('/delete-kegiatan', checkAuth, KegiatanController.deleteKegiatan);
@@ -23,5 +24,7 @@ router.get('/get-all-tatanan', checkAuth, TatananController.getTatanan);
 router.get('/get-tatanan', checkAuth, TatananController.getTatananById);
 router.patch('/update-tatanan', checkAuth, TatananController.updateTatanan);
 router.patch('/delete-tatanan', checkAuth, TatananController.deleteTatanan);
+
+router.get('/get-id-tatanan', KegiatanService.createKegiatan);
 
 module.exports = router;

@@ -7,6 +7,7 @@ const loginMiddleware = require('../middleware/login');
 const messageValidation = require('../validator/loginValidator');
 const isAuthorization = require('../middleware/is-authorization');
 const adminController = require('../controllers/admin/admin');
+const tatananController = require('../controllers/tatanan/tatanan');
 
 router.get('/login', loginMiddleware, authController.index);
 router.post('/login', loginMiddleware, messageValidation.loginValidator, authController.login);
@@ -20,6 +21,9 @@ router.get('/data-user', isAuthorization, (req, res) => {
 router.get('/tatanan', isAuthorization, (req, res) => {
     res.render('./pages/admin/tatanan');
 });
+
+router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
+
 router.get('/kelola-lokasi', isAuthorization,  (req, res) => {
     res.render('./pages/admin/lokasi');
 });

@@ -6,11 +6,12 @@ const webRoutes = require('./api/router/router');
 const cors = require('cors');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({
-    extended: false
+
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
 }));
 
-app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/', webRoutes);
@@ -42,5 +43,8 @@ app.use((error, req, res, next) => {
         }
     });
 });
+
+
+app.use(express.static('./api_services/api/uploads'));
 
 module.exports = app;

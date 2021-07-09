@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const { Kegiatan, Tatanan } = require('../../sequelize');
 const paginator = require('../helper/pagination');
+var stream = require('stream');
 
 // Get All Kegiatan
 const getKegiatan = (req) => {
@@ -21,14 +22,15 @@ const getKegiatan = (req) => {
 }
 
 // Get Kegiatan by Id
-const getKegiatanById = (id) => {
+const getKegiatanById = (id, req, res) => {
     return Kegiatan.findAll({
         where: {
             id: id,
             deleted_at: null
         },
         limit: 1,
-      }).then(docs => {
+      })
+      .then(docs => {
         return docs;
     });
 }
@@ -36,11 +38,18 @@ const getKegiatanById = (id) => {
 // Create Kegiatan
 const createKegiatan = (dataKegiatan) => {
     return Tatanan.findOne({
-        where: {
-            id: dataKegiatan.id_tatanan
-        }
+            raw: true,
+            where: {
+            nama_tatanan: dataKegiatan.nama_tatanan,
+            jenis_indikator: dataKegiatan.jenis_indikator,
+            kategori: dataKegiatan.kategori,
+            nama_indikator: dataKegiatan.nama_indikator,
+            subindikator: dataKegiatan.subindikator
+        },
+        attributes: ['id']
     })
-        .then(()=> {
+        .then((data)=> {
+            dataKegiatan.id_tatanan = Object.values(data);
             return Kegiatan.create(dataKegiatan)
             .then(docs => {
                 return {
@@ -53,6 +62,7 @@ const createKegiatan = (dataKegiatan) => {
         console.log(error);
     })
 }
+
 
 // Update Kegiatan
 const updateKegiatan = (id, updateKegiatan) => {
@@ -73,5 +83,5 @@ module.exports = {
     getKegiatan,
     getKegiatanById,
     updateKegiatan,
-    deleteKegiatan
+    deleteKegiatan,
 }
