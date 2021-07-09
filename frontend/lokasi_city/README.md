@@ -15,7 +15,7 @@ File directory:
     -- sequelize.js
 ```
 
-Example configuration. Add file '.js' with name: **config.js** to folder config.
+Example configuration. Add file '.js' with name: **config.js** to root folder.
 ```diff
 module.exports = {
 

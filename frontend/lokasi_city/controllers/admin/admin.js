@@ -1,5 +1,5 @@
 const index = (req, res, next) => {
-  res.render('./pages/maps/map-home');
+  res.render('./pages/admin/home');
 }
 
 module.exports = {
