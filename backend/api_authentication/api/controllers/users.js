@@ -230,6 +230,8 @@ const getAllUser = (req, res, next) => {
                         total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
+                        currentPage: docs.pagination.currentPage,
+                        totalPages: Math.ceil(docs.data.count / 10),
                         results: docs.data.rows.map((doc) => {
                             return {
                                 id: doc.id,

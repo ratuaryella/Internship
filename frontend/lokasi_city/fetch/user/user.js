@@ -1,11 +1,11 @@
 const fetch = require('node-fetch');
 const config = require('../../config');
 
-const getAllTatanan = (req) => {
+const getAllUsers = (req) => {
     let status;
 
     var params = new URLSearchParams(req.query);
-    var url = `${config.API_URL_SERVICES}/get-all-tatanan?`
+    var url = `${config.API_URL_AUTH}/get-all-users?`
     return fetch(url + params, {
         method: 'GET',
         headers: {
@@ -25,9 +25,9 @@ const getAllTatanan = (req) => {
     })
 }
 
-const createTatanan = (req) => {
+const createUser = (req) => {
     let status;
-    return fetch(`${config.API_URL_SERVICES}/create-tatanan`, {
+    return fetch(`${config.API_URL_AUTH}/create-user`, {
         method: 'POST',
         headers: {
             "Authorization": "Bearer " + req.cookies.user_token,
@@ -36,11 +36,15 @@ const createTatanan = (req) => {
             "Accept-Charset": "utf-8"
         },
         body: JSON.stringify({
-            nama_tatanan: req.body.nama_tatanan,
-            jenis_indikator: req.body.jenis_indikator,
-            kategori: req.body.kategori,
-            nama_indikator: req.body.nama_indikator,
-            subindikator: req.body.subindikator,
+            id_role: req.body.id_role,
+            email: req.body.email,
+            password: req.body.password,
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            mobile_number: req.body.mobile_number,
+            status: req.body.status,
+            kode_wilayah: req.body.kode_wilayah,
             created_at: currentDate.dateAsiaJakarta,
             created_by: req.userData.id
     })
@@ -56,6 +60,6 @@ const createTatanan = (req) => {
 }
 
 module.exports = {
-    getAllTatanan,
-    createTatanan
+    getAllUsers,
+    createUser
 }

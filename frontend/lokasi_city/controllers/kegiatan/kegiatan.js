@@ -1,12 +1,7 @@
-const fetchTatanan = require('../../fetch/tatanan/tatanan')
-
-const index = (req, res) => {
-  res.render('./pages/admin/tatanan');
-}
-
-const getAllTatanan = (req, res) => {
+const fetchKegiatan = require('../../fetch/tatanan/tatanan')
+const getAllKegiatan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.getAllTatanan(req)
+    return fetchKegiatan.getAllKegiatan(req)
     .then(responseJson => {
         if(statusCode.includes(responseJson.status)){
             res.json(responseJson);
@@ -18,9 +13,9 @@ const getAllTatanan = (req, res) => {
     })
 }
 
-const createTatanan = (req, res) => {
+const createKegiatan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.createTatanan(req)
+    return fetchTatanan.createKegiatan(req)
     .then(responseJson => {
         if(statusCode.includes(responseJson.status)){
             res.json(responseJson);
@@ -33,7 +28,6 @@ const createTatanan = (req, res) => {
 }
 
 module.exports = {
-  index,
-  getAllTatanan,
-  createTatanan
+    getAllKegiatan,
+    createKegiatan
 }

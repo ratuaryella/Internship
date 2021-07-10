@@ -1,12 +1,12 @@
-const fetchTatanan = require('../../fetch/tatanan/tatanan')
+const fetchUser = require('../../fetch/user/user')
 
 const index = (req, res) => {
-  res.render('./pages/admin/tatanan');
+  res.render('./pages/admin/datauser');
 }
 
-const getAllTatanan = (req, res) => {
+const getAllUsers = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.getAllTatanan(req)
+    return fetchUser.getAllUsers(req)
     .then(responseJson => {
         if(statusCode.includes(responseJson.status)){
             res.json(responseJson);
@@ -18,9 +18,9 @@ const getAllTatanan = (req, res) => {
     })
 }
 
-const createTatanan = (req, res) => {
+const createUser = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.createTatanan(req)
+    return fetchUser.createUser(req)
     .then(responseJson => {
         if(statusCode.includes(responseJson.status)){
             res.json(responseJson);
@@ -34,6 +34,6 @@ const createTatanan = (req, res) => {
 
 module.exports = {
   index,
-  getAllTatanan,
-  createTatanan
+  getAllUsers,
+  createUser
 }

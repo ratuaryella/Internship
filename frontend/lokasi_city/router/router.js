@@ -9,6 +9,8 @@ const isAuthorization = require('../middleware/is-authorization');
 const adminController = require('../controllers/admin/admin');
 const tatananController = require('../controllers/tatanan/tatanan');
 const administrasiController = require('../controllers/adminitrasi/administrasi');
+const kegiatanController = require('../controllers/kegiatan/kegiatan');
+const userController = require('../controllers/user/user');
 
 router.get('/login', loginMiddleware, authController.index);
 router.post('/login', loginMiddleware, messageValidation.loginValidator, authController.login);
@@ -23,6 +25,13 @@ router.get('/data-user', isAuthorization, (req, res) => {
 router.get('/tatanan', isAuthorization, tatananController.index);
 
 router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
+router.get('/api-v1/intern/create-tatanan', isAuthorization, tatananController.createTatanan);
+
+router.get('/api-v1/intern/get-all-users', isAuthorization, userController.getAllUsers);
+router.get('/api-v1/intern/create-user', isAuthorization, userController.createUser);
+
+router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
+router.get('/api-v1/intern/create-kegiatan', isAuthorization, kegiatanController.createKegiatan);
 
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
     res.render('./pages/admin/petugaskegiatan');
