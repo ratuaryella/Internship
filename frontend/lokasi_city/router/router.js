@@ -38,6 +38,9 @@ router.get('/home-petugas', isAuthorization,  (req, res) => {
 router.get('/berita-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/berita_petugas');
 });
+router.get('/profile-petugas', isAuthorization, (req, res) => {
+    res.render('./pages/petugas/profile_petugas');
+});
 
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
 router.get('/get-kecamatan', isAuthorization, administrasiController.getAllKecamatan); //get-kecamatan?kodeprov=12&kodekabkot=75&page=1
