@@ -83,9 +83,11 @@ const getKegiatan = (req, res, next) => {
     .then(docs => {
         if (docs.data.rows.length > 0) {
             const response = {
-                total: docs.data.count,
+                        total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
+                        currentPage: docs.pagination.currentPage,
+                        totalPages: Math.ceil(docs.data.count / 10),
                         results: docs.data.rows.map((doc) => {
                             return {
                                 nama_kegiatan: doc.nama_kegiatan,

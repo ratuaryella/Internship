@@ -65,6 +65,8 @@ const getTatanan = (req, res, next) => {
                         total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
+                        currentPage: docs.pagination.currentPage,
+                        totalPages: Math.ceil(docs.data.count / 10),
                         result: docs.data.rows.map((doc) => {
                             return {
                                 nama_tatanan: doc.nama_tatanan,
