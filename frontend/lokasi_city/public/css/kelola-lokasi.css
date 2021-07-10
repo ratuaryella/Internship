@@ -1,0 +1,43 @@
+.wrapper-kelola-lokasi {
+  position: relative;
+}
+
+#map-city {
+  position: relative;
+  z-index: 1;
+  height: 85vh;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.card-kelola-lokasi {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;  
+  margin: auto;
+}
+
+.grid-kelola-lokasi {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 50px;
+  padding: 20px;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 20px;
+}
+
+.btn-green {
+  color: #fff;
+  background-color: #07827c;
+  border-color: #07827c;
+}
+
+.btn-green:hover {
+  color: #fff;
+  font-weight: bold;
+}

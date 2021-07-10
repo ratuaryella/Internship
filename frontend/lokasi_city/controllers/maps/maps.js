@@ -1,7 +1,7 @@
-const index = (req, res, next) => {
-  res.render('./pages/maps/map-home');
+const kelolaLokasi = (req, res, next) => {
+  res.render('./pages/maps/kelola-lokasi');
 }
 
 module.exports = {
-  index,
+  kelolaLokasi,
 }

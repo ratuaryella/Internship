@@ -23,9 +23,9 @@ router.get('/tatanan', isAuthorization, tatananController.index);
 
 router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
 
-router.get('/kelola-lokasi', isAuthorization,  (req, res) => {
-    res.render('./pages/admin/lokasi');
-});
+// router.get('/kelola-lokasi', isAuthorization,  (req, res) => {
+//     res.render('./pages/admin/lokasi');
+// });
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
     res.render('./pages/admin/petugaskegiatan');
 });
@@ -40,6 +40,7 @@ router.get('/home-petugas', isAuthorization,  (req, res) => {
 router.get('/berita-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/berita_petugas');
 });
-router.get('/maps', isAuthorization, mapsController.index);
+
+router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
 
 module.exports = router;

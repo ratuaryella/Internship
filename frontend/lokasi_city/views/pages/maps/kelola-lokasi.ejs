@@ -1,0 +1,72 @@
+<% layout('layout') %>
+
+<%- include('../../partials/navbar.ejs'); %>
+<div class="container-fluid px-4">
+  <div class="wrapper-kelola-lokasi">
+    <div id="map-city"></div>
+  
+    <div class="card-kelola-lokasi">
+      <div class="grid-kelola-lokasi">
+        <div class="daerah-administrasi">
+          <h5 class="fw-bold">Pilih Daerah Administrasi</h5>
+          <div class="search-adminitrasi">
+            <div class="mb-2">
+              <select name="kecamatan" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
+                <option>Jakarta</option>
+                <option>Banda Aceh</option>
+                <option>Medan</option>
+                <option>Padang</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <select name="kabupaten" class="selectpicker form-control" id="select-kabupaten" data-live-search="true">
+                <option>Jakarta</option>
+                <option>Banda Aceh</option>
+                <option>Medan</option>
+                <option>Padang</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <button type="button" class="btn btn-green">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="find-poi">
+          <h5 class="fw-bold">Find Point Of Interest</h5>
+          <div class="search-poi">
+            <div class="mb-2">
+              <select name="poi-kecamatan" class="selectpicker form-control" id="select-poi-kecamatan" data-live-search="true">
+                <option>Jakarta</option>
+                <option>Banda Aceh</option>
+                <option>Medan</option>
+                <option>Padang</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <select name="poi-kabupaten" class="selectpicker form-control" id="select-poi-kabupaten" data-live-search="true">
+                <option>Jakarta</option>
+                <option>Banda Aceh</option>
+                <option>Medan</option>
+                <option>Padang</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <select name="poi-kategori" class="selectpicker form-control" id="select-poi-kategori" data-live-search="true">
+                <option>Jakarta</option>
+                <option>Banda Aceh</option>
+                <option>Medan</option>
+                <option>Padang</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <button type="button" class="btn btn-green">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<% block('extendScripts').append('<script type="text/javascript" src="/js/maps/maps-home.js"></script>') %>
