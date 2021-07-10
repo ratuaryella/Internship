@@ -8,6 +8,7 @@ const messageValidation = require('../validator/loginValidator');
 const isAuthorization = require('../middleware/is-authorization');
 const adminController = require('../controllers/admin/admin');
 const tatananController = require('../controllers/tatanan/tatanan');
+const administrasiController = require('../controllers/adminitrasi/administrasi');
 
 router.get('/login', loginMiddleware, authController.index);
 router.post('/login', loginMiddleware, messageValidation.loginValidator, authController.login);
@@ -39,5 +40,9 @@ router.get('/berita-petugas', isAuthorization, (req, res) => {
 });
 
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
+router.get('/get-kecamatan', isAuthorization, administrasiController.getAllKecamatan); //get-kecamatan?kodeprov=12&kodekabkot=75&page=1
+router.get('/get-desa', isAuthorization, administrasiController.getAllDesa); //get-desa?kodeprov=12&kodekabkot=75&kodekec=060&page=1
+router.get('/get-geom-kecamatan', isAuthorization, administrasiController.getKecamatanGeometri); //get-geom-kecamatan?kodeprov=12&kodekabkot=75&kodekec=050
+router.get('/get-geom-desa', isAuthorization, administrasiController.getDesaGeometri); //get-geom-desa?kodeprov=12&kodekabkot=75&kodekec=060&kodedesa=007
 
 module.exports = router;
