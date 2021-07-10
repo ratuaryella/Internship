@@ -18,8 +18,9 @@ router.get('/', isAuthorization, adminController.index);
 router.get('/data-user', isAuthorization, (req, res) => {
     res.render('./pages/admin/datauser');
 });
-
-router.get('/tatanan', isAuthorization, tatananController.index);
+router.get('/tatanan', isAuthorization, (req, res) => {
+    res.render('./pages/admin/tatanan');
+});
 
 router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
 
