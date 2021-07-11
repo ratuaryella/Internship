@@ -28,7 +28,8 @@ router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.
 router.post('/api-v1/intern/create-tatanan', isAuthorization, tatananController.createTatanan);
 
 router.get('/api-v1/intern/get-all-users', isAuthorization, userController.getAllUsers);
-router.get('/api-v1/intern/create-user', isAuthorization, userController.createUser);
+router.get('/api-v1/intern/get-all-roles', isAuthorization, userController.getAllRoles);
+router.post('/api-v1/intern/create-user', isAuthorization, userController.createUser);
 
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
 router.post('/api-v1/intern/create-kegiatan', isAuthorization, kegiatanController.createKegiatan);

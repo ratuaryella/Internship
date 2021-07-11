@@ -15,36 +15,61 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="POST" action="/api-v1/intern/create-user" id="addUser">
           <div class="mb-3">
             <h6>Username</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="recipient-username" name="username">
           </div>
           <div class="mb-3">
-            <h6>Nama</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <h6>Password</h6>
+            <input type="text" class="form-control" id="recipient-password" name="password">
           </div>
           <div class="mb-3">
-            <h6>NIP</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <h6>Password Confirmation</h6>
+            <input type="text" class="form-control" id="recipient-password2" name="password_confirmation">
+          </div>
+          <div class="mb-3">
+            <h6>Nama Depan</h6>
+            <input type="text" class="form-control" id="recipient-firstname" name="firstname">
+          </div>
+          <div class="mb-3">
+            <h6>Nama Belakang</h6>
+            <input type="text" class="form-control" id="recipient-lastname" name="lastname">
           </div>
           <div class="mb-3">
             <h6>No HP</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="recipient-mobile" name="mobile_number">
           </div>
           <div class="mb-3">
             <h6>Email</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="recipient-email" name="email">
           </div>
           <div class="mb-3">
             <h6>Role</h6>
-            <input type="text" class="form-control" id="recipient-name">
+            <select class="form-control" id="role-dropdown" name="id_role">
+            </select>
+          </div>
+          <div class="mb-3">
+            <h6>Kode Provinsi</h6>
+            <input type="text" class="form-control" id="recipient-prov" name="kode_prov">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Kabupaten/Kota</h6>
+            <input type="text" class="form-control" id="recipient-kabkot" name="kode_kabkot">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Kecamatan</h6>
+            <input type="text" class="form-control" id="recipient-kev" name="kode_kec">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Desa</h6>
+            <input type="text" class="form-control" id="recipient-desa" name="kode_desa">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Tambah</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button onclick="form_submit()" class="btn btn-primary" type="submit">Tambah</button>
       </div>
     </div>
   </div>
@@ -53,8 +78,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Username</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
+                        <th scope="col">Nama Depan</th>
+                        <th scope="col">Nama Belakang</th>
                         <th scope="col">No Handphone</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
@@ -279,4 +304,39 @@
       });
   });
   
+  </script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-all-roles',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          success: function(data) {
+              console.log(data, "ini data roles")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#role-dropdown').empty();
+              $('#role-dropdown').append('<option selected="true" disabled>Role</option>');
+              $('#role-dropdown').prop('selectedIndex', 0);
+             // add table rows
+              $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value roles")
+                  let roles = value.id
+                  $('#role-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');
+            });
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+      })
+});
+  </script>
+  <script type="text/javascript">
+    function form_submit() {
+      document.getElementById("addUser").submit();
+     }    
   </script>

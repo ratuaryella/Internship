@@ -141,6 +141,7 @@ const createUser = async (req, res, next) => {
                 id_role: req.body.id_role,
                 email: req.body.email,
                 password: req.body.password,
+                password_confirmation: req.body.password_confirmation,
                 username: req.body.username,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
