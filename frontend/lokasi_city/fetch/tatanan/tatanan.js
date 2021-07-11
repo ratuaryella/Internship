@@ -58,7 +58,37 @@ const createTatanan = (req) => {
     })
 }
 
+const deleteTatanan = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/delete-tatanan?`
+    return fetch(url + params, {
+        method: 'PATCH',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        },
+        body: JSON.stringify({
+            deleted_at: currentDate.dateAsiaJakarta,
+            status: 0,
+            deleted_by: req.userData.id
+    })
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 module.exports = {
     getAllTatanan,
-    createTatanan
+    createTatanan,
+    deleteTatanan
 }

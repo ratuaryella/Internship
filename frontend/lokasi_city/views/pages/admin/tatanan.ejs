@@ -56,38 +56,6 @@
                         <th>Aksi</th>
                 </thead>
                 <tbody>
-                     <!--<tr>
-                        <td><a href="#">1</a></td>
-                        <td>Pokok</td>
-                        <td>Kawasan Pemukiman</td>
-                        <td>Udara Bersih</td>
-                        <td>Memenuhi standar ISPU</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">2</a></td>
-                        <td>Pokok</td>
-                        <td>Kawasan Pemukiman</td>
-                        <td>Udara Bersih</td>
-                        <td>Memenuhi standar ISPU</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">3</a></td>
-                        <td>Pokok</td>
-                        <td>Kawasan Pemukiman</td>
-                        <td>Udara Bersih</td>
-                        <td>Memenuhi standar ISPU</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">4</a></td>
-                        <td>Pokok</td>
-                        <td>Kawasan Pemukiman</td>
-                        <td>Udara Bersih</td>
-                        <td>Memenuhi standar ISPU</td>
-                        <td></td>
-                    </tr>-->
                 </tbody>
             </table>
             <ul class="pagination justify-content-center" style="margin:20px 0">
@@ -124,7 +92,7 @@
                                       '<td>' + value.kategori + '</td>' +
                                       '<td>' + value.nama_indikator + '</td>' +
                                       '<td>' + value.subindikator + '</td>' +
-                                      '<td>' + '<button class="btn"><i class="fa fa-bars"></i></button> <button class="btn"><i class="fa fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" onclick="editRow(this, '+ value.id +' )" class="btn" id="btn-edit"><i class="fa fa-bars"></i></button> <button onclick="deleteRow(this,'+ value.id +')" class="btn" id="btn-delete"><i class="fa fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_tatanan tbody').append(tatananRow);
             });
@@ -210,5 +178,21 @@
     function form_submit() {
       document.getElementById("addTatanan").submit();
      }    
+  </script>
+  <script>
+    function deleteRow(obj, id_tatanan) {
+    $.ajax({
+      url: "/api-v1/intern/delete-tatanan",
+      type: "PATCH",
+      data: { 
+        id: id_tatanan
+      },
+      success: function(data){
+        $(obj).closest('tr').fadeOut(300,function(){
+            $(obj).closest('tr').remove();
+          });
+        },
+      });
+    } 
   </script>
 
