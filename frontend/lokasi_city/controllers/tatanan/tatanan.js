@@ -22,8 +22,8 @@ const createTatanan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
     return fetchTatanan.createTatanan(req)
     .then(responseJson => {
-        if(statusCode.includes(responseJson.status)){
-            res.json(responseJson);
+        if(responseJson.status == 201){
+            res.redirect("/tatanan");
         } else {
             return false; 
         }

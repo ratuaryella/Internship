@@ -1,5 +1,8 @@
 const fetch = require('node-fetch');
 const config = require('../../config');
+const getCurrentDate = require('../../helper/current-date');
+const currentDate = getCurrentDate();
+const globalVariable = require('../../helper/globalVarible');
 
 const getAllTatanan = (req) => {
     let status;
