@@ -34,10 +34,10 @@ const createTatanan = (req, res) => {
 
 const deleteTatanan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.createTatanan(req)
+    return fetchTatanan.deleteTatanan(req)
     .then(responseJson => {
-        if(responseJson.status == 200){
-            res.redirect("/tatanan");
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
         } else {
             return false; 
         }

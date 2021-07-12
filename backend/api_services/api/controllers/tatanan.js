@@ -69,6 +69,7 @@ const getTatanan = (req, res, next) => {
                         totalPages: Math.ceil(docs.data.count / 10),
                         result: docs.data.rows.map((doc) => {
                             return {
+                                id: doc.id,
                                 nama_tatanan: doc.nama_tatanan,
                                 jenis_indikator: doc.jenis_indikator,
                                 kategori: doc.kategori,

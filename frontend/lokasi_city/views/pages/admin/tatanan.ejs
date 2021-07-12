@@ -78,7 +78,6 @@
           },
           success: function(data) {
               console.log(data, "ini data tatanan")
-              var tatanan = '';
               let dataCoba = data.data.result
   
               // ITERATING THROUGH OBJECTS
@@ -92,7 +91,7 @@
                                       '<td>' + value.kategori + '</td>' +
                                       '<td>' + value.nama_indikator + '</td>' +
                                       '<td>' + value.subindikator + '</td>' +
-                                      '<td>' + '<button type="button" onclick="editRow(this, '+ value.id +' )" class="btn" id="btn-edit"><i class="fa fa-bars"></i></button> <button onclick="deleteRow(this,'+ value.id +')" class="btn" id="btn-delete"><i class="fa fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit"><i class="fa fa-bars"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fa fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_tatanan tbody').append(tatananRow);
             });
@@ -142,7 +141,6 @@
   $(document).on("click", "ul.pagination li a", function() {
           let val = $(this).text();
           
-          // click on the NEXT tag
           if(val.toUpperCase()==="NEXT"){
               let activeValue = parseInt($("ul.pagination li.active").text());
               let totalPages = $("ul.pagination li").length - 2; // -2 beacause 1 for Previous and 1 for Next 
@@ -174,25 +172,43 @@
   });
   
   </script>
+
   <script type="text/javascript">
     function form_submit() {
       document.getElementById("addTatanan").submit();
      }    
   </script>
+
   <script>
-    function deleteRow(obj, id_tatanan) {
-    $.ajax({
-      url: "/api-v1/intern/delete-tatanan",
+  $(document).ready(function(){
+      function deleteRow(id){
+      let del_id = (typeof id !== 'undefined') ?  id : 1;
+
+      $.ajax({
       type: "PATCH",
+      url: "/api-v1/intern/delete-tatanan?id=" + id,
+      dataType: 'JSON',
       data: { 
-        id: id_tatanan
+        id: del_id
       },
       success: function(data){
-        $(obj).closest('tr').fadeOut(300,function(){
-            $(obj).closest('tr').remove();
-          });
+        alert("Data Terhapus");
+        location.reload()
         },
-      });
-    } 
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+          }
+        })
+      }
+
+      $("body").on("click", "#btn-delete", function(){  
+        let del = $(this).attr('data-id');
+        let delete_int = parseInt(del);
+
+        deleteRow(delete_int);
+      })
+  })
   </script>
 
