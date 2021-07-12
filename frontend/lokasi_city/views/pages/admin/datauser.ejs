@@ -123,7 +123,7 @@
                                       '<td>' + value.mobile_number + '</td>' +
                                       '<td>' + value.email + '</td>' +
                                       '<td>' + value.role.name + '</td>' +
-                                      '<td>' + '<button class="btn" id="btn-edit"><i class="fa fa-bars"></i></button> <button class="btn" id="btn-delete"><i class="fa fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit"><i class="fa fa-bars"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fa fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_user tbody').append(userRow);
             });
@@ -233,10 +233,43 @@
                 console.log("ERROR: ", e);
               }
       })
-});
+  });
   </script>
   <script type="text/javascript">
     function form_submit() {
       document.getElementById("addUser").submit();
      }    
+  </script>
+
+  <script>
+  $(document).ready(function(){
+      function deleteRow(id){
+      let del_id = (typeof id !== 'undefined') ?  id : 1;
+
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/delete-user?id=" + id,
+      dataType: 'JSON',
+      data: { 
+        id: del_id
+      },
+      success: function(data){
+        alert("Data Terhapus");
+        location.reload()
+        },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+          }
+        })
+      }
+
+      $("body").on("click", "#btn-delete", function(){  
+        let del = $(this).attr('data-id');
+        let delete_int = parseInt(del);
+
+        deleteRow(delete_int);
+      })
+  })
   </script>

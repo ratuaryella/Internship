@@ -46,9 +46,24 @@ const createUser = (req, res) => {
     })
 }
 
+const deleteUser = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchUser.deleteUser(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 module.exports = {
   index,
   getAllUsers,
   getAllRoles,
-  createUser
+  createUser,
+  deleteUser
 }
