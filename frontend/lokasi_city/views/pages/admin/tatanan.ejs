@@ -45,6 +45,9 @@
     </div>
   </div>
 </div>
+<div>
+  <div>
+    <div>
             <table id="tabel_tatanan" class="table bg-light rounded shadow-sm  table-hover">
                 <thead>
                     <tr>
@@ -62,6 +65,45 @@
             </ul>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Tatanan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="PATCH" action="/api-v1/intern/create-tatanan?" id="addTatanan">
+          <div class="mb-3">
+            <h6>Nama Tatanan</h6>
+            <input type="text" class="form-control" id="recipient-nama_tatanan" name="get_nama_tatanan">
+          </div>
+          <div class="mb-3">
+            <h6>Jenis Indikator</h6>
+            <input type="text" class="form-control" id="recipient-jenis" name="get_jenis_indikator">
+          </div>
+          <div class="mb-3">
+            <h6>Kategori</h6>
+            <input type="text" class="form-control" id="recipient-kategori" name="get_kategori">
+          </div>
+          <div class="mb-3">
+            <h6>Nama Indikator</h6>
+            <input type="text" class="form-control" id="recipient-nama_indikator" name="get_nama_indikator">
+          </div>
+          <div class="mb-3">
+            <h6>Sub Indikator</h6>
+            <input type="text" class="form-control" id="recipient-subindikator" name="get_subindikator">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button onclick="form_edit_submit()" class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -91,7 +133,7 @@
                                       '<td>' + value.kategori + '</td>' +
                                       '<td>' + value.nama_indikator + '</td>' +
                                       '<td>' + value.subindikator + '</td>' +
-                                      '<td>' + '<button type="button" class="btn" id="btn-edit"><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id= ' + value.id + '><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_tatanan tbody').append(tatananRow);
             });
@@ -208,6 +250,54 @@
         let delete_int = parseInt(del);
 
         deleteRow(delete_int);
+      })
+  })
+  </script>
+
+<script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data tatanan id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini tatanan id")
+
+                $("#modalEdit .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
+                $("#modalEdit .modal-body #recipient-jenis").val(value.jenis_indikator);
+                $("#modalEdit .modal-body #recipient-kategori").val(value.kategori);
+                $("#modalEdit .modal-body #recipient-nama_indikator").val(value.nama_indikator);
+                $("#modalEdit .modal-body #recipient-subindikator").val(value.subindikator);
+
+                $("#modalEdit").modal();
+                $("#modalEdit").modal('show');
+              })
+ 
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
       })
   })
   </script>

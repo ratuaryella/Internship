@@ -27,11 +27,13 @@ router.get('/tatanan', isAuthorization, tatananController.index);
 router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
 router.post('/api-v1/intern/create-tatanan', isAuthorization, tatananController.createTatanan);
 router.patch('/api-v1/intern/delete-tatanan', isAuthorization, tatananController.deleteTatanan);
+router.get('/api-v1/intern/get-tatanan', isAuthorization, tatananController.getTatananById);
 
 router.get('/api-v1/intern/get-all-users', isAuthorization, userController.getAllUsers);
 router.get('/api-v1/intern/get-all-roles', isAuthorization, userController.getAllRoles);
 router.post('/api-v1/intern/create-user', isAuthorization, userController.createUser);
 router.patch('/api-v1/intern/delete-user', isAuthorization, userController.deleteUser);
+router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUserById);
 
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
 router.post('/api-v1/intern/create-kegiatan', isAuthorization, kegiatanController.createKegiatan);

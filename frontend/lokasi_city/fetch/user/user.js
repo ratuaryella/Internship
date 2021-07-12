@@ -122,9 +122,35 @@ const deleteUser = (req) => {
     })
 }
 
+const getUserById = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_AUTH}/detail-user?`
+    return fetch(url + params, {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        }
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
+
 module.exports = {
     getAllUsers,
     getAllRoles,
     createUser,
-    deleteUser
+    deleteUser,
+    getUserById
 }

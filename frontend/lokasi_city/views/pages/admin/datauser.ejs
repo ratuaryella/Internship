@@ -74,6 +74,9 @@
     </div>
   </div>
 </div>
+<div>
+  <div>
+    <div>
             <table id="tabel_user" class="table bg-light rounded shadow-sm  table-hover">
                 <thead>
                     <tr>
@@ -91,8 +94,75 @@
             </table>
         </div>
     </div>
-
 </div>
+<div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/api-v1/intern/create-user" id="addUser">
+          <div class="mb-3">
+            <h6>Username</h6>
+            <input type="text" class="form-control" id="recipient-username" name="username">
+          </div>
+          <div class="mb-3">
+            <h6>Password</h6>
+            <input type="text" class="form-control" id="recipient-password" name="password">
+          </div>
+          <div class="mb-3">
+            <h6>Password Confirmation</h6>
+            <input type="text" class="form-control" id="recipient-password2" name="password_confirmation">
+          </div>
+          <div class="mb-3">
+            <h6>Nama Depan</h6>
+            <input type="text" class="form-control" id="recipient-firstname" name="firstname">
+          </div>
+          <div class="mb-3">
+            <h6>Nama Belakang</h6>
+            <input type="text" class="form-control" id="recipient-lastname" name="lastname">
+          </div>
+          <div class="mb-3">
+            <h6>No HP</h6>
+            <input type="text" class="form-control" id="recipient-mobile" name="mobile_number">
+          </div>
+          <div class="mb-3">
+            <h6>Email</h6>
+            <input type="text" class="form-control" id="recipient-email" name="email">
+          </div>
+          <div class="mb-3">
+            <h6>Role</h6>
+            <select class="form-control" id="recipient-role" name="id_role">
+            </select>
+          </div>
+          <div class="mb-3">
+            <h6>Kode Provinsi</h6>
+            <input type="text" class="form-control" id="recipient-prov" name="kode_prov">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Kabupaten/Kota</h6>
+            <input type="text" class="form-control" id="recipient-kabkot" name="kode_kabkot">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Kecamatan</h6>
+            <input type="text" class="form-control" id="recipient-kec" name="kode_kec">
+          </div>
+          <div class="mb-3">
+            <h6>Kode Desa</h6>
+            <input type="text" class="form-control" id="recipient-desa" name="kode_desa">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button onclick="form_submit()" class="btn btn-primary" type="submit">Tambah</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   $(document).ready(function(){
   function fetchCustomers(page){
@@ -123,7 +193,7 @@
                                       '<td>' + value.mobile_number + '</td>' +
                                       '<td>' + value.email + '</td>' +
                                       '<td>' + value.role.name + '</td>' +
-                                      '<td>' + '<button type="button" class="btn" id="btn-edit"><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id='+ value.id +'><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_user tbody').append(userRow);
             });
@@ -221,18 +291,25 @@
               $('#role-dropdown').empty();
               $('#role-dropdown').append('<option selected="true" disabled>Role</option>');
               $('#role-dropdown').prop('selectedIndex', 0);
+
              // add table rows
               $.each(dataCoba, (i, value) => {
                   console.log(value, "ini value roles")
                   let roles = value.id
-                  $('#role-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');
+                  $('#role-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');   
+          });
+
+          $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value roles")
+                  let roles = value.id
+                  $("#modalEdit .modal-body #recipient-role").append('<option value="' + value.id + '">' + value.name + '</option>');
+
             });
-          },
+        },
               error : function(e) {
                 alert("ERROR: ", e);
                 console.log("ERROR: ", e);
               }
-      })
   });
   </script>
   <script type="text/javascript">
@@ -270,6 +347,59 @@
         let delete_int = parseInt(del);
 
         deleteRow(delete_int);
+      })
+  })
+  </script>
+
+<script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/detail-user',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data user id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini user id")
+
+                $("#modalEdit .modal-body #recipient-username").val(value.username);
+                $("#modalEdit .modal-body #recipient-firstname").val(value.firstname);
+                $("#modalEdit .modal-body #recipient-lastname").val(value.lastname);
+                $("#modalEdit .modal-body #recipient-mobile").val(value.mobile_number);
+                $("#modalEdit .modal-body #recipient-email").val(value.email);
+                //$("#modalEdit .modal-body #recipient-role").val(value.role);
+                //$("#modalEdit .modal-body #recipient-prov").val(value.kode_prov);
+                //$("#modalEdit .modal-body #recipient-kabkot").val(value.kode_kabkot);
+                //$("#modalEdit .modal-body #recipient-kec").val(value.kode_kec);
+                //$("#modalEdit .modal-body #recipient-desa").val(value.kode_desa);
+
+                $("#modalEdit").modal();
+                $("#modalEdit").modal('show');
+              })
+ 
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
       })
   })
   </script>
