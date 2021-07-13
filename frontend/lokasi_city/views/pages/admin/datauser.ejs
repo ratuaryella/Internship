@@ -210,6 +210,7 @@
               }
       })
   }
+  
    /* Build Pagination Bar*/
    function buildPagination(totalPages){
           // Build paging navigation
@@ -271,10 +272,10 @@
               $("li.active").removeClass("active");
               $(this).parent().addClass("active");
           }
-      });
-  });
-  
+      })
+  })
   </script>
+
   <script type="text/javascript">
   $(document).ready(function(){
       $.ajax({
@@ -310,7 +311,8 @@
                 alert("ERROR: ", e);
                 console.log("ERROR: ", e);
               }
-  });
+          })
+  })
   </script>
   <script type="text/javascript">
     function form_submit() {
@@ -339,8 +341,8 @@
           console.log("ERROR: ", e);
           location.reload()
           }
-        })
-      }
+      })
+    }
 
       $("body").on("click", "#btn-delete", function(){  
         let del = $(this).attr('data-id');
@@ -348,7 +350,7 @@
 
         deleteRow(delete_int);
       })
-  })
+  });
   </script>
 
 <script>
@@ -402,4 +404,5 @@
         editRow(edit_int);
       })
   })
+
   </script>
