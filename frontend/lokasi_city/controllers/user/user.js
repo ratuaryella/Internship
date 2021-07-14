@@ -37,7 +37,6 @@ const createUser = (req, res) => {
     return fetchUser.createUser(req)
     .then(responseJson => {
         if(responseJson.status == 201){
-            res.redirect("/data-user");
         } else {
             return false; 
         }

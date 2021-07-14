@@ -23,7 +23,6 @@ const createTatanan = (req, res) => {
     return fetchTatanan.createTatanan(req)
     .then(responseJson => {
         if(responseJson.status == 201){
-            res.redirect("/tatanan");
         } else {
             return false; 
         }

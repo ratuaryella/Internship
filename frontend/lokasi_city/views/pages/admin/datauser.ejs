@@ -163,6 +163,24 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Anda yakin ingin menghapus data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+        <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   $(document).ready(function(){
   function fetchCustomers(page){
@@ -317,6 +335,10 @@
   <script type="text/javascript">
     function form_submit() {
       document.getElementById("addUser").submit();
+      swal("Data ditambahkan", "Anda telah berhasil menambah data tatanan!", "success")
+            .then(function(){ 
+            location.reload();
+          });
      }    
   </script>
 
@@ -333,9 +355,12 @@
         id: del_id
       },
       success: function(data){
-        alert("Data Terhapus");
-        location.reload()
-        },
+        swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
         error : function(e) {
           alert("ERROR: ", e);
           console.log("ERROR: ", e);
@@ -346,9 +371,13 @@
 
       $("body").on("click", "#btn-delete", function(){  
         let del = $(this).attr('data-id');
+        $("#modalDelete").modal('show');
+        
+        $("#modalDelete .modal-footer").on("click", "#btn-yakin", function(){   
         let delete_int = parseInt(del);
 
         deleteRow(delete_int);
+        })
       })
   });
   </script>
