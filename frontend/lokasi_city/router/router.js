@@ -28,6 +28,7 @@ router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.
 router.post('/api-v1/intern/create-tatanan', isAuthorization, tatananController.createTatanan);
 router.patch('/api-v1/intern/delete-tatanan', isAuthorization, tatananController.deleteTatanan);
 router.get('/api-v1/intern/get-tatanan', isAuthorization, tatananController.getTatananById);
+router.patch('/api-v1/intern/update-tatanan', isAuthorization, tatananController.editTatanan);
 
 router.get('/api-v1/intern/get-all-users', isAuthorization, userController.getAllUsers);
 router.get('/api-v1/intern/get-all-roles', isAuthorization, userController.getAllRoles);

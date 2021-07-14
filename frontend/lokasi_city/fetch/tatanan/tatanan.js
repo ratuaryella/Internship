@@ -111,9 +111,43 @@ const getTatananById = (req) => {
     })
 }
 
+const editTatanan = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/update-tatanan?`
+    return fetch(url + params, {
+        method: 'PATCH',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        },
+        body: JSON.stringify({
+          nama_tatanan: req.body.nama_tatanan,
+          jenis_indikator: req.body.jenis_indikator,
+          kategori: req.body.kategori,
+          nama_indikator: req.body.nama_indikator,
+          subindikator: req.body.subindikator,
+          updated_at: currentDate.dateAsiaJakarta,
+          updated_by: req.userData.id
+    })
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 module.exports = {
     getAllTatanan,
     createTatanan,
     deleteTatanan,
-    getTatananById
+    getTatananById,
+    editTatanan
 }

@@ -106,58 +106,49 @@
         <form method="POST" action="/api-v1/intern/create-user" id="addUser">
           <div class="mb-3">
             <h6>Username</h6>
-            <input type="text" class="form-control" id="recipient-username" name="username">
-          </div>
-          <div class="mb-3">
-            <h6>Password</h6>
-            <input type="text" class="form-control" id="recipient-password" name="password">
-          </div>
-          <div class="mb-3">
-            <h6>Password Confirmation</h6>
-            <input type="text" class="form-control" id="recipient-password2" name="password_confirmation">
+            <input type="text" class="form-control" id="recipient-username" name="get_username" readonly>
           </div>
           <div class="mb-3">
             <h6>Nama Depan</h6>
-            <input type="text" class="form-control" id="recipient-firstname" name="firstname">
+            <input type="text" class="form-control" id="recipient-firstname" name="get_firstname" readonly>
           </div>
           <div class="mb-3">
             <h6>Nama Belakang</h6>
-            <input type="text" class="form-control" id="recipient-lastname" name="lastname">
+            <input type="text" class="form-control" id="recipient-lastname" name="get_lastname" readonly>
           </div>
           <div class="mb-3">
             <h6>No HP</h6>
-            <input type="text" class="form-control" id="recipient-mobile" name="mobile_number">
+            <input type="text" class="form-control" id="recipient-mobile" name="get_mobile_number" readonly>
           </div>
           <div class="mb-3">
             <h6>Email</h6>
-            <input type="text" class="form-control" id="recipient-email" name="email">
+            <input type="text" class="form-control" id="recipient-email" name="get_email" readonly>
           </div>
           <div class="mb-3">
             <h6>Role</h6>
-            <select class="form-control" id="recipient-role" name="id_role">
+            <select class="form-control" id="recipient-role" name="get_id_role" readonly>
             </select>
           </div>
           <div class="mb-3">
             <h6>Kode Provinsi</h6>
-            <input type="text" class="form-control" id="recipient-prov" name="kode_prov">
+            <input type="text" class="form-control" id="recipient-prov" name="get_kode_prov" readonly>
           </div>
           <div class="mb-3">
             <h6>Kode Kabupaten/Kota</h6>
-            <input type="text" class="form-control" id="recipient-kabkot" name="kode_kabkot">
+            <input type="text" class="form-control" id="recipient-kabkot" name="get_kode_kabkot" readonly>
           </div>
           <div class="mb-3">
             <h6>Kode Kecamatan</h6>
-            <input type="text" class="form-control" id="recipient-kec" name="kode_kec">
+            <input type="text" class="form-control" id="recipient-kec" name="get_kode_kec" readonly>
           </div>
           <div class="mb-3">
             <h6>Kode Desa</h6>
-            <input type="text" class="form-control" id="recipient-desa" name="kode_desa">
+            <input type="text" class="form-control" id="recipient-desa" name="get_kode_desa" readonly>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button onclick="form_submit()" class="btn btn-primary" type="submit">Tambah</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -211,7 +202,7 @@
                                       '<td>' + value.mobile_number + '</td>' +
                                       '<td>' + value.email + '</td>' +
                                       '<td>' + value.role.name + '</td>' +
-                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id='+ value.id +'><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id='+ value.id +'><i class="fas fa-info-circle"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_user tbody').append(userRow);
             });
@@ -318,7 +309,7 @@
                   $('#role-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');   
           });
 
-          $.each(dataCoba, (i, value) => {
+              $.each(dataCoba, (i, value) => {
                   console.log(value, "ini value roles")
                   let roles = value.id
                   $("#modalEdit .modal-body #recipient-role").append('<option value="' + value.id + '">' + value.name + '</option>');
@@ -407,11 +398,10 @@
                 $("#modalEdit .modal-body #recipient-lastname").val(value.lastname);
                 $("#modalEdit .modal-body #recipient-mobile").val(value.mobile_number);
                 $("#modalEdit .modal-body #recipient-email").val(value.email);
-                //$("#modalEdit .modal-body #recipient-role").val(value.role);
-                //$("#modalEdit .modal-body #recipient-prov").val(value.kode_prov);
-                //$("#modalEdit .modal-body #recipient-kabkot").val(value.kode_kabkot);
-                //$("#modalEdit .modal-body #recipient-kec").val(value.kode_kec);
-                //$("#modalEdit .modal-body #recipient-desa").val(value.kode_desa);
+                $("#modalEdit .modal-body #recipient-prov").val(value.kode_wilayah.kode_prov);
+                $("#modalEdit .modal-body #recipient-kabkot").val(value.kode_wilayah.kode_kabkot);
+                $("#modalEdit .modal-body #recipient-kec").val(value.kode_wilayah.kode_kec);
+                $("#modalEdit .modal-body #recipient-desa").val(value.kode_wilayah.kode_desa);
 
                 $("#modalEdit").modal();
                 $("#modalEdit").modal('show');

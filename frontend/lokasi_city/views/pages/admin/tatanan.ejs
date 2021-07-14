@@ -75,7 +75,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="PATCH" action="/api-v1/intern/create-tatanan?" id="addTatanan">
+        <form method="POST" action="#" id="editTatanan">
           <div class="mb-3">
             <h6>Nama Tatanan</h6>
             <input type="text" class="form-control" id="recipient-nama_tatanan" name="get_nama_tatanan">
@@ -100,7 +100,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button onclick="form_edit_submit()" class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" id="btn-submit-edit" type="submit">Save</button>
       </div>
     </div>
   </div>
@@ -310,9 +310,8 @@
                 $("#modalEdit .modal-body #recipient-subindikator").val(value.subindikator);
 
                 $("#modalEdit").modal();
-                $("#modalEdit").modal('show');
+                $("#modalEdit").modal('show');  
               })
- 
           },
               error : function(e) {
                 alert("ERROR: ", e);
@@ -322,12 +321,54 @@
       
       }
 
+      function saveEdit(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      let nama_tatanan = $("input[name='get_nama_tatanan']").val();
+      let jenis_indikator = $("input[name='get_jenis_indikator']").val();
+      let kategori = $("input[name='get_kategori']").val();
+      let nama_indikator = $("input[name='get_nama_indikator']").val();
+      let subindikator = $("input[name='get_submindikator']").val();
+
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/update-tatanan?id=" + id,
+      dataType: 'JSON',
+          data: { 
+          id: edt_id,
+          nama_tatanan: nama_tatanan,
+          jenis_indikator: jenis_indikator,
+          kategori: kategori,
+          nama_indikator: nama_indikator,
+          subindikator: subindikator,
+        },
+      success: function(data){
+        swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+        }
+        })
+      
+    }
+
       $("body").on("click", "#btn-edit", function(){  
         let edt = $(this).attr('data-id');
         let edit_int = parseInt(edt);
 
         editRow(edit_int);
+
+        $("#modalEdit .modal-footer").on("click", "#btn-submit-edit", function(){   
+        saveEdit(edit_int);
+        })
       })
   })
   </script>
+
+
 
