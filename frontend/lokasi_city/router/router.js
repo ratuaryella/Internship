@@ -39,7 +39,7 @@ router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUser
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
 router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
 
-router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
+router.get('/kegiatan-rolepetugas', isAuthorization, (req, res) => {
     res.render('./pages/admin/petugaskegiatan');
 });
 router.get('/kegiatan-umum', isAuthorization, (req, res) => {
@@ -55,6 +55,9 @@ router.get('/berita-petugas', isAuthorization, (req, res) => {
 });
 router.get('/profile-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/profile_petugas');
+});
+router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
+    res.render('./pages/petugas/kegiatan_petugas');
 });
 
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
