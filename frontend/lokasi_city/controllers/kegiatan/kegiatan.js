@@ -1,4 +1,4 @@
-const fetchKegiatan = require('../../fetch/tatanan/tatanan')
+const fetchKegiatan = require('../../fetch/kegiatan/kegiatan')
 const getAllKegiatan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
     return fetchKegiatan.getAllKegiatan(req)
@@ -13,9 +13,9 @@ const getAllKegiatan = (req, res) => {
     })
 }
 
-const createKegiatan = (req, res) => {
+const getKegiatanById = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
-    return fetchTatanan.createKegiatan(req)
+    return fetchKegiatan.getKegiatanById(req)
     .then(responseJson => {
         if(statusCode.includes(responseJson.status)){
             res.json(responseJson);
@@ -29,5 +29,5 @@ const createKegiatan = (req, res) => {
 
 module.exports = {
     getAllKegiatan,
-    createKegiatan
+    getKegiatanById
 }

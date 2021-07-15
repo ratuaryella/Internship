@@ -3,7 +3,11 @@ const config = require('../../config');
 
 const getAllKegiatan = (req) => {
     let status;
-    return fetch(`${config.API_URL_SERVICES}/get-all-kegiatan`, {
+
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/get-all-kegiatan?`
+    return fetch(url + params, {
         method: 'GET',
         headers: {
             "Authorization": "Bearer " + req.cookies.user_token,
@@ -22,10 +26,13 @@ const getAllKegiatan = (req) => {
     })
 }
 
-/*const createKegiatan = (req) => {
+const getKegiatanById = (req) => {
     let status;
-    return fetch(`${config.API_URL_SERVICES}/create-kegiatan`, {
-        method: 'POST',
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/get-kegiatan?`
+    return fetch(url + params, {
+        method: 'GET',
         headers: {
             "Authorization": "Bearer " + req.cookies.user_token,
             "Content-type": "application/json",
@@ -41,9 +48,10 @@ const getAllKegiatan = (req) => {
             data: responseJson
         }
     })
-}*/
+}
+
 
 module.exports = {
     getAllKegiatan,
-    //createKegiatan
+    getKegiatanById
 }

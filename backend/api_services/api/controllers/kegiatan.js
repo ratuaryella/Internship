@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const globalVariable = require('../helper/globalVarible');
 const { Tatanan } = require('../../sequelize');
 const multer = require('multer');
+const URL = "http://localhost:8083/kegiatan/";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -40,7 +41,7 @@ const createKegiatan = async (req, res, next) => {
         deskripsi: req.body.deskripsi,
         created_at: currentDate.dateAsiaJakarta,
         created_by: req.userData.id,
-        gambar: req.file.path,
+        gambar: URL + req.file.filename,
     }
 
     KegiatanServices.createKegiatan(dataKegiatan)
@@ -90,6 +91,7 @@ const getKegiatan = (req, res, next) => {
                         totalPages: Math.ceil(docs.data.count / 10),
                         results: docs.data.rows.map((doc) => {
                             return {
+                                id: doc.id,
                                 nama_kegiatan: doc.nama_kegiatan,
                                 nama_tatanan: doc.nama_tatanan,
                                 jenis_indikator: doc.jenis_indikator,
@@ -288,11 +290,25 @@ next(err);
 }
 };
 
+const downloadFiles = (req, res) => {
+    const fileName = req.params.name;
+    const path = __dirname + "/../uploads/";
+  
+    res.download(path + fileName, (err) => {
+      if (err) {
+        res.status(500).send({
+          message: "File can not be downloaded: " + err,
+        });
+      }
+    });
+};
+
 module.exports = {
     createKegiatan,
     getKegiatanById,
     getKegiatan,
     updateKegiatan,
     deleteKegiatan,
-    uploadImg
+    uploadImg,
+    downloadFiles
 }

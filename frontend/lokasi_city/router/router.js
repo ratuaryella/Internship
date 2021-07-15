@@ -37,7 +37,7 @@ router.patch('/api-v1/intern/delete-user', isAuthorization, userController.delet
 router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUserById);
 
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
-router.post('/api-v1/intern/create-kegiatan', isAuthorization, kegiatanController.createKegiatan);
+router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
 
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
     res.render('./pages/admin/petugaskegiatan');
