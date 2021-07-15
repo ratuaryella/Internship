@@ -1,0 +1,112 @@
+<% layout('layout') %>
+
+<%- include('../../partials/navbar.ejs'); %>
+<div class="container-fluid px-4">
+  <div class="wrapper-kelola-lokasi">
+    <div id="map-city"></div>
+    <div class="card-kelola-kegiatan">
+      <div class="grid-kelola-kegiatan">
+        <div class="daerah-kegiatan">
+          <h5 class="fw-bold">Pilih Daerah Administrasi</h5>
+          <div class="search-adminitrasi">
+            <div class="row g-3">
+            <div class="col"> 
+                <h6>Kecamatan</h6>
+                <select name="kecamatan" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
+                <option>--Pilih Kecamatan--</option>
+                  <option>Medan Helvetia</option>
+                  <option>Medan Johor</option>
+                  <option>Medan Amplas</option>
+                  <option>Medan Kota</option>
+                </select>
+              </div>
+              <div class="col"> 
+                <h6>Desa</h6>
+                <select name="desa" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
+                 <option>--Pilih Desa--</option>
+                  <option>Pancing</option>
+                  <option>Padang Bulan</option>
+                  <option>Amplas</option>
+                  <option>Kuningan</option>
+                </select>
+              </div></div><br>
+              <h5>Tambah Kegiatan</h5>
+            </div>
+            <div class="">
+              <form method="POST" action="/api-v1/intern/create-tatanan" id="addTatanan">
+                <div style="margin-top: 2px;" class="row g-3">
+                <div class="col">
+                  <h6>Longitude</h6>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="col">
+                  <h6>Latitude</h6>
+                  <input type="text" class="form-control">
+                </div>
+                </div>
+                <div style="margin-top: 2px;" class="row g-3">
+                <div class="col">
+                  <h6>Nama Kegiatan</h6>
+                  <select name="nama-kegiatan" class="selectpicker form-control" id="select-jenis-indikator" data-live-search="true">
+                  <option>--Pilih Nama Kegiatan--</option>
+                  <option>Belajar 9 Tahun</option>
+                  <option>Angka melek huruf</option>
+                  <option>Pendapatan perkapita domestik</option>
+                  <option>Angka kematian bayi per-1.000 Kh.</option>
+                </select>
+                </div>
+                <div class="col">
+                  <h6>Jenis Indikator</h6>
+                  <select name="jenis-indikator" class="selectpicker form-control" id="select-jenis-indikator" data-live-search="true">
+                    <option>--Pilih Indikator--</option>
+                      <option>Pokok</option>
+                      <option>Umum</option>
+                      <option>Khusus</option>
+                    </select>
+                </div>
+                </div>
+                <div style="margin-top: 2px;" class="row g-3">
+                <div class="col">
+                  <h6>Kategori</h6>
+                  <select name="kategori" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
+                    <option>--Pilih Kategori--</option>
+                      <option>Kawasan Permukiman Sarana dan Prasarana Sehat</option>
+                      <option>Kawasan Tertib Lalu Lintas dan Pelayan-an Transportasi</option>
+                      <option>.....</option>
+                      <option>.....</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <h6>Sub Indikator</h6>
+                    <select name="sub indikator" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
+                        <option>--Pilih Sub Indikator--</option>
+                          <option>Memenuhi standar ISPU</option>
+                          <option>Kendaraan bermotor memenuhi   syarat emisi</option>
+                          <option>Terlarang membuang sampah ke   sungai</option>
+                          <option>Meningkatnya cakupan penggunaan   air bersih</option>
+                        </select>
+                  </div>
+                  </div>
+                  <div style="margin-top: 5px;" class="mb-3">
+                    <h6>Author</h6>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div style="margin-top: 5px;" class="mb-3">
+                    <h6>Deskripsi</h6>
+                    <input type="text" class="form-control">
+                  </div>
+              </form>
+            </div>
+            <div class="mb-2">
+                <button onclick="form_submit()" class="btn btn-green" type="submit">Tambah</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<% block('extendScripts').append('<script type="text/javascript" src="/js/maps/maps-home.js"></script>') %>

@@ -59,7 +59,9 @@ router.get('/profile-petugas', isAuthorization, (req, res) => {
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/kegiatan_petugas');
 });
-
+router.get('/addkegiatan-petugas', isAuthorization, (req, res) => {
+    res.render('./pages/petugas/addkegiatan_petugas');
+});
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
 router.get('/get-kecamatan', isAuthorization, administrasiController.getAllKecamatan); //get-kecamatan?kodeprov=12&kodekabkot=75&page=1
 router.get('/get-desa', isAuthorization, administrasiController.getAllDesa); //get-desa?kodeprov=12&kodekabkot=75&kodekec=060&page=1
