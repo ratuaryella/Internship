@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const globalVariable = require('../helper/globalVarible');
 const { Tatanan } = require('../../sequelize');
 const multer = require('multer');
-const URL = "http://localhost:8083/kegiatan/";
+const URL = "http://localhost:8083/kegiatan?name=";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -290,8 +290,9 @@ next(err);
 }
 };
 
+//Download Image
 const downloadFiles = (req, res) => {
-    const fileName = req.params.name;
+    const fileName = req.query.name;
     const path = __dirname + "/../uploads/";
   
     res.download(path + fileName, (err) => {
