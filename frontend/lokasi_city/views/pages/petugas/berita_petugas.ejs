@@ -24,55 +24,10 @@
 	
 					<!-- widget -->
 					<div class="widget">
-						<h5 class="widget-title">Berita Lainnya</h5>
+						<h5 class="widget-title">Berita Terbaru</h5>
 						<div class="recent-post-widget">
 							<!-- recent post -->
 							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2021</p>
-								</div>
-							</div>
-							<!-- recent post -->
-							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2021</p>
-								</div>
-							</div>
-							<!-- recent post -->
-							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2021</p>
-								</div>
-							</div>
-							<!-- recent post -->
-							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2018</p>
-								</div>
-							</div>
-							<!-- recent post -->
-							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2021</p>
-								</div>
-							</div>
-							<!-- recent post -->
-							<div class="rp-item">
-								<div class="rp-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-								<div class="rp-content">
-									<h6>Covid 19 makin menyebar PPKM Darurat diadakan</h6>
-									<p><i class="fa fa-clock-o"></i> 24 Mar 2021</p>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -87,6 +42,33 @@
     <%- include('../../partials/footer_petugas.ejs'); %>	
 
 <script type="text/javascript">
+	function getName(id){
+      let usr_id = (typeof id !== 'undefined') ?  id : 1;
+	  var nama;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/detail-user',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: usr_id
+          },
+          async: false,
+		  success: function(data) {
+              console.log(data, "ini data user id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value.firstname, "ini user id")
+
+				nama = value.firstname + ' ' + value.lastname;
+              })
+          },
+        })
+		return nama;
+      }
+
 	$(document).ready(function(){
 	function fetchCustomers(page){
 	  let pageNumber = (typeof page !== 'undefined') ?  page : 1;
@@ -116,7 +98,7 @@
 					$('.post-item').append('<div class="post-meta">');
 					$('.post-item').append('<span><i class="fas fa-calendar-alt"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
 					$('.post-item').append('<br>');
-					$('.post-item').append('<span><i class="fa fa-user-o"></i>'+ "  " + value.created_by +'</span>');
+					$('.post-item').append('<span><i class="fa fa-user-o"></i>'+ "  " + getName(value.created_by) +'</span>');
 					$('.post-item').append('</div>');
 					$('.post-item').append('<p>' + value.deskripsi + '</p>');
 					$('.post-item').append('</div>');
@@ -198,4 +180,37 @@
 		});
 	});
 	
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			type: "GET",
+			url: '/api-v1/intern/get-all-kegiatan?page=1',
+			//headers: {
+			//Authorization: 'Bearer ' + localStorage.getItem('token') },
+			dataType: 'JSON',
+			success: function(data) {
+				console.log(data, "ini data lengkapppp")
+				let dataCoba = data.data.results
+	
+				// ITERATING THROUGH OBJECTS
+				$('.rp-item').empty();
+
+			   // add content
+				$.each(dataCoba, (i, value) => {
+					console.log(value, "ini value yaaaak")
+					$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
+					$('.rp-item').append('<div class="rp-content">');
+					$('.rp-item').append('<h6>' + value.nama_kegiatan + '</h6>');
+					$('.rp-item').append('<span><i class="fas fa-clock-o"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
+					$('.rp-item').append('<br>');
+			  }); 
+			},
+				error : function(e) {
+				  alert("ERROR: ", e);
+				  console.log("ERROR: ", e);
+				}
+			})
+	})
 	</script>
