@@ -38,7 +38,10 @@ router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUser
 
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
 router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
-router.get('/api-v1/intern/kegiatan', isAuthorization, kegiatanController.getImage);
+
+router.get('/image-kegiatan', isAuthorization, (req, res) => {
+    res.render('./pages/admin/gambar');
+});
 
 router.get('/kegiatan-rolepetugas', isAuthorization, (req, res) => {
     res.render('./pages/admin/petugaskegiatan');

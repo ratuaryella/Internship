@@ -88,15 +88,15 @@ const getKegiatan = (req, res, next) => {
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
                         currentPage: docs.pagination.currentPage,
-                        totalPages: Math.ceil(docs.data.count / 10),
+                        totalPages: Math.ceil(docs.data.count / 5),
                         results: docs.data.rows.map((doc) => {
                             return {
                                 id: doc.id,
                                 nama_kegiatan: doc.nama_kegiatan,
-                                nama_tatanan: doc.nama_tatanan,
-                                jenis_indikator: doc.jenis_indikator,
                                 pelaksana: doc.pelaksana,
                                 tanggal_kegiatan: doc.tanggal_kegiatan,
+                                gambar: doc.gambar,
+                                deskripsi: doc.deskripsi,
                                 created_at: doc.created_at,
                                 created_by: doc.created_by
                             };

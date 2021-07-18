@@ -1,31 +1,8 @@
 <% layout('layout') %>
 
 <%- include('../../partials/navbar_petugas.ejs'); %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title></title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Favicon -->   
-	<link href="" rel="shortcut icon"/>
+<%- include('../../partials/header_petugas.ejs'); %>
 
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i" rel="stylesheet">
-
-	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="css/themify-icons.css"/>
-	<link rel="stylesheet" href="css/magnific-popup.css"/>
-	<link rel="stylesheet" href="css/animate.css"/>
-	<link rel="stylesheet" href="css/owl.carousel.css"/>
-	<link rel="stylesheet" href="css/style.css"/>
-
-
-</head>
-
-<body>
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
@@ -33,37 +10,13 @@
 
 
 	<!-- Blog page section  -->
-	<section class="blog-page-section spad pt-0">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 post-list">
 					<div class="post-item">
-						<div class="post-thumb set-bg" data-setbg="images/content/sos1.jpg"></div>
-						<div class="post-content">
-							<h3><a href="#">Bergerak Bersama Cegah DBD Melalui Gerakan 1 Rumah 1 Jumantik RT.01/10 Kelurahan Tugu</a></h3>
-							<div class="post-meta">
-								<span><i class="fa fa-calendar-o"></i> 23 Mar 2021</span>
-								<span><i class="fa fa-user"></i> Kevin</span>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel urna eget lectus molestie rhoncus sed in nunc. Vestib tincidunt facilisis ligula sed viverra. Duis porttitor sapien maximus, volutpat massa malesuada. Curabitur orci est, molestie eget orci, tincidunt dictum felis. Cras ante nunc, pharetra eu rutrum aliquet, gestas eget ex. Suspendisse potenti vietlott Quisque asvitae eros efficitur lacus viverra molestie at ut mi. Quisque id mollis nibh...</p>
-						</div>
-					</div>
-					<div class="post-item">
-						<div class="post-thumb set-bg" data-setbg="images/content/sos2.jpg"></div>
-						<div class="post-content">
-							<h3><a href="single-blog.html">Graduations could be delayed as external examiners</a></h3>
-							<div class="post-meta">
-								<span><i class="fa fa-calendar-o"></i> 23 Mar 2021</span>
-								<span><i class="fa fa-user"></i> Kevin </span>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel urna eget lectus molestie rhoncus sed in nunc. Vestibulum tincidunt facilisis ligula sed viverra. Duis porttitor sapien maximus, volutpat massa malesuada. Curabitur orci est, ut molestie eget orci, tincidunt dictum felis. Cras ante nunc, pharetra eu rutrum aliquet, egestas eget ex. Suspendisse potenti. Quisque asvitae eros efficitur lacus viverra molestie at ut mi. Quisque id mollis nibh...</p>
-						</div>
 					</div>
 				
-					<ul class="site-pageination">
-						<li><a href="#" class="active">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+					<ul class="pagination">
 					</ul>
 				</div>
 				<!-- sidebar -->
@@ -130,20 +83,119 @@
 				</div>
 			</div>
 		</div>
-	</section>
-<br>
-    <%- include('../../partials/footer_petugas.ejs'); %>
 
+    <%- include('../../partials/footer_petugas.ejs'); %>	
 
-
-
-	<!--====== Javascripts & Jquery ======-->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.countdown.js"></script>
-	<script src="js/masonry.pkgd.min.js"></script>
-	<script src="js/magnific-popup.min.js"></script>
-	<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	function fetchCustomers(page){
+	  let pageNumber = (typeof page !== 'undefined') ?  page : 1;
+		$.ajax({
+			type: "GET",
+			url: '/api-v1/intern/get-all-kegiatan',
+			//headers: {
+			//Authorization: 'Bearer ' + localStorage.getItem('token') },
+			dataType: 'JSON',
+			data: { 
+				page: pageNumber
+			},
+			success: function(data) {
+				console.log(data, "ini data kegiatan")
+				let dataCoba = data.data.results
 	
-</body>
-</html>
+				// ITERATING THROUGH OBJECTS
+				$('.post-item').empty();
+
+			   // add content
+				$.each(dataCoba, (i, value) => {
+					console.log(value, "ini value")
+					$('.post-item').append('<div class="post-content">');
+					$('.post-item').append('<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' width="500" height="250"></img>');
+					$('.post-item').append('<br><br>');	
+					$('.post-item').append('<h4>' + value.nama_kegiatan + '</h4>');
+					$('.post-item').append('<div class="post-meta">');
+					$('.post-item').append('<span><i class="fas fa-calendar-alt"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
+					$('.post-item').append('<br>');
+					$('.post-item').append('<span><i class="fa fa-user-o"></i>'+ "  " + value.created_by +'</span>');
+					$('.post-item').append('</div>');
+					$('.post-item').append('<p>' + value.deskripsi + '</p>');
+					$('.post-item').append('</div>');
+					$('.post-item').append('<br>');
+			  });
+	
+				if ($('ul.pagination li').length - 2 != data.data.totalPages){
+					  // build pagination list at the first time loading
+					  $('ul.pagination').empty();
+					  buildPagination(data.data.totalPages);
+				  }   
+			},
+				error : function(e) {
+				  alert("ERROR: ", e);
+				  console.log("ERROR: ", e);
+				}
+		})
+	}
+	 /* Build Pagination Bar*/
+	 function buildPagination(totalPages){
+			// Build paging navigation
+			let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
+			$("ul.pagination").append(pageIndex);
+			
+			// create pagination
+			for(let i=1; i <= totalPages; i++){
+			  // adding .active class on the first pageIndex for the loading time
+			  if(i==1){
+				  pageIndex = "<li class='page-item active'><a class='page-link'>"
+						+ i + "</a></li>"                     
+			  } else {
+				  pageIndex = "<li class='page-item'><a class='page-link'>"
+							+ i + "</a></li>"
+			  }
+			  $("ul.pagination").append(pageIndex);
+			}
+			
+			pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
+			$("ul.pagination").append(pageIndex);
+		}
+	
+	/*Fetching in initial time*/
+	(function(){
+			// get first-page at initial time
+			fetchCustomers(1);
+		})();
+	
+	/*Fetch data when clicking*/
+	$(document).on("click", "ul.pagination li a", function() {
+			let val = $(this).text();
+			
+			if(val.toUpperCase()==="NEXT"){
+				let activeValue = parseInt($("ul.pagination li.active").text());
+				let totalPages = $("ul.pagination li").length - 2; // -2 beacause 1 for Previous and 1 for Next 
+				if(activeValue < totalPages){
+					let currentActive = $("li.active");
+					fetchCustomers(activeValue); // get next page value
+					// remove .active class for the old li tag
+					$("li.active").removeClass("active");
+					// add .active to next-pagination li
+					currentActive.next().addClass("active");
+				}
+			} else if(val.toUpperCase()==="PREVIOUS"){
+				let activeValue = parseInt($("ul.pagination li.active").text());
+				if(activeValue > 1){
+					// get the previous page
+					fetchCustomers(activeValue-2);
+					let currentActive = $("li.active");
+					currentActive.removeClass("active");
+					// add .active to previous-pagination li
+					currentActive.prev().addClass("active");
+				}
+			} else {
+				fetchCustomers(parseInt(val));
+				// add focus to the li tag
+				$("li.active").removeClass("active");
+				$(this).parent().addClass("active");
+			}
+		});
+	});
+	
+	</script>

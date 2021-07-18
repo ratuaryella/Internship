@@ -5,7 +5,7 @@ var stream = require('stream');
 
 // Get All Kegiatan
 const getKegiatan = (req) => {
-    const pagination = paginator(req.query.page, 10); // set 1 page = 10 length data
+    const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
     const limit = pagination.limit;
     const offset = pagination.offset;
     return Kegiatan.findAndCountAll({

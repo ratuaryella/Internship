@@ -16,7 +16,7 @@ router.get('/welcome', checkAuth, (req, res) => {
 router.post('/create-kegiatan', checkAuth, KegiatanController.uploadImg.single("gambar"), KegiatanController.createKegiatan);
 router.get('/get-all-kegiatan', checkAuth, KegiatanController.getKegiatan);
 router.get('/get-kegiatan', checkAuth, KegiatanController.getKegiatanById);
-router.get('/kegiatan', checkAuth, KegiatanController.downloadFiles)
+router.get('/kegiatan', KegiatanController.downloadFiles)
 router.patch('/delete-kegiatan', checkAuth, KegiatanController.deleteKegiatan);
 router.patch('/update-kegiatan', checkAuth, KegiatanController.updateKegiatan);
 
