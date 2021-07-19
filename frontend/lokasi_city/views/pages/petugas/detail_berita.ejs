@@ -1,0 +1,103 @@
+<% layout('layout') %>
+
+<%- include('../../partials/navbar_petugas.ejs'); %>
+<%- include('../../partials/header_petugas.ejs'); %>
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+
+	<!-- Blog page section  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 post-list">
+					<div class="post-item">
+                        
+					</div>
+				
+				</div>
+			</div>
+		</div>
+
+    <%- include('../../partials/footer_petugas.ejs'); %>
+
+<script>
+    function getName(id){
+      let usr_id = (typeof id !== 'undefined') ?  id : 1;
+	  var nama;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/detail-user',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: usr_id
+          },
+          async: false,
+		  success: function(data) {
+              console.log(data, "ini data user id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value.firstname, "ini user id")
+
+				nama = value.firstname + ' ' + value.lastname;
+              })
+          },
+        })
+		return nama;
+      }
+    $(document).ready(function(){
+        let searchParams = new URLSearchParams(window.location.search);
+        let param = searchParams.get('id');
+
+        $.ajax({
+			type: "GET",
+			url: '/api-v1/intern/get-kegiatan',
+			//headers: {
+			//Authorization: 'Bearer ' + localStorage.getItem('token') },
+			dataType: 'JSON',
+            data: { 
+				id: param
+			},
+			success: function(data) {
+				console.log(data, "ini data lengkapppp")
+				let dataCoba = data.data.data;
+	
+				// ITERATING THROUGH OBJECTS
+				$('.post-item').empty();
+
+			   // add content
+               $.each(dataCoba, (i, value) => {
+					console.log(value, "ini value")
+					$('.post-item').append('<div class="post-content">');
+					$('.post-item').append('<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' width="500" height="250"></img>');
+					$('.post-item').append('<br><br>');	
+					$('.post-item').append('<h4>' + value.nama_kegiatan + '</h4>');
+					$('.post-item').append('<div class="post-meta">');
+					$('.post-item').append('<span><i class="fas fa-calendar-alt"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
+					$('.post-item').append('<br>');
+					$('.post-item').append('<span><i class="fa fa-user-o"></i>'+ "  " + getName(value.created_by) +'</span>');
+					$('.post-item').append('</div>');
+                    $('.post-item').append('<h6> Nama Tatanan: ' + value.nama_tatanan + '</h6>');
+                    $('.post-item').append('<h6> Jenis Indikator: ' + value.jenis_indikator + '</h6>');
+                    $('.post-item').append('<h6> Kategori: ' + value.kategori + '</h6>');
+                    $('.post-item').append('<h6> Nama Indikator: ' + value.nama_indikator + '</h6>');
+                    $('.post-item').append('<h6> SubIndikator: ' + value.subindikator + '</h6>');
+                    $('.post-item').append('<h6> Pelaksana: ' + value.pelaksana + '</h6>');
+                    $('.post-item').append('<br>');
+					$('.post-item').append('<p>' + value.deskripsi + '</p>');
+					$('.post-item').append('</div>');
+					$('.post-item').append('<br>');
+			  }); 
+			},
+				error : function(e) {
+				  alert("ERROR: ", e);
+				  console.log("ERROR: ", e);
+				}
+			})
+    })
+</script>

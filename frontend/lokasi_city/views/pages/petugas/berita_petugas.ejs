@@ -101,6 +101,7 @@
 					$('.post-item').append('<span><i class="fa fa-user-o"></i>'+ "  " + getName(value.created_by) +'</span>');
 					$('.post-item').append('</div>');
 					$('.post-item').append('<p>' + value.deskripsi + '</p>');
+					$('.post-item').append('<p id="moreBerita" data-id=' + value.id + '><a href="">Lihat Berita</a></p>');
 					$('.post-item').append('</div>');
 					$('.post-item').append('<br>');
 			  });
@@ -202,7 +203,7 @@
 					console.log(value, "ini value yaaaak")
 					$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
 					$('.rp-item').append('<div class="rp-content">');
-					$('.rp-item').append('<h6>' + value.nama_kegiatan + '</h6>');
+					$('.rp-item').append('<h6 id="moreBerita" data-id=' + value.id + '><a href="#">' + value.nama_kegiatan + '</a></h6>');
 					$('.rp-item').append('<span><i class="fas fa-clock-o"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
 					$('.rp-item').append('<br>');
 			  }); 
@@ -213,4 +214,14 @@
 				}
 			})
 	})
-	</script>
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("body").on("click", "#moreBerita", function(e){  
+			e.preventDefault();
+			window.location.replace("/detail-berita?id=" + $(this).attr('data-id')); 
+		})
+	})
+  
+</script>
