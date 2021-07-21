@@ -78,10 +78,23 @@ const deleteKegiatan = (id, deleteKegiatan) => {
     });
 }
 
+// Get All Kegiatan (No Paging)
+const getAllKegiatan = (req) => {
+    return Kegiatan.findAndCountAll({
+        where: { deleted_at: null },
+        order: [['created_at', 'DESC']]
+    }).then(docs => {
+        return {
+            data: docs
+        }
+    });
+}
+
 module.exports = {
     createKegiatan,
     getKegiatan,
     getKegiatanById,
     updateKegiatan,
     deleteKegiatan,
+    getAllKegiatan
 }

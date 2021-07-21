@@ -37,6 +37,7 @@ router.patch('/api-v1/intern/delete-user', isAuthorization, userController.delet
 router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUserById);
 
 router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
+router.get('/api-v1/intern/get-full-kegiatan', isAuthorization, kegiatanController.getFullKegiatan);
 router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
 
 router.get('/image-kegiatan', isAuthorization, (req, res) => {
@@ -70,6 +71,18 @@ router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
 });
 router.get('/addkegiatan-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/addkegiatan_petugas');
+});
+
+router.get('/coba-map', isAuthorization,  (req, res) => {
+    res.render('./pages/petugas/coba-map');
+});
+
+router.get('/home-guest', isAuthorization,  (req, res) => {
+    res.render('./pages/guest/home_guest');
+});
+
+router.get('/kegiatan-guest', isAuthorization,  (req, res) => {
+    res.render('./pages/guest/kegiatan_guest');
 });
 
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);

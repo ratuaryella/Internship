@@ -97,6 +97,8 @@ const getKegiatan = (req, res, next) => {
                                 tanggal_kegiatan: doc.tanggal_kegiatan,
                                 gambar: doc.gambar,
                                 deskripsi: doc.deskripsi,
+                                longitude: doc.longitude,
+                                latitude: doc.latitude,
                                 created_at: doc.created_at,
                                 created_by: doc.created_by
                             };
@@ -304,6 +306,62 @@ const downloadFiles = (req, res) => {
     });
 };
 
+//Get All Kegiatan (No Paging)
+const getAllKegiatan = (req, res, next) => {
+
+    try{
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    KegiatanServices.getAllKegiatan(req)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                id: doc.id,
+                                nama_kegiatan: doc.nama_kegiatan,
+                                pelaksana: doc.pelaksana,
+                                tanggal_kegiatan: doc.tanggal_kegiatan,
+                                gambar: doc.gambar,
+                                deskripsi: doc.deskripsi,
+                                longitude: doc.longitude,
+                                latitude: doc.latitude,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Kegiatan/getAllKegiatan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
 module.exports = {
     createKegiatan,
     getKegiatanById,
@@ -311,5 +369,6 @@ module.exports = {
     updateKegiatan,
     deleteKegiatan,
     uploadImg,
-    downloadFiles
+    downloadFiles,
+    getAllKegiatan
 }
