@@ -7,7 +7,7 @@
             <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                 <div>
                     <h3 class="fs-5">Jumlah Petugas</h3>
-                    <p class="fs-2 text-danger fw-bold">100</p>
+                    <p id="jumlah-petugas" class="fs-2 text-danger fw-bold"></p>
                 </div>
                 <i class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i>
             </div>
@@ -17,7 +17,7 @@
             <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded ">
                 <div>
                     <h3 class="fs-5">Jumlah Tatanan</h3>
-                    <p class="fs-2 text-primary fw-bold">150</p>
+                    <p id="jumlah-tatanan" class="fs-2 text-primary fw-bold"></p>
                 </div>
                 <i
                     class="fas fa-project-diagram fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -28,7 +28,7 @@
             <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                 <div>
                     <h3 class="fs-5">Jumlah Kegiatan</h3>
-                    <p class="fs-2 text-success fw-bold">200</p>
+                    <p id="jumlah-kegiatan" class="fs-2 text-success fw-bold"></p>
                 </div>
                 <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
             </div>
@@ -117,3 +117,63 @@
     <body>
     <center><div class="col-md-11" id="chartContainer"></div></center>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script>
+        $.ajax({
+        type: "GET",
+        url: '/api-v1/intern/get-full-kegiatan',
+        //headers: {
+        //Authorization: 'Bearer ' + localStorage.getItem('token') },
+        dataType: 'JSON',
+        success: function(data) {
+            console.log(data, "ini data kegiatan")
+            let kegiatanTotal = data.data.total;
+            $('#jumlah-kegiatan').append(kegiatanTotal);
+            
+        },
+            error : function(e) {
+              alert("ERROR: ", e);
+              console.log("ERROR: ", e);
+            }
+    })
+</script>
+    
+<script>
+        $.ajax({
+        type: "GET",
+        url: '/api-v1/intern/get-all-tatanan',
+        //headers: {
+        //Authorization: 'Bearer ' + localStorage.getItem('token') },
+        dataType: 'JSON',
+        success: function(data) {
+            console.log(data, "ini data tatanan")
+            let tatananTotal = data.data.total;
+            $('#jumlah-tatanan').append(tatananTotal);
+            
+        },
+            error : function(e) {
+              alert("ERROR: ", e);
+              console.log("ERROR: ", e);
+            }
+    })
+</script>
+
+<script>
+    $.ajax({
+    type: "GET",
+    url: '/api-v1/intern/get-all-users',
+    //headers: {
+    //Authorization: 'Bearer ' + localStorage.getItem('token') },
+    dataType: 'JSON',
+    success: function(data) {
+        console.log(data, "ini data user")
+        let usersTotal = data.data.total;
+        $('#jumlah-petugas').append(usersTotal);
+        
+    },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+        }
+})
+</script>
