@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const config = require('../../config');
+var FormData = require('form-data');
 
 const getAllKegiatan = (req) => {
     let status;
@@ -73,8 +74,32 @@ const getFullKegiatan = (req) => {
     })
 }
 
+const createKegiatan = (req) => {
+    let status;
+
+    var formData = new FormData(formKegiatan)
+
+    return fetch(`${config.API_URL_SERVICES}/create-kegiatan`, {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Accept-Charset": "utf-8"
+        },
+        body: formData
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 module.exports = {
     getAllKegiatan,
     getKegiatanById,
-    getFullKegiatan
+    getFullKegiatan,
+    createKegiatan
 }

@@ -18,6 +18,20 @@ const getAllTatanan = (req, res) => {
     })
 }
 
+const getFullTatanan = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchTatanan.getFullTatanan(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 const createTatanan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
     return fetchTatanan.createTatanan(req)
@@ -79,5 +93,6 @@ module.exports = {
   createTatanan,
   deleteTatanan,
   getTatananById,
-  editTatanan
+  editTatanan,
+  getFullTatanan
 }

@@ -28,6 +28,29 @@ const getAllTatanan = (req) => {
     })
 }
 
+const getFullTatanan = (req) => {
+    let status;
+
+    var url = `${config.API_URL_SERVICES}/get-full-tatanan`
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        }
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 const createTatanan = (req) => {
     let status;
     return fetch(`${config.API_URL_SERVICES}/create-tatanan`, {
@@ -149,5 +172,6 @@ module.exports = {
     createTatanan,
     deleteTatanan,
     getTatananById,
-    editTatanan
+    editTatanan,
+    getFullTatanan
 }

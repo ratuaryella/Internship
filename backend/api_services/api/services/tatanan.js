@@ -60,6 +60,18 @@ const deleteTatanan = (id, deleteTatanan) => {
     });
 }
 
+// Get All Tatanan (No Paging)
+const getAllTatanan = (req) => {
+    return Tatanan.findAndCountAll({
+        where: { deleted_at: null },
+        order: [['created_at', 'DESC']]
+      }).then(docs => {
+        return {
+            data: docs
+        }
+    });
+}
+
 
 
 module.exports = {
@@ -67,5 +79,6 @@ module.exports = {
     getTatanan,
     getTatananById,
     updateTatanan,
-    deleteTatanan
+    deleteTatanan,
+    getAllTatanan
 }

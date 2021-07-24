@@ -4,10 +4,11 @@
 <div class="container-fluid px-4">
   <div class="wrapper-kelola-lokasi">
     <div id="map-city"></div>
+    <form method="POST" action="#" id="formKegiatan">
     <div class="card-kelola-kegiatan">
       <div class="grid-kelola-kegiatan">
         <div class="daerah-kegiatan">
-          <h5 class="fw-bold">Pilih Daerah Administrasi</h5>
+          <!-- <h5 class="fw-bold">Pilih Daerah Administrasi</h5>
           <div class="search-adminitrasi">
             <div class="row g-3">
             <div class="col"> 
@@ -29,7 +30,7 @@
                   <option>Amplas</option>
                   <option>Kuningan</option>
                 </select>
-              </div></div><br>
+              </div></div><br> -->
               <h5>Tambah Kegiatan</h5>
             </div>
             <div class="">
@@ -37,32 +38,33 @@
                 <div style="margin-top: 2px;" class="row g-3">
                 <div class="col">
                   <h6>Longitude</h6>
-                  <input type="text" class="form-control">
+                  <input type="text" id="longitude" class="form-control">
                 </div>
                 <div class="col">
                   <h6>Latitude</h6>
-                  <input type="text" class="form-control">
+                  <input type="text" id="latitude" class="form-control">
                 </div>
                 </div>
                 <div style="margin-top: 2px;" class="row g-3">
+                  <div class="col">
+                    <h6>Nama Kegiatan</h6>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="col">
+                    <h6>Pelaksana</h6>
+                    <input type="text" class="form-control">
+                  </div>
+                  </div>
+                <div style="margin-top: 2px;" class="row g-3">
                 <div class="col">
-                  <h6>Nama Kegiatan</h6>
-                  <select name="nama-kegiatan" class="selectpicker form-control" id="select-jenis-indikator" data-live-search="true">
-                  <option>--Pilih Nama Kegiatan--</option>
-                  <option>Belajar 9 Tahun</option>
-                  <option>Angka melek huruf</option>
-                  <option>Pendapatan perkapita domestik</option>
-                  <option>Angka kematian bayi per-1.000 Kh.</option>
-                </select>
+                  <h6>Nama Tatanan</h6>
+                  <select name="nama-kegiatan" class="selectpicker form-control" id="select-nama-tatanan" data-live-search="true">
+                  </select>
                 </div>
                 <div class="col">
                   <h6>Jenis Indikator</h6>
                   <select name="jenis-indikator" class="selectpicker form-control" id="select-jenis-indikator" data-live-search="true">
-                    <option>--Pilih Indikator--</option>
-                      <option>Pokok</option>
-                      <option>Umum</option>
-                      <option>Khusus</option>
-                    </select>
+                  </select>
                 </div>
                 </div>
                 <div style="margin-top: 2px;" class="row g-3">
@@ -77,7 +79,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <h6>Sub Indikator</h6>
+                    <h6>Nama Indikator</h6>
                     <select name="sub indikator" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
                         <option>--Pilih Sub Indikator--</option>
                           <option>Memenuhi standar ISPU</option>
@@ -87,15 +89,27 @@
                         </select>
                   </div>
                   </div>
+                  <div style="margin-top: 2px;" class="row g-3">
+                    <div class="col">
+                      <h6>Subindikator</h6>
+                      <select name="kategori" class="selectpicker form-control" id="select-kategori" data-live-search="true">
+                        <option>--Pilih Kategori--</option>
+                          <option>Kawasan Permukiman Sarana dan Prasarana Sehat</option>
+                          <option>Kawasan Tertib Lalu Lintas dan Pelayan-an Transportasi</option>
+                          <option>.....</option>
+                          <option>.....</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                      <h6>Tanggal Kegiatan</h6>
+                      <input type="date" class="form-control">
+                    </div>
+                    </div>
                   <br>
                   <div class="row g-3">
                   <div style="margin-top: 5px;" class="col">
-                    <h6>Author</h6>
-                    <input type="text" class="form-control">
-                  </div>
-                  <div style="margin-top: 5px;" class="col">
                     <h6>Deskripsi</h6>
-                    <input type="text" class="form-control">
+                    <textarea style="resize:none" name="deskripsi" class="form-control"></textarea>
                   </div>
                   </div>
                   <br>
@@ -113,8 +127,111 @@
         </div>
       </div>
     </div>
+    </form>
   </div>
   
 </div>
 
-<% block('extendScripts').append('<script type="text/javascript" src="/js/maps/maps-home.js"></script>') %>
+<script>
+  $(document).ready(function () {
+    var position;
+    let mapCity = new L.map('map-city', {
+      zoomControl:false,
+      attributionControl: false
+    });
+    mapCity.setView([3.6169589,98.6663069], 13);
+    
+    let streetTileLayerMapbox = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    L.tileLayer(streetTileLayerMapbox, {
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+    }).addTo(mapCity);
+  
+    function onMapClick(e) {
+      mapCity.off('click', onMapClick);
+      marker = new L.marker(e.latlng, {draggable:'true'});
+      marker.on('dragend', function(event){
+        var marker = event.target;
+        var position = marker.getLatLng();
+        marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
+        mapCity.panTo(new L.LatLng(position.lat, position.lng));
+        marker.bindPopup('LatLng: ' + marker.getLatLng()).openPopup();
+      });
+      marker.on('dragend', function (e) {
+      document.getElementById('latitude').value = marker.getLatLng().lat;
+      document.getElementById('longitude').value = marker.getLatLng().lng;
+      });
+      mapCity.addLayer(marker);
+  
+    };
+    
+    mapCity.on('click', onMapClick)
+    
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-full-tatanan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          success: function(data) {
+              console.log(data, "ini data tatanan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#select-nama-tatanan').empty();
+              $('#select-nama-tatanan').append('<option selected="true" disabled>Nama Tatanan</option>');
+              $('#select-nama-tatanan').prop('selectedIndex', 0);
+              $('#select-jenis-indikator').empty();
+              $('#select-jenis-indikator').append('<option selected="true" disabled>Jenis Indikator</option>');
+              $('#select-jenis-indikator').prop('selectedIndex', 0);
+              
+             // add table rows
+             var itemsAdded1=[];
+              $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value tatanan")
+                  let nama_tatanan = value.nama_tatanan
+                  
+                  if($.inArray(value.nama_tatanan, itemsAdded1)===-1) 
+                  { itemsAdded1.push(value.nama_tatanan);
+                    $('#select-nama-tatanan').append('<option value="' + value.nama_tatanan + '">' + value.nama_tatanan + '</option>'); 
+                  }
+                    
+          });
+
+          // add table rows
+              var itemsAdded2=[];
+                $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value tatanan")
+                  let jenis_indikator = value.jenis_indikator
+                  
+                  if($.inArray(jenis_indikator, itemsAdded2)===-1) 
+                  { itemsAdded2.push(jenis_indikator);
+                    $('#select-jenis-indikator').append('<option value="' + jenis_indikator + '">' + jenis_indikator + '</option>'); 
+                  }
+                    
+          });
+        },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+          })
+  })
+  </script>
+  <script type="text/javascript">
+    function form_submit() {
+      document.getElementById("addUser").submit();
+      swal("Data ditambahkan", "Anda telah berhasil menambah data tatanan!", "success")
+            .then(function(){ 
+            location.reload();
+          });
+     }    
+  </script>

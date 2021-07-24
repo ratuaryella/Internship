@@ -23,6 +23,7 @@ router.patch('/update-kegiatan', checkAuth, KegiatanController.updateKegiatan);
 
 router.post('/create-tatanan', checkAuth, TatananController.createTatanan);
 router.get('/get-all-tatanan', checkAuth, TatananController.getTatanan);
+router.get('/get-full-tatanan', checkAuth, TatananController.getAllTatanan);
 router.get('/get-tatanan', checkAuth, TatananController.getTatananById);
 router.patch('/update-tatanan', checkAuth, TatananController.updateTatanan);
 router.patch('/delete-tatanan', checkAuth, TatananController.deleteTatanan);
