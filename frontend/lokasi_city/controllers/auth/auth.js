@@ -18,6 +18,7 @@ const login = (req, res) => {
       .then((response) => {
         if (response.status == 200) {
           res.cookie("username", response.data.username, { httpOnly: true });
+          res.cookie("role", response.data.role.id, { httpOnly: true });
           res.cookie("user_token", response.data.token, {
             httpOnly: true,
           });
@@ -37,6 +38,7 @@ const login = (req, res) => {
 const logout = (req, res) => {
   res.clearCookie("username");
   res.clearCookie("user_token");
+  res.clearCookie("user_role");
   res.redirect("/login");
 };
 

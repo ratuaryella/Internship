@@ -1,7 +1,12 @@
 const fetchTatanan = require('../../fetch/tatanan/tatanan')
 
 const index = (req, res) => {
-  res.render('./pages/admin/tatanan');
+    let param = {
+        active: 'tatanan',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+  res.render('./pages/admin/tatanan', param);
 }
 
 const getAllTatanan = (req, res) => {

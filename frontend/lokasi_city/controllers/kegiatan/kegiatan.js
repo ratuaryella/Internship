@@ -54,7 +54,6 @@ const createKegiatan = (req, res) => {
     })
 }
 
-
 module.exports = {
     getAllKegiatan,
     getKegiatanById,

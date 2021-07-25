@@ -19,7 +19,12 @@ router.post('/logout', isAuthorization, authController.logout);
 router.get('/', isAuthorization, adminController.index);
 
 router.get('/data-user', isAuthorization, (req, res) => {
-    res.render('./pages/admin/datauser');
+    let param = {
+        active: 'user',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/admin/datauser', param);
 });
 
 router.get('/tatanan', isAuthorization, tatananController.index);
@@ -53,29 +58,66 @@ router.get('/kegiatan-umum', isAuthorization, (req, res) => {
 });
 
 router.get('/home-petugas', isAuthorization,  (req, res) => {
-    res.render('./pages/petugas/home_petugas');
+    let param = {
+        active: 'home',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/home_petugas', param);
 });
 
 router.get('/berita-petugas', isAuthorization, (req, res) => {
-    res.render('./pages/petugas/berita_petugas');
+    let param = {
+        active: 'berita',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/berita_petugas', param);
 });
 
 router.get('/detail-berita', isAuthorization, (req, res) => {
-    res.render('./pages/petugas/detail_berita');
+    let param = {
+        active: 'berita',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/detail_berita', param);
 });
 
 router.get('/profile-petugas', isAuthorization, (req, res) => {
-    res.render('./pages/petugas/profile_petugas');
+    let param = {
+        active: 'profile',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/profile_petugas', param);
 });
+
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
-    res.render('./pages/petugas/kegiatan_petugas');
+    let param = {
+        active: 'kegiatan',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/kegiatan_petugas', param);
 });
+
 router.get('/addkegiatan-petugas', isAuthorization, (req, res) => {
-    res.render('./pages/petugas/addkegiatan_petugas');
+    let param = {
+        active: 'kegiatan',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/addkegiatan_petugas', param);
 });
 
 router.get('/coba-map', isAuthorization,  (req, res) => {
-    res.render('./pages/petugas/coba-map');
+    let param = {
+        active: 'map',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/petugas/coba-map', param);
 });
 
 router.get('/home-guest', isAuthorization,  (req, res) => {

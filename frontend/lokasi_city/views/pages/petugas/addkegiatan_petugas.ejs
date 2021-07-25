@@ -64,7 +64,8 @@
                 <div style="margin-top: 2px;" class="row g-3">
                 <div class="col">
                   <h6>Nama Tatanan</h6>
-                  <select name="nama-kegiatan" class="selectpicker form-control" id="select-nama-tatanan" data-live-search="true">
+                  <select name="nama-kegiatan" id="nama-kegiatan" class="selectpicker form-control" id="select-nama-tatanan" data-live-search="true">
+                    <option value="">Pilih Tatanan</option>
                   </select>
                 </div>
                 <div class="col">
@@ -179,7 +180,7 @@
   });
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function(){
       $.ajax({
           type: "GET",
@@ -231,7 +232,7 @@
               }
           })
   })
-  </script>
+  </script> -->
   <script type="text/javascript">
     function form_submit() {
       document.getElementById("addUser").submit();
@@ -240,4 +241,51 @@
             location.reload();
           });
      }    
+  </script>
+
+<script>
+  $(document).ready(function(){
+   $('#nama-kegiatan').change(function(){
+    var nama_kegiatan = $('#nama-kegiatan').val();
+    if(nama_kegiatan != '')
+    {
+     $.ajax({
+      url:'/api-v1/intern/get-full-tatanan',
+      method:"POST",
+      data:{nama_kegiatan:nama_kegiatan},
+      success:function(data)
+      {
+       $('#state').html(data);
+       $('#city').html('<option value="">Select City</option>');
+      }
+     });
+    }
+    else
+    {
+     $('#state').html('<option value="">Select State</option>');
+     $('#city').html('<option value="">Select City</option>');
+    }
+   });
+  
+   $('#state').change(function(){
+    var state_id = $('#state').val();
+    if(state_id != '')
+    {
+     $.ajax({
+      url:"<?php echo base_url(); ?>dynamic_dependent/fetch_city",
+      method:"POST",
+      data:{state_id:state_id},
+      success:function(data)
+      {
+       $('#city').html(data);
+      }
+     });
+    }
+    else
+    {
+     $('#city').html('<option value="">Select City</option>');
+    }
+   });
+   
+  });
   </script>

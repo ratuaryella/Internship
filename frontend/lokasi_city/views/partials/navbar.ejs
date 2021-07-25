@@ -1,37 +1,94 @@
 <!-- Sidebar -->
-<div id="mySidebar" class="sidebar">
-    
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <center><img width="200" height="50" src="images/logo/lokasi-city-02.png" alt="1"></center>
-    <div class="list-group list-group-flush my-3">
-        <a href="/" class="list-group-item list-group-item-action bg-transparent second-text active"><i
-                class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-        <a href="/data-user" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-user me-2"></i> Data User</a>
-        <a href="/tatanan" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-tasks me-2"></i>Tatanan</a>
-                <div class="nav-item dropdown">
-                    <a class="list-group-item list-group-item-action bg-transparent second-text fw-bold" href="#" id="navbarDropdown"
-                        role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-tasks me-2"></i>Dokumentasi Kegiatan
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/kegiatan-petugas">Petugas</a></li>
-                        <li><a class="dropdown-item" href="/kegiatan-umum">Umum</a></li>
-                    </ul>
-                </div>
-        <a href="kelola-lokasi" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                class="fas fa-map-marked me-2"></i>Kelola Lokasi</a>
+<div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus icon'></i>
+        <!-- <div class="logo_name"><img width="150" height="40" src="images/logo/lokasi-city-02.png" alt="1"></div> -->
+        <div class="logo_name">Menu</div>
+        <i class='fa fa-bars' id="btn" style="color: white;"></i>
     </div>
+    <ul class="nav-lists">
+      <!-- Admin -->
+      <li class="<% if(typeof active != 'undefined') { if (active == 'home') { %> active <% } } %> <% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
+        <a href="/" >
+          <i class='fas fa-home me-2'></i>
+          <span class="links_name ">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
+       <a href="/data-user">
+         <i class='fas fa-user me-2' ></i>
+         <span class="links_name">User</span>
+       </a>
+       <span class="tooltip">User</span>
+     </li>
+     <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
+       <a href="/tatanan">
+         <i class='fas fa-tasks me-2' ></i>
+         <span class="links_name">Tatanan</span>
+       </a>
+       <span class="tooltip">Tatanan</span>
+     </li>
+     <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
+      <a href="#submenu" data-bs-toggle="collapse" class="feat-btn">
+          <i class="fas fa-tasks me-2"></i>
+          <span class="links_name">Kegiatan</span> 
+      </a>
+      <span class="tooltip">Dokumentasi Kegiatan</span>
+      <ul class="collapse nav flex-column ms-1" id="submenu" data-bs-parent="#menu">
+          <li class="w-100">
+              <a href="/kegiatan-petugas" class="nav-link px-0"> 
+                <i class="fas fa-users-cog"></i>
+                <span class="links_name">Petugas</span> 
+              </a>
+          </li>
+          <li class="w-100">
+              <a href="/kegiatan-umum" class="nav-link px-0"> 
+                <i class="fas fa-users"></i>
+                <span class="links_name">Umum</span> 
+              </a>
+          </li>
+      </ul>
+  </li>
+  <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
+    <a href="/kelola-lokasi">
+      <i class='fas fa-map-marked me-2' ></i>
+      <span class="links_name">Kelola Lokasi</span>
+    </a>
+    <span class="tooltip">Kelola Lokasi</span>
+  </li>
+
+     
+    <!-- Petugas -->
+  <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
+    <a href="/home-petugas">
+      <i class='fas fa-home me-2' ></i>
+      <span class="links_name">Dashboard</span>
+    </a>
+    <span class="tooltip">Dashboard</span>
+  </li>
+  <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
+    <a href="/berita-petugas">
+      <i class='fas fa-newspaper me-2' ></i>
+      <span class="links_name">Berita</span>
+    </a>
+    <span class="tooltip">Berita</span>
+  </li>
+  <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
+    <a href="/kegiatan-petugas">
+      <i class='fas fa-tasks me-2' ></i>
+      <span class="links_name">Kegiatan</span>
+    </a>
+    <span class="tooltip">Kegiatan</span>
+  </li>
+  </ul>
 </div>
+
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-    <div class="d-flex align-items-center">
-        <button onclick="openNav()" class="toggle-btn"><i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i></button>
-        <img width="200" height="50" src="images/logo/lokasi-city-02.png" alt="1">
-    </div>
 
+  <div class="logo_name"><img width="230" height="60" src="images/logo/lokasi-city-02.png" alt="1"></div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation" >
@@ -43,7 +100,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user me-2"></i>Admin
+                    <i class="fas fa-user me-2"></i><%= username || '' %>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -59,4 +116,4 @@
         </ul>
     </div>
 </nav>
-
+ 

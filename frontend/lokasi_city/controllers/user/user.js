@@ -1,7 +1,12 @@
 const fetchUser = require('../../fetch/user/user')
 
 const index = (req, res) => {
-  res.render('./pages/admin/datauser');
+    let param = {
+        active: 'home',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/admin/datauser', param);
 }
 
 const getAllUsers = (req, res) => {

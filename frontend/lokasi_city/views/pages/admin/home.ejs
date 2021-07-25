@@ -113,28 +113,28 @@
     
     }
     </script>
-    </head>
+    <!-- </head>
     <body>
-    <center><div class="col-md-11" id="chartContainer"></div></center>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <center><div class="col-md-11" id="chartContainer"></div></center>-->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
 
 <script>
-        $.ajax({
-        type: "GET",
-        url: '/api-v1/intern/get-full-kegiatan',
-        //headers: {
-        //Authorization: 'Bearer ' + localStorage.getItem('token') },
-        dataType: 'JSON',
-        success: function(data) {
-            console.log(data, "ini data kegiatan")
-            let kegiatanTotal = data.data.total;
-            $('#jumlah-kegiatan').append(kegiatanTotal);
-            
-        },
-            error : function(e) {
-              alert("ERROR: ", e);
-              console.log("ERROR: ", e);
-            }
+    $.ajax({
+    type: "GET",
+    url: '/api-v1/intern/get-full-kegiatan',
+    //headers: {
+    //Authorization: 'Bearer ' + localStorage.getItem('token') },
+    dataType: 'JSON',
+    success: function(data) {
+        console.log(data, "ini data kegiatan")
+        let kegiatanTotal = data.data.total;
+        $('#jumlah-kegiatan').append(kegiatanTotal);
+        
+    },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
     })
 </script>
     

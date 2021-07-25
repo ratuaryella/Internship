@@ -1,5 +1,10 @@
 const kelolaLokasi = (req, res, next) => {
-  res.render('./pages/maps/kelola-lokasi');
+  let param = {
+    active: 'tatanan',
+    role: req.cookies.role,
+    username: req.cookies.username
+}
+  res.render('./pages/maps/kelola-lokasi',param);
 }
 
 module.exports = {
