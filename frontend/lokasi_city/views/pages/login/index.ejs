@@ -1,11 +1,44 @@
 <% layout('layout') %>
-<div class="container-login">
+<section>
+    <div class="imgBx">
+        <img src="https://images.pexels.com/photos/6583407/pexels-photo-6583407.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+    </div>
+    <div class="contentBx">
+        <div class="formBx card-body-login">
+            <div class="intro-login">
+                <span class="icon-user-login"><i class="fas fa-user-alt" style="font-size: 50px; color: #1f827c;"></i></span>
+                <h2>Silakan Masuk</h2>
+            </div>
+            <form method="post" action="/login">
+                <% if (typeof auth_failed != 'undefined') { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      <p><%= auth_failed %></p>
+                    </div>
+                    <% } %>
+                <div class="inputBx form-floating">
+                    <input type="text" class="form-control" id="floatingInputEmail" placeholder="bvt@gmail.com" name="username">
+                    <label for="floatingInputEmail">Username</label>
+                </div>
+                <div class="inputBx form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button class="btn btn-lg btn-dflt" type="submit">
+                    Masuk
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- <div class="container-login">
     <div class="column-login">
         <div class="img-medan-city"></div>
         <div class="card-login">
             <div class="card-body-login">
                 <div class="intro-login">
-                    <span class="icon-user-login"><i class="fas fa-user-alt" style="font-size: 50px; color: #1E56BA;"></i></span>
+                    <span class="icon-user-login"><i class="fas fa-user-alt" style="font-size: 50px; color: #1f827c;"></i></span>
                     <h2>Silakan Masuk</h2>
                 </div>
                 <% if (typeof auth_failed != 'undefined') { %>
@@ -30,4 +63,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
