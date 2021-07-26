@@ -2,108 +2,112 @@
 
 <%- include('../../partials/navbar.ejs'); %>
 <div class="container-fluid px-4">
-    <div class="row my-5">
-        <h3 class="fs-4 mb-3">Data User</h3>
-        <div class="col">
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="far fa-plus-square"></i> Tambah User</button>
-            
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="row my-4">
+    <div>
+      <h3 class=""><strong>Data User</strong></h3>
+    </div>
+      <div class="ms-auto float-end">
+        <button type="button" class="button btn-dflt float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-plus-circle"></i> Tambah User</button>
       </div>
-      <div class="modal-body">
-        <form method="POST" action="/api-v1/intern/create-user" id="addUser">
-          <div class="row g-3">
+  </div>
+
+    <!-- Modal Add -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/api-v1/intern/create-user" id="addUser">
+            <div class="row g-3">
+              <div class="col">
+              <h6>Username</h6>
+              <input type="text" class="form-control" id="recipient-username" name="username">
+            </div>
             <div class="col">
-            <h6>Username</h6>
-            <input type="text" class="form-control" id="recipient-username" name="username">
-          </div>
-          <div class="col">
-            <h6>Role</h6>
-            <select class="form-control" id="role-dropdown" name="id_role">
-            </select>
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Nama Depan</h6>
-            <input type="text" class="form-control" id="recipient-firstname" name="firstname">
-          </div>
-          <div class="col">
-            <h6>Nama Belakang</h6>
-            <input type="text" class="form-control" id="recipient-lastname" name="lastname">
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Email</h6>
-            <input type="text" class="form-control" id="recipient-email" name="email">
-          </div>
-          <div class="col">
-            <h6>No HP</h6>
-            <input type="text" class="form-control" id="recipient-mobile" name="mobile_number">
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Password</h6>
-            <input type="text" class="form-control" id="recipient-password" name="password">
-          </div>
-          <div class="col">
-            <h6>Konfirmasi Password</h6>
-            <input type="text" class="form-control" id="recipient-password2" name="password_confirmation">
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Kode Provinsi</h6>
-            <input type="text" class="form-control" id="recipient-prov" name="kode_prov">
-          </div>
-          <div class="col">
-            <h6>Kode Kabupaten/Kota</h6>
-            <input type="text" class="form-control" id="recipient-kabkot" name="kode_kabkot">
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Kode Kecamatan</h6>
-            <input type="text" class="form-control" id="recipient-kev" name="kode_kec">
-          </div>
-          <div class="col">
-            <h6>Kode Desa</h6>
-            <input type="text" class="form-control" id="recipient-desa" name="kode_desa">
-          </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button onclick="form_submit()" class="btn btn-green" type="submit">Tambah</button>
+              <h6>Role</h6>
+              <select class="form-control" id="role-dropdown" name="id_role">
+              </select>
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Nama Depan</h6>
+              <input type="text" class="form-control" id="recipient-firstname" name="firstname">
+            </div>
+            <div class="col">
+              <h6>Nama Belakang</h6>
+              <input type="text" class="form-control" id="recipient-lastname" name="lastname">
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Email</h6>
+              <input type="text" class="form-control" id="recipient-email" name="email">
+            </div>
+            <div class="col">
+              <h6>No HP</h6>
+              <input type="text" class="form-control" id="recipient-mobile" name="mobile_number">
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Password</h6>
+              <input type="text" class="form-control" id="recipient-password" name="password">
+            </div>
+            <div class="col">
+              <h6>Konfirmasi Password</h6>
+              <input type="text" class="form-control" id="recipient-password2" name="password_confirmation">
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Kode Provinsi</h6>
+              <input type="text" class="form-control" id="recipient-prov" name="kode_prov">
+            </div>
+            <div class="col">
+              <h6>Kode Kabupaten/Kota</h6>
+              <input type="text" class="form-control" id="recipient-kabkot" name="kode_kabkot">
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Kode Kecamatan</h6>
+              <input type="text" class="form-control" id="recipient-kev" name="kode_kec">
+            </div>
+            <div class="col">
+              <h6>Kode Desa</h6>
+              <input type="text" class="form-control" id="recipient-desa" name="kode_desa">
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="form_submit()" class="btn btn-green" type="submit">Tambah</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div>
   <div>
     <div>
-            <table id="tabel_user" class="table bg-light rounded shadow-sm  table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Nama Depan</th>
-                        <th scope="col">Nama Belakang</th>
-                        <th scope="col">No Handphone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+          <table id="tabel_user" class="table bg-light rounded shadow-sm  table-hover">
+              <thead>
+                  <tr>
+                      <th scope="col">Username</th>
+                      <th scope="col">Nama Depan</th>
+                      <th scope="col">Nama Belakang</th>
+                      <th scope="col">No Handphone</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
         </div>
     </div>
 </div>
@@ -151,47 +155,101 @@
             <h6>Kode Provinsi</h6>
             <input type="text" class="form-control" id="recipient-prov" name="get_kode_prov" readonly>
           </div>
-          <div class="col">
-            <h6>Kode Kabupaten/Kota</h6>
-            <input type="text" class="form-control" id="recipient-kabkot" name="get_kode_kabkot" readonly>
-          </div>
-          </div><br>
-          <div class="row g-3">
-          <div class="col">
-            <h6>Kode Kecamatan</h6>
-            <input type="text" class="form-control" id="recipient-kec" name="get_kode_kec" readonly>
-          </div>
-          <div class="col">
-            <h6>Kode Desa</h6>
-            <input type="text" class="form-control" id="recipient-desa" name="get_kode_desa" readonly>
-          </div>
-          </div>
-        </form>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-green" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
   </div>
-</div>
 
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Modal Edit -->
+  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/api-v1/intern/create-user" id="addUser">
+            <div class="row g-3">
+              <div class="col">
+              <h6>Username</h6>
+              <input type="text" class="form-control" id="recipient-username" name="get_username" readonly>
+            </div>
+            <div class="col">
+              <h6>Role</h6>
+              <select class="form-control" id="role-dropdown" name="get_id_role" readonly>
+              </select>
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Nama Depan</h6>
+              <input type="text" class="form-control" id="recipient-firstname" name="get_firstname" readonly>
+            </div>
+            <div class="col">
+              <h6>Nama Belakang</h6>
+              <input type="text" class="form-control" id="recipient-lastname" name="get_lastname" readonly>
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Email</h6>
+              <input type="text" class="form-control" id="recipient-email" name="get_email" readonly>
+            </div>
+            <div class="col">
+              <h6>No HP</h6>
+              <input type="text" class="form-control" id="recipient-mobile" name="get_mobile_number" readonly>
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Kode Provinsi</h6>
+              <input type="text" class="form-control" id="recipient-prov" name="get_kode_prov" readonly>
+            </div>
+            <div class="col">
+              <h6>Kode Kabupaten/Kota</h6>
+              <input type="text" class="form-control" id="recipient-kabkot" name="get_kode_kabkot" readonly>
+            </div>
+            </div><br>
+            <div class="row g-3">
+            <div class="col">
+              <h6>Kode Kecamatan</h6>
+              <input type="text" class="form-control" id="recipient-kec" name="get_kode_kec" readonly>
+            </div>
+            <div class="col">
+              <h6>Kode Desa</h6>
+              <input type="text" class="form-control" id="recipient-desa" name="get_kode_desa" readonly>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-green" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
-      <div class="modal-body">
-        Anda yakin ingin menghapus data ini?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-        <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+    </div>
+  </div>
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Anda yakin ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+          <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+    
+            
+
 
 <script type="text/javascript">
   $(document).ready(function(){

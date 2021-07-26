@@ -8,36 +8,36 @@
     </div>
     <ul class="nav-lists">
       <!-- Admin -->
-      <li class="<% if(typeof active != 'undefined') { if (active == 'home') { %> active <% } } %> <% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
-        <a href="/" >
+      <li class="<% { if (role == 2) { %> hide <% } } %>">
+        <a href="/" class="<% if(typeof active != 'undefined') { if (active == 'home') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
           <i class='fas fa-home me-2'></i>
           <span class="links_name ">Dashboard</span>
         </a>
          <span class="tooltip">Dashboard</span>
       </li>
       <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
-       <a href="/data-user">
+       <a href="/data-user" class="<% if(typeof active != 'undefined') { if (active == 'user') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
          <i class='fas fa-user me-2' ></i>
          <span class="links_name">User</span>
        </a>
        <span class="tooltip">User</span>
      </li>
      <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
-       <a href="/tatanan">
+       <a href="/tatanan" class="<% if(typeof active != 'undefined') { if (active == 'tatanan') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
          <i class='fas fa-tasks me-2' ></i>
          <span class="links_name">Tatanan</span>
        </a>
        <span class="tooltip">Tatanan</span>
      </li>
      <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
-      <a href="#submenu" data-bs-toggle="collapse" class="feat-btn">
+      <a href="#submenu" data-bs-toggle="collapse" class="feat-btn  <% if(typeof active != 'undefined') { if (active == 'kegiatan') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
           <i class="fas fa-tasks me-2"></i>
           <span class="links_name">Kegiatan</span> 
       </a>
       <span class="tooltip">Dokumentasi Kegiatan</span>
       <ul class="collapse nav flex-column ms-1" id="submenu" data-bs-parent="#menu">
           <li class="w-100">
-              <a href="/kegiatan-petugas" class="nav-link px-0"> 
+              <a href="/kegiatan-petugas" class="nav-link px-0 <% if(typeof active != 'undefined') { if (active == 'kegiatan') { %> active <% } } %> <% if(typeof role != 'undefined') %> "> 
                 <i class="fas fa-users-cog"></i>
                 <span class="links_name">Petugas</span> 
               </a>
@@ -51,7 +51,7 @@
       </ul>
   </li>
   <li class="<% if(typeof role != 'undefined') { if (role == 2) { %> hide <% } } %>">
-    <a href="/kelola-lokasi">
+    <a href="/kelola-lokasi" class="<% if(typeof active != 'undefined') { if (active == 'lokasi') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
       <i class='fas fa-map-marked me-2' ></i>
       <span class="links_name">Kelola Lokasi</span>
     </a>
@@ -61,21 +61,21 @@
      
     <!-- Petugas -->
   <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
-    <a href="/home-petugas">
+    <a href="/home-petugas" class="<% if(typeof active != 'undefined') { if (active == 'home') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
       <i class='fas fa-home me-2' ></i>
       <span class="links_name">Dashboard</span>
     </a>
     <span class="tooltip">Dashboard</span>
   </li>
   <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
-    <a href="/berita-petugas">
+    <a href="/berita-petugas" class="<% if(typeof active != 'undefined') { if (active == 'berita') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
       <i class='fas fa-newspaper me-2' ></i>
       <span class="links_name">Berita</span>
     </a>
     <span class="tooltip">Berita</span>
   </li>
   <li class="<% if(typeof role != 'undefined') { if (role == 1) { %> hide <% } } %>">
-    <a href="/kegiatan-petugas">
+    <a href="/kegiatan-petugas" class="<% if(typeof active != 'undefined') { if (active == 'kegiatan') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
       <i class='fas fa-tasks me-2' ></i>
       <span class="links_name">Kegiatan</span>
     </a>

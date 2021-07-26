@@ -10,3 +10,25 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+/* Button */
+.btn-dflt{
+	background-color: #1f827c;
+    border: none;
+	color: white;
+    box-shadow: 0px 8px 15px rgba(28, 128, 118, 0.483);
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+    border-radius: 39px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    width: auto;
+}
+
+.btn-dflt:hover{
+    background-color: #1f827c;
+	color: white;
+}

@@ -1,6 +1,6 @@
 const kelolaLokasi = (req, res, next) => {
   let param = {
-    active: 'tatanan',
+    active: 'lokasi',
     role: req.cookies.role,
     username: req.cookies.username
 }

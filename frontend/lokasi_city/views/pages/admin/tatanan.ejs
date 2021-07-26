@@ -2,123 +2,133 @@
 
 <%- include('../../partials/navbar.ejs'); %>
 <div class="container-fluid px-4">
-    <div class="row my-5">
-        <h3 class="fs-4 mb-3">Data Tatanan</h3>
-        <div class="col">
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="far fa-plus-square"></i> Tambah Tatanan</button>
-            
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Tatanan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="row my-4">
+    <div>
+      <h3 class=""><strong>Data Tatanan</strong></h3>
+    </div>
+      <div class="ms-auto float-end">
+        <button type="button" class="button btn-dflt float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-plus-circle"></i> Tambah Tatanan</button>
       </div>
-      <div class="modal-body">
-        <form method="POST" action="/api-v1/intern/create-tatanan" id="addTatanan">
-          <div class="mb-3">
-            <h6>Nama Tatanan</h6>
-            <input type="text" class="form-control" id="recipient-nama_tatanan" name="nama_tatanan">
-          </div>
-          <div class="mb-3">
-            <h6>Jenis Indikator</h6>
-            <input type="text" class="form-control" id="recipient-jenis" name="jenis_indikator">
-          </div>
-          <div class="mb-3">
-            <h6>Kategori</h6>
-            <input type="text" class="form-control" id="recipient-kategori" name="kategori">
-          </div>
-          <div class="mb-3">
-            <h6>Nama Indikator</h6>
-            <input type="text" class="form-control" id="recipient-nama_indikator" name="nama_indikator">
-          </div>
-          <div class="mb-3">
-            <h6>Sub Indikator</h6>
-            <input type="text" class="form-control" id="recipient-subindikator" name="subindikator">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button onclick="form_submit()" class="btn btn-primary" type="submit">Save</button>
+  </div>
+
+  <!-- Modal Add -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Tatanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/api-v1/intern/create-tatanan" id="addTatanan">
+            <div class="mb-3">
+              <h6>Nama Tatanan</h6>
+              <input type="text" class="form-control" id="recipient-nama_tatanan" name="nama_tatanan">
+            </div>
+            <div class="mb-3">
+              <h6>Jenis Indikator</h6>
+              <input type="text" class="form-control" id="recipient-jenis" name="jenis_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Kategori</h6>
+              <input type="text" class="form-control" id="recipient-kategori" name="kategori">
+            </div>
+            <div class="mb-3">
+              <h6>Nama Indikator</h6>
+              <input type="text" class="form-control" id="recipient-nama_indikator" name="nama_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Sub Indikator</h6>
+              <input type="text" class="form-control" id="recipient-subindikator" name="subindikator">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="form_submit()" class="btn btn-primary" type="submit">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div>
+
+  <!-- Table -->
   <div>
     <div>
-            <table id="tabel_tatanan" class="table bg-light rounded shadow-sm  table-hover">
-                <thead>
-                    <tr>
-                        <th>Nama Tatanan</th>
-                        <th>Jenis Indikator</th>
-                        <th>Kategori</th>
-                        <th>Nama Indikator</th>
-                        <th>SubIndikator</th>
-                        <th>Aksi</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <ul class="pagination justify-content-center" style="margin:20px 0">
-            </ul>
-        </div>
-    </div>
-</div>
+      <div>
+              <table id="tabel_tatanan" class="table bg-light rounded shadow-sm  table-hover">
+                  <thead>
+                      <tr>
+                          <th>Nama Tatanan</th>
+                          <th>Jenis Indikator</th>
+                          <th>Kategori</th>
+                          <th>Nama Indikator</th>
+                          <th>SubIndikator</th>
+                          <th>Aksi</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+              <ul class="pagination justify-content-center" style="margin:20px 0">
+              </ul>
+          </div>
+      </div>
+  </div>
 
-<div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Tatanan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="#" id="editTatanan">
-          <div class="mb-3">
-            <h6>Nama Tatanan</h6>
-            <input type="text" class="form-control" id="recipient-nama_tatanan" name="get_nama_tatanan">
-          </div>
-          <div class="mb-3">
-            <h6>Jenis Indikator</h6>
-            <input type="text" class="form-control" id="recipient-jenis" name="get_jenis_indikator">
-          </div>
-          <div class="mb-3">
-            <h6>Kategori</h6>
-            <input type="text" class="form-control" id="recipient-kategori" name="get_kategori">
-          </div>
-          <div class="mb-3">
-            <h6>Nama Indikator</h6>
-            <input type="text" class="form-control" id="recipient-nama_indikator" name="get_nama_indikator">
-          </div>
-          <div class="mb-3">
-            <h6>Sub Indikator</h6>
-            <input type="text" class="form-control" id="recipient-subindikator" name="get_subindikator">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary" id="btn-submit-edit" type="submit">Save</button>
+  <!-- Modal Edit -->
+  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Tatanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="#" id="editTatanan">
+            <div class="mb-3">
+              <h6>Nama Tatanan</h6>
+              <input type="text" class="form-control" id="recipient-nama_tatanan" name="get_nama_tatanan">
+            </div>
+            <div class="mb-3">
+              <h6>Jenis Indikator</h6>
+              <input type="text" class="form-control" id="recipient-jenis" name="get_jenis_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Kategori</h6>
+              <input type="text" class="form-control" id="recipient-kategori" name="get_kategori">
+            </div>
+            <div class="mb-3">
+              <h6>Nama Indikator</h6>
+              <input type="text" class="form-control" id="recipient-nama_indikator" name="get_nama_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Sub Indikator</h6>
+              <input type="text" class="form-control" id="recipient-subindikator" name="get_subindikator">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="btn-submit-edit" type="submit">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Anda yakin ingin menghapus data ini?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-        <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Anda yakin ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+          <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+        </div>
       </div>
     </div>
   </div>
