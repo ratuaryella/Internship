@@ -10,7 +10,7 @@
           <h5 class="fw-bold">Tabel Dokumentasi Kegiatan</h5>
           <div class="search-adminitrasi">
             <div class="col">
-                <button style="margin-top: 10px; margin-bottom: 10px; margin-left: -12px;" type="button" class="btn btn-outline-primary" ><i class="far fa-plus-square"></i> Tambah Kegiatan</button>
+                <button style="margin-top: 10px; margin-bottom: 10px; margin-left: -12px;" type="button" class="btn btn-outline-primary" id="buttonKegiatanAdd" ><i class="far fa-plus-square"></i> Tambah Kegiatan</button>
                 </div>
             <style>
             label {
@@ -58,6 +58,80 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
         <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Kegiatan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/api-v1/intern/create-user">
+          <div class="row g-3">
+            <div class="col">
+            <h6>Longitude</h6>
+            <input type="text" class="form-control" id="recipient-longitude" readonly>
+          </div>
+          <div class="col">
+            <h6>Latitude</h6>
+            <select class="form-control" id="recipient-latitude" readonly>
+            </select>
+          </div>
+          </div><br>
+          <div class="row g-3">
+          <div class="col">
+            <h6>Nama Kegiatan</h6>
+            <input type="text" class="form-control" id="recipient-nama_kegiatan">
+          </div>
+          <div class="col">
+            <h6>Pelaksana</h6>
+            <input type="text" class="form-control" id="recipient-pelaksana">
+          </div>
+          </div><br>
+          <div class="row g-3">
+          <div class="col">
+            <h6>Nama Tatanan</h6>
+            <input type="text" class="form-control" >
+          </div>
+          <div class="col">
+            <h6>Jenis Indikator</h6>
+            <input type="text" class="form-control">
+          </div>
+          </div><br>
+          <div class="row g-3">
+          <div class="col">
+            <h6>Kategori</h6>
+            <input type="text" class="form-control">
+          </div>
+          <div class="col">
+            <h6>Nama Indikator</h6>
+            <input type="text" class="form-control">
+          </div>
+          </div><br>
+          <div class="row g-3">
+          <div class="col">
+            <h6>Sub Indikator</h6>
+            <input type="text" class="form-control">
+          </div>
+          <div class="col">
+            <h6>Tanggal</h6>
+            <input type="text" class="form-control">
+          </div>
+          </div><br>
+           <div class="mb-3">
+            <h6>Deskripsi</h6>
+            <textarea style="resize:none" name="deskripsi" class="form-control"></textarea>
+          </div>
+        </form>
+      </div>
+            <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button onclick="form_submit()" class="btn btn-green" type="submit">Edit</button>
       </div>
     </div>
   </div>
@@ -213,13 +287,13 @@
   })
   </script>
 
-<!--<script>
+  <script>
   $(document).ready(function(){
       function editRow(id){
       let edt_id = (typeof id !== 'undefined') ?  id : 1;
       $.ajax({
           type: "GET",
-          url: '/api-v1/intern/get-tatanan',
+          url: '/api-v1/intern/get-kegiatan',
           //headers: {
           //Authorization: 'Bearer ' + localStorage.getItem('token') },
           dataType: 'JSON',
@@ -233,14 +307,14 @@
               $.each(dataCoba, (i, value) => {
                 console.log(value, "ini tatanan id")
 
-                $("#modalEdit .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
-                $("#modalEdit .modal-body #recipient-jenis").val(value.jenis_indikator);
-                $("#modalEdit .modal-body #recipient-kategori").val(value.kategori);
-                $("#modalEdit .modal-body #recipient-nama_indikator").val(value.nama_indikator);
-                $("#modalEdit .modal-body #recipient-subindikator").val(value.subindikator);
+                // $("#editKegiatan .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
+                // $("#editKegiatan .modal-body #recipient-jenis").val(value.jenis_indikator);
+                // $("#editKegiatan .modal-body #recipient-kategori").val(value.kategori);
+                // $("#editKegiatan .modal-body #recipient-nama_indikator").val(value.nama_indikator);
+                // $("#editKegiatan .modal-body #recipient-subindikator").val(value.subindikator);
 
-                $("#modalEdit").modal();
-                $("#modalEdit").modal('show');  
+                // $("#modalEdit").modal();
+                $("#editKegiatan").modal('show');  
               })
           },
               error : function(e) {
@@ -298,4 +372,14 @@
         })
       })
   })
-  </script> -->
+  </script>
+
+<script>
+	$(document).ready(function(){
+		$("body").on("click", "#buttonKegiatanAdd", function(e){  
+			e.preventDefault();
+			window.location.replace("/addkegiatan-petugas"); 
+		})
+	})
+  
+</script>

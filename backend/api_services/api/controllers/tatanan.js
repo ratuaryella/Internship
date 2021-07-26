@@ -304,6 +304,238 @@ else {
     }
 };
 
+//Get by Nama Tatanan (No Paging)
+const getNamaTatanan = (req, res, next) => {
+
+    try{
+
+    const nama_tatanan = req.query.nama_tatanan;
+    const jenis_indikator = req.query.jenis_indikator;
+    const kategori = req.query.kategori;
+    const nama_indikator = req.query.nama_indikator;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    TatananServices.getNamaTatanan(nama_tatanan)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                nama_tatanan: doc.nama_tatanan,
+                                jenis_indikator: doc.jenis_indikator,
+                                kategori: doc.kategori,
+                                nama_indikator: doc.nama_indikator,
+                                subindikator: doc.subindikator,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Tatanan/getAllTatanan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
+//Get by Nama Tatanan (No Paging)
+const getNamaJenisTatanan = (req, res, next) => {
+
+    try{
+
+    const nama_tatanan = req.query.nama_tatanan;
+    const jenis_indikator = req.query.jenis_indikator;
+    const kategori = req.query.kategori;
+    const nama_indikator = req.query.nama_indikator;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    TatananServices.getNamaJenisTatanan(nama_tatanan, jenis_indikator)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                nama_tatanan: doc.nama_tatanan,
+                                jenis_indikator: doc.jenis_indikator,
+                                kategori: doc.kategori,
+                                nama_indikator: doc.nama_indikator,
+                                subindikator: doc.subindikator,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Tatanan/getAllTatanan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
+//Get by Nama Tatanan (No Paging)
+const getNamaJenisKategori = (req, res, next) => {
+
+    try{
+
+    const nama_tatanan = req.query.nama_tatanan;
+    const jenis_indikator = req.query.jenis_indikator;
+    const kategori = req.query.kategori;
+    const nama_indikator = req.query.nama_indikator;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    TatananServices.getNamaJenisKategori(nama_tatanan, jenis_indikator, kategori)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                nama_tatanan: doc.nama_tatanan,
+                                jenis_indikator: doc.jenis_indikator,
+                                kategori: doc.kategori,
+                                nama_indikator: doc.nama_indikator,
+                                subindikator: doc.subindikator,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Tatanan/getAllTatanan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
+//Get by Nama Tatanan (No Paging)
+const getNamaJenisKategoriIndikator = (req, res, next) => {
+
+    try{
+
+    const nama_tatanan = req.query.nama_tatanan;
+    const jenis_indikator = req.query.jenis_indikator;
+    const kategori = req.query.kategori;
+    const nama_indikator = req.query.nama_indikator;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    TatananServices.getNamaJenisKategoriIndikator(nama_tatanan, jenis_indikator, kategori, nama_indikator)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                nama_tatanan: doc.nama_tatanan,
+                                jenis_indikator: doc.jenis_indikator,
+                                kategori: doc.kategori,
+                                nama_indikator: doc.nama_indikator,
+                                subindikator: doc.subindikator,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Tatanan/getAllTatanan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
 
 module.exports = {
     createTatanan,
@@ -311,5 +543,9 @@ module.exports = {
     getTatanan,
     updateTatanan,
     deleteTatanan,
-    getAllTatanan
+    getAllTatanan,
+    getNamaTatanan,
+    getNamaJenisTatanan,
+    getNamaJenisKategori,
+    getNamaJenisKategoriIndikator
 }

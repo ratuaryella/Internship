@@ -37,6 +37,62 @@ const getFullTatanan = (req, res) => {
     })
 }
 
+const getTatananNama = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchTatanan.getTatananNama(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const getNamaJenis = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchTatanan.getNamaJenis(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const getNamaJenisKategori = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchTatanan.getNamaJenisKategori(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const getNamaJenisKategoriIndikator = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchTatanan.getNamaJenisKategoriIndikator(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 const createTatanan = (req, res) => {
     const statusCode = [200, 201, 400, 401, 403, 404, 500];
     return fetchTatanan.createTatanan(req)
@@ -99,5 +155,9 @@ module.exports = {
   deleteTatanan,
   getTatananById,
   editTatanan,
-  getFullTatanan
+  getFullTatanan,
+  getTatananNama,
+  getNamaJenis,
+  getNamaJenisKategori,
+  getNamaJenisKategoriIndikator
 }

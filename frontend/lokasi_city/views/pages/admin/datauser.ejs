@@ -123,8 +123,7 @@
           </div>
           <div class="col">
             <h6>Role</h6>
-            <select class="form-control" id="role-dropdown" name="get_id_role" readonly>
-            </select>
+            <input type="text" class="form-control" id="recipient-role" name="get_id_role" readonly>
           </div>
           </div><br>
           <div class="row g-3">
@@ -330,13 +329,6 @@
                   let roles = value.id
                   $('#role-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');   
           });
-
-              $.each(dataCoba, (i, value) => {
-                  console.log(value, "ini value roles")
-                  let roles = value.id
-                  $("#modalEdit .modal-body #recipient-role").append('<option value="' + value.id + '">' + value.name + '</option>');
-
-            });
         },
               error : function(e) {
                 alert("ERROR: ", e);
@@ -420,6 +412,7 @@
                 $("#modalEdit .modal-body #recipient-lastname").val(value.lastname);
                 $("#modalEdit .modal-body #recipient-mobile").val(value.mobile_number);
                 $("#modalEdit .modal-body #recipient-email").val(value.email);
+                $("#modalEdit .modal-body #recipient-role").val(value.role.name);
                 $("#modalEdit .modal-body #recipient-prov").val(value.kode_wilayah.kode_prov);
                 $("#modalEdit .modal-body #recipient-kabkot").val(value.kode_wilayah.kode_kabkot);
                 $("#modalEdit .modal-body #recipient-kec").val(value.kode_wilayah.kode_kec);

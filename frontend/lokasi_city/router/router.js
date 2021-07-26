@@ -31,6 +31,10 @@ router.get('/tatanan', isAuthorization, tatananController.index);
 
 router.get('/api-v1/intern/get-all-tatanan', isAuthorization, tatananController.getAllTatanan);
 router.get('/api-v1/intern/get-full-tatanan', isAuthorization, tatananController.getFullTatanan);
+router.get('/api-v1/intern/get-tatanan-nama', isAuthorization, tatananController.getTatananNama);
+router.get('/api-v1/intern/get-tatanan-nama-jenis', isAuthorization, tatananController.getNamaJenis);
+router.get('/api-v1/intern/get-tatanan-nama-jenis-kategori', isAuthorization, tatananController.getNamaJenisKategori);
+router.get('/api-v1/intern/get-tatanan-nama-jenis-kategori-indikator', isAuthorization, tatananController.getNamaJenisKategoriIndikator);
 router.post('/api-v1/intern/create-tatanan', isAuthorization, tatananController.createTatanan);
 router.patch('/api-v1/intern/delete-tatanan', isAuthorization, tatananController.deleteTatanan);
 router.get('/api-v1/intern/get-tatanan', isAuthorization, tatananController.getTatananById);

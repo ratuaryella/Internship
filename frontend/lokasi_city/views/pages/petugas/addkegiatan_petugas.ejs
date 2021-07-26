@@ -51,6 +51,13 @@
                   <input type="text" id="latitude" class="form-control">
                 </div>
                 </div>
+                <br>
+                  <div class="row g-3">
+                  <div style="margin-top: 5px;" class="col">
+                    <h6>Alamat</h6>
+                    <textarea style="resize:none" id="alamat" name="alamat" class="form-control"></textarea>
+                  </div>
+                  </div>
                 <div style="margin-top: 2px;" class="row g-3">
                   <div class="col">
                     <h6>Nama Kegiatan</h6>
@@ -64,8 +71,8 @@
                 <div style="margin-top: 2px;" class="row g-3">
                 <div class="col">
                   <h6>Nama Tatanan</h6>
-                  <select name="nama-kegiatan" id="nama-kegiatan" class="selectpicker form-control" id="select-nama-tatanan" data-live-search="true">
-                    <option value="">Pilih Tatanan</option>
+                  <select name="nama-tatanan" class="selectpicker form-control" id="select-nama-tatanan" data-live-search="true">
+                    <option value="">Nama Tatanan</option>
                   </select>
                 </div>
                 <div class="col">
@@ -78,33 +85,18 @@
                 <div class="col">
                   <h6>Kategori</h6>
                   <select name="kategori" class="selectpicker form-control" id="select-kategori" data-live-search="true">
-                    <option>--Pilih Kategori--</option>
-                      <option>Kawasan Permukiman Sarana dan Prasarana Sehat</option>
-                      <option>Kawasan Tertib Lalu Lintas dan Pelayan-an Transportasi</option>
-                      <option>.....</option>
-                      <option>.....</option>
                     </select>
                 </div>
                 <div class="col">
                     <h6>Nama Indikator</h6>
-                    <select name="sub indikator" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
-                        <option>--Pilih Sub Indikator--</option>
-                          <option>Memenuhi standar ISPU</option>
-                          <option>Kendaraan bermotor memenuhi   syarat emisi</option>
-                          <option>Terlarang membuang sampah ke   sungai</option>
-                          <option>Meningkatnya cakupan penggunaan   air bersih</option>
+                    <select name="sub indikator" class="selectpicker form-control" id="select-indikator" data-live-search="true">
                         </select>
                   </div>
                   </div>
                   <div style="margin-top: 2px;" class="row g-3">
                     <div class="col">
                       <h6>Subindikator</h6>
-                      <select name="kategori" class="selectpicker form-control" id="select-kategori" data-live-search="true">
-                        <option>--Pilih Kategori--</option>
-                          <option>Kawasan Permukiman Sarana dan Prasarana Sehat</option>
-                          <option>Kawasan Tertib Lalu Lintas dan Pelayan-an Transportasi</option>
-                          <option>.....</option>
-                          <option>.....</option>
+                      <select name="kategori" class="selectpicker form-control" id="select-subindikator" data-live-search="true">
                         </select>
                     </div>
                     <div class="col">
@@ -116,7 +108,7 @@
                   <div class="row g-3">
                   <div style="margin-top: 5px;" class="col">
                     <h6>Deskripsi</h6>
-                    <textarea style="resize:none" name="deskripsi" class="form-control"></textarea>
+                    <textarea style="resize:none" id="deskripsi" name="deskripsi" class="form-control"></textarea>
                   </div>
                   </div>
                   <br>
@@ -156,6 +148,15 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
     }).addTo(mapCity);
+
+    function simpleReverseGeocoding(lon, lat) {
+        fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat).then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          marker.bindPopup(json.display_name).openPopup();
+          document.getElementById('alamat').value = json.display_name;
+        })
+      }
   
     function onMapClick(e) {
       mapCity.off('click', onMapClick);
@@ -165,12 +166,12 @@
         var position = marker.getLatLng();
         marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
         mapCity.panTo(new L.LatLng(position.lat, position.lng));
-        marker.bindPopup('LatLng: ' + marker.getLatLng()).openPopup();
+        simpleReverseGeocoding(position.lng, position.lat);
+        document.getElementById('latitude').value = marker.getLatLng().lat;
+        document.getElementById('longitude').value = marker.getLatLng().lng;
+        
       });
-      marker.on('dragend', function (e) {
-      document.getElementById('latitude').value = marker.getLatLng().lat;
-      document.getElementById('longitude').value = marker.getLatLng().lng;
-      });
+
       mapCity.addLayer(marker);
   
     };
@@ -180,7 +181,7 @@
   });
 </script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function(){
       $.ajax({
           type: "GET",
@@ -196,9 +197,6 @@
               $('#select-nama-tatanan').empty();
               $('#select-nama-tatanan').append('<option selected="true" disabled>Nama Tatanan</option>');
               $('#select-nama-tatanan').prop('selectedIndex', 0);
-              $('#select-jenis-indikator').empty();
-              $('#select-jenis-indikator').append('<option selected="true" disabled>Jenis Indikator</option>');
-              $('#select-jenis-indikator').prop('selectedIndex', 0);
               
              // add table rows
              var itemsAdded1=[];
@@ -212,15 +210,41 @@
                   }
                     
           });
+        },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+          })
+  })
+</script>
 
-          // add table rows
-              var itemsAdded2=[];
-                $.each(dataCoba, (i, value) => {
-                  console.log(value, "ini value tatanan")
+<script>
+$(document).ready(function(){
+    $('#select-nama-tatanan').on('change', function(){
+        var nama_tatanan = $(this).val();
+        if(nama_tatanan){
+          $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan-nama?nama_tatanan='+nama_tatanan,
+          dataType: 'JSON',
+          success: function(data) {
+              // console.log(data, "ini data tatanan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#select-jenis-indikator').empty();
+              $('#select-jenis-indikator').prop('selectedIndex', 0);
+              $('#select-jenis-indikator').append('<option selected="true" disabled>Jenis Indikator</option>');
+              
+             // add table rows
+             var itemsAdded1=[];
+              $.each(dataCoba, (i, value) => {
+                  // console.log(value, "ini value tatanan")
                   let jenis_indikator = value.jenis_indikator
                   
-                  if($.inArray(jenis_indikator, itemsAdded2)===-1) 
-                  { itemsAdded2.push(jenis_indikator);
+                  if($.inArray(jenis_indikator, itemsAdded1)===-1) 
+                  { itemsAdded1.push(jenis_indikator);
                     $('#select-jenis-indikator').append('<option value="' + jenis_indikator + '">' + jenis_indikator + '</option>'); 
                   }
                     
@@ -231,9 +255,130 @@
                 console.log("ERROR: ", e);
               }
           })
+        }
+    });
+    
+    $('#select-jenis-indikator').on('change', function(){
+        var nama_tatanan = $("#select-nama-tatanan").val();
+        var jenis_indikator= $(this).val();
+        if(nama_tatanan){
+          $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan-nama-jenis?nama_tatanan='+nama_tatanan+'&jenis_indikator='+jenis_indikator,
+          dataType: 'JSON',
+          success: function(data) {
+              // console.log(data, "ini data tatanan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#select-kategori').empty();
+              $('#select-kategori').prop('selectedIndex', 0);
+              $('#select-kategori').append('<option selected="true" disabled>Kategori</option>');
+              
+             // add table rows
+             var itemsAdded1=[];
+              $.each(dataCoba, (i, value) => {
+                  // console.log(value, "ini value tatanan")
+                  let kategori = value.kategori
+                  
+                  if($.inArray(kategori, itemsAdded1)===-1) 
+                  { itemsAdded1.push(kategori);
+                    $('#select-kategori').append('<option value="' + kategori + '">' + kategori + '</option>'); 
+                  }
+                    
+          });
+        },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+          })
+        }
+    });
+
+    $('#select-kategori').on('change', function(){
+        var nama_tatanan = $("#select-nama-tatanan").val();
+        var jenis_indikator = $("#select-jenis-indikator").val();
+        var kategori = $(this).val();
+        if(nama_tatanan){
+          $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan-nama-jenis-kategori?nama_tatanan='+nama_tatanan+'&jenis_indikator='+jenis_indikator+'&kategori='+kategori,
+          dataType: 'JSON',
+          success: function(data) {
+              // console.log(data, "ini data tatanan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#select-indikator').empty();
+              $('#select-indikator').prop('selectedIndex', 0);
+              $('#select-indikator').append('<option selected="true" disabled>Nama Indikator</option>');
+              
+             // add table rows
+             var itemsAdded1=[];
+              $.each(dataCoba, (i, value) => {
+                  // console.log(value, "ini value tatanan")
+                  let indikator = value.nama_indikator
+                  
+                  if($.inArray(indikator, itemsAdded1)===-1) 
+                  { itemsAdded1.push(indikator);
+                    $('#select-indikator').append('<option value="' + indikator + '">' + indikator + '</option>'); 
+                  }
+                    
+          });
+        },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+          })
+        }
+    });
+
+    $('#select-indikator').on('change', function(){
+        var nama_tatanan = $("#select-nama-tatanan").val();
+        var jenis_indikator = $("#select-jenis-indikator").val();
+        var kategori = $("#select-kategori").val();
+        var indikator = $(this).val();
+        if(nama_tatanan){
+          $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan-nama-jenis-kategori-indikator?nama_tatanan='+nama_tatanan
+          +'&jenis_indikator='+jenis_indikator+'&kategori='+kategori+'&nama_indikator='+indikator,
+          dataType: 'JSON',
+          success: function(data) {
+              // console.log(data, "ini data tatanan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#select-subindikator').empty();
+              $('#select-subindikator').prop('selectedIndex', 0);
+              $('#select-subindikator').append('<option selected="true" disabled>Nama Indikator</option>');
+              
+             // add table rows
+             var itemsAdded1=[];
+              $.each(dataCoba, (i, value) => {
+                  // console.log(value, "ini value tatanan")
+                  let subindikator = value.subindikator
+                  
+                  if($.inArray(subindikator, itemsAdded1)===-1) 
+                  { itemsAdded1.push(subindikator);
+                    $('#select-subindikator').append('<option value="' + subindikator + '">' + subindikator + '</option>'); 
+                  }
+                    
+          });
+        },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+          })
+        }
+    });
   })
-  </script> -->
-  <script type="text/javascript">
+  </script>
+  
+  <!-- <script type="text/javascript">
     function form_submit() {
       document.getElementById("addUser").submit();
       swal("Data ditambahkan", "Anda telah berhasil menambah data tatanan!", "success")
@@ -288,4 +433,4 @@
    });
    
   });
-  </script>
+  </script> -->
