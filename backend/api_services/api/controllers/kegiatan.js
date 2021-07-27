@@ -362,6 +362,62 @@ else {
     }
 };
 
+//Create Kegiatan (Tanpa Gambar)
+const createKegiatanNon = async (req, res, next) => {
+    const currentDate = getCurrentDate();
+
+    try{
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+
+    const dataKegiatanNon = {
+        id_tatanan: "",
+        nama_kegiatan: req.body.nama_kegiatan,
+        nama_tatanan: req.body.nama_tatanan,
+        jenis_indikator: req.body.jenis_indikator,
+        kategori: req.body.kategori,
+        nama_indikator: req.body.nama_indikator,
+        subindikator: req.body.subindikator,
+        pelaksana: req.body.pelaksana,
+        tanggal_kegiatan: req.body.tanggal_kegiatan,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        deskripsi: req.body.deskripsi,
+        alamat: req.body.alamat,
+        created_at: currentDate.dateAsiaJakarta,
+        created_by: req.userData.id
+    }
+
+    KegiatanServices.createKegiatanNon(dataKegiatanNon)
+    .then(() => {
+        res.status(201).json({
+            status: 'Created',
+            message: 'Successfully Created Kegiatan',
+            dataKegiatan: dataKegiatanNon,
+            request: {
+                type: "POST",
+                url: "/Kegiatan/create-Kegiatan"
+            }
+        }); 
+    })
+    .catch(err => {
+        res.status(500).json({
+            error : err
+        });
+    });
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
 
 
 module.exports = {
@@ -372,5 +428,6 @@ module.exports = {
     deleteKegiatan,
     uploadImg,
     downloadFiles,
-    getAllKegiatan
+    getAllKegiatan,
+    createKegiatanNon
 }

@@ -90,11 +90,40 @@ const getAllKegiatan = (req) => {
     });
 }
 
+// Create Kegiatan
+const createKegiatanNon = (dataKegiatanNon) => {
+    return Tatanan.findOne({
+            raw: true,
+            where: {
+            nama_tatanan: dataKegiatanNon.nama_tatanan,
+            jenis_indikator: dataKegiatanNon.jenis_indikator,
+            kategori: dataKegiatanNon.kategori,
+            nama_indikator: dataKegiatanNon.nama_indikator,
+            subindikator: dataKegiatanNon.subindikator
+        },
+        attributes: ['id']
+    })
+        .then((data)=> {
+            dataKegiatanNon.id_tatanan = Object.values(data);
+            return Kegiatan.create(dataKegiatanNon)
+            .then(docs => {
+                return {
+                docs: docs,
+            }
+        })
+
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
 module.exports = {
     createKegiatan,
     getKegiatan,
     getKegiatanById,
     updateKegiatan,
     deleteKegiatan,
-    getAllKegiatan
+    getAllKegiatan,
+    createKegiatanNon
 }

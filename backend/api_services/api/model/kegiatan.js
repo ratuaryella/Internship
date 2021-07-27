@@ -49,6 +49,9 @@ module.exports = (sequelize, type) => {
     deskripsi: {
         type: type.STRING
       },
+    alamat: {
+        type: type.STRING
+      },
     gambar: {
         type: type.STRING
       },
