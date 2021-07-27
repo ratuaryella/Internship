@@ -67,7 +67,7 @@ section .imgBx img{
     top: 0;
     left: 0;
     width: 109%;
-    height: 109%;
+    height: 109vh;
     object-fit: cover;
 }
 
