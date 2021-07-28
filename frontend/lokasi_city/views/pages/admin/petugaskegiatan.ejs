@@ -162,7 +162,7 @@
                                       '<td>' + value.nama_kegiatan + '</td>' +
                                       '<td>' + value.tanggal_kegiatan + '</td>' +
                                       '<td>' + value.pelaksana + '</td>' +
-                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id= ' + value.id + '><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_kegiatan tbody').append(kegiatanRow);
             });
@@ -283,100 +283,3 @@
       })
   })
   </script>
-
-  <script>
-  $(document).ready(function(){
-      function editRow(id){
-      let edt_id = (typeof id !== 'undefined') ?  id : 1;
-      $.ajax({
-          type: "GET",
-          url: '/api-v1/intern/get-kegiatan',
-          //headers: {
-          //Authorization: 'Bearer ' + localStorage.getItem('token') },
-          dataType: 'JSON',
-          data: { 
-              id: edt_id
-          },
-          success: function(data) {
-              console.log(data, "ini data tatanan id")
-              let dataCoba = data.data.data;
-
-              $.each(dataCoba, (i, value) => {
-                console.log(value, "ini tatanan id")
-
-                // $("#editKegiatan .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
-                // $("#editKegiatan .modal-body #recipient-jenis").val(value.jenis_indikator);
-                // $("#editKegiatan .modal-body #recipient-kategori").val(value.kategori);
-                // $("#editKegiatan .modal-body #recipient-nama_indikator").val(value.nama_indikator);
-                // $("#editKegiatan .modal-body #recipient-subindikator").val(value.subindikator);
-
-                // $("#modalEdit").modal();
-                $("#editKegiatan").modal('show');  
-              })
-          },
-              error : function(e) {
-                alert("ERROR: ", e);
-                console.log("ERROR: ", e);
-              }
-        })
-      
-      }
-
-      function saveEdit(id){
-      let edt_id = (typeof id !== 'undefined') ?  id : 1;
-      let nama_tatanan = $("input[name='get_nama_tatanan']").val();
-      let jenis_indikator = $("input[name='get_jenis_indikator']").val();
-      let kategori = $("input[name='get_kategori']").val();
-      let nama_indikator = $("input[name='get_nama_indikator']").val();
-      let subindikator = $("input[name='get_submindikator']").val();
-
-      $.ajax({
-      type: "PATCH",
-      url: "/api-v1/intern/update-tatanan?id=" + id,
-      dataType: 'JSON',
-          data: { 
-          id: edt_id,
-          nama_tatanan: nama_tatanan,
-          jenis_indikator: jenis_indikator,
-          kategori: kategori,
-          nama_indikator: nama_indikator,
-          subindikator: subindikator,
-        },
-      success: function(data){
-        swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
-        .then(function(){ 
-          location.reload();
-          }
-        );
-      },
-        error : function(e) {
-          alert("ERROR: ", e);
-          console.log("ERROR: ", e);
-          location.reload()
-        }
-        })
-      
-    }
-
-      $("body").on("click", "#btn-edit", function(){  
-        let edt = $(this).attr('data-id');
-        let edit_int = parseInt(edt);
-
-        editRow(edit_int);
-
-        $("#modalEdit .modal-footer").on("click", "#btn-submit-edit", function(){   
-        saveEdit(edit_int);
-        })
-      })
-  })
-  </script>
-
-<script>
-	$(document).ready(function(){
-		$("body").on("click", "#buttonKegiatanAdd", function(e){  
-			e.preventDefault();
-			window.location.replace("/addkegiatan-petugas"); 
-		})
-	})
-  
-</script>

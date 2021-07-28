@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const { Kegiatan, Tatanan } = require('../../sequelize');
+const { User } = require('../../../api_authentication/sequelize');
 const paginator = require('../helper/pagination');
-var stream = require('stream');
 
 // Get All Kegiatan
 const getKegiatan = (req) => {
@@ -118,6 +118,41 @@ const createKegiatanNon = (dataKegiatanNon) => {
     })
 }
 
+//Get Kegiatan by Role
+const getKegiatanByRole = (role, req, res) => {
+    const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
+    const limit = pagination.limit;
+    const offset = pagination.offset;
+    return User.findAll({
+        raw: true,
+        where: {
+        id_role: role
+    },
+    attributes: ['id']
+    })
+        .then((data)=> {
+            console.log(data)
+            return Kegiatan.findAll({
+                where: {
+                created_by: Object.values(data),
+                deleted_at: null
+            },
+            limit, 
+            offset,
+            order: [['created_at', 'DESC']]
+            })
+            .then(docs => {
+                return {
+                data: docs,
+                pagination: pagination
+                }
+            })
+        })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
 module.exports = {
     createKegiatan,
     getKegiatan,
@@ -125,5 +160,6 @@ module.exports = {
     updateKegiatan,
     deleteKegiatan,
     getAllKegiatan,
-    createKegiatanNon
+    createKegiatanNon,
+    getKegiatanByRole
 }

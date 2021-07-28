@@ -5,7 +5,7 @@
 #map-city {
   position: relative;
   z-index: 1;
-  height: 85vh;
+  height: 80vh;
   border-radius: 20px;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.4);
 }

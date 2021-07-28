@@ -57,8 +57,13 @@ router.get('/image-kegiatan', isAuthorization, (req, res) => {
     res.render('./pages/admin/gambar');
 });
 
-router.get('/kegiatan-rolepetugas', isAuthorization, (req, res) => {
-    res.render('./pages/admin/petugaskegiatan');
+router.get('/petugas-kegiatan', isAuthorization, (req, res) => {
+    let param = {
+        active: 'kegiatan',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/admin/petugaskegiatan', param);
 });
 router.get('/kegiatan-umum', isAuthorization, (req, res) => {
     let param = {

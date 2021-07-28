@@ -17,6 +17,7 @@ router.post('/create-kegiatan', checkAuth, KegiatanController.uploadImg.single("
 router.post('/create-kegiatan-non', checkAuth, KegiatanController.createKegiatanNon);
 router.get('/get-all-kegiatan', checkAuth, KegiatanController.getKegiatan);
 router.get('/get-full-kegiatan', checkAuth, KegiatanController.getAllKegiatan);
+router.get('/get-role-kegiatan', checkAuth, KegiatanController.getKegiatanByRole);
 router.get('/get-kegiatan', checkAuth, KegiatanController.getKegiatanById);
 router.get('/kegiatan', KegiatanController.downloadFiles)
 router.patch('/delete-kegiatan', checkAuth, KegiatanController.deleteKegiatan);
