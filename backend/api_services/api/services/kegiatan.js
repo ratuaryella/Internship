@@ -1,10 +1,11 @@
 const { Op } = require('sequelize');
 const { Kegiatan, Tatanan } = require('../../sequelize');
+const { User } = require('../../../api_authentication/sequelize');
 const paginator = require('../helper/pagination');
 
 // Get All Kegiatan
 const getKegiatan = (req) => {
-    const pagination = paginator(req.query.page, 10); // set 1 page = 10 length data
+    const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
     const limit = pagination.limit;
     const offset = pagination.offset;
     return Kegiatan.findAndCountAll({
@@ -21,14 +22,15 @@ const getKegiatan = (req) => {
 }
 
 // Get Kegiatan by Id
-const getKegiatanById = (id) => {
+const getKegiatanById = (id, req, res) => {
     return Kegiatan.findAll({
         where: {
             id: id,
             deleted_at: null
         },
         limit: 1,
-      }).then(docs => {
+      })
+      .then(docs => {
         return docs;
     });
 }
@@ -36,11 +38,18 @@ const getKegiatanById = (id) => {
 // Create Kegiatan
 const createKegiatan = (dataKegiatan) => {
     return Tatanan.findOne({
-        where: {
-            id: dataKegiatan.id_tatanan
-        }
+            raw: true,
+            where: {
+            nama_tatanan: dataKegiatan.nama_tatanan,
+            jenis_indikator: dataKegiatan.jenis_indikator,
+            kategori: dataKegiatan.kategori,
+            nama_indikator: dataKegiatan.nama_indikator,
+            subindikator: dataKegiatan.subindikator
+        },
+        attributes: ['id']
     })
-        .then(()=> {
+        .then((data)=> {
+            dataKegiatan.id_tatanan = Object.values(data);
             return Kegiatan.create(dataKegiatan)
             .then(docs => {
                 return {
@@ -53,6 +62,7 @@ const createKegiatan = (dataKegiatan) => {
         console.log(error);
     })
 }
+
 
 // Update Kegiatan
 const updateKegiatan = (id, updateKegiatan) => {
@@ -68,10 +78,73 @@ const deleteKegiatan = (id, deleteKegiatan) => {
     });
 }
 
+// Get All Kegiatan (No Paging)
+const getAllKegiatan = (req) => {
+    return Kegiatan.findAndCountAll({
+        where: { deleted_at: null },
+        order: [['created_at', 'DESC']]
+    }).then(docs => {
+        return {
+            data: docs
+        }
+    });
+}
+
+// Create Kegiatan
+const createKegiatanNon = (dataKegiatanNon) => {
+    return Tatanan.findOne({
+            raw: true,
+            where: {
+            nama_tatanan: dataKegiatanNon.nama_tatanan,
+            jenis_indikator: dataKegiatanNon.jenis_indikator,
+            kategori: dataKegiatanNon.kategori,
+            nama_indikator: dataKegiatanNon.nama_indikator,
+            subindikator: dataKegiatanNon.subindikator
+        },
+        attributes: ['id']
+    })
+        .then((data)=> {
+            dataKegiatanNon.id_tatanan = Object.values(data);
+            return Kegiatan.create(dataKegiatanNon)
+            .then(docs => {
+                return {
+                docs: docs,
+            }
+        })
+
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+//Get Kegiatan by Role
+const getKegiatanByRole = (role, req) => {
+    const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
+    const limit = pagination.limit;
+    const offset = pagination.offset;
+    return Kegiatan.findAndCountAll({
+        where: { 
+            creator_role: role,
+            deleted_at: null },
+        limit, 
+        offset,
+        order: [['created_at', 'DESC']]
+    }).then(docs => {
+        return {
+            data: docs,
+            pagination: pagination
+        }
+    });
+}
+
 module.exports = {
     createKegiatan,
     getKegiatan,
     getKegiatanById,
     updateKegiatan,
-    deleteKegiatan
+    deleteKegiatan,
+    getAllKegiatan,
+    createKegiatanNon,
+    getKegiatanByRole
 }

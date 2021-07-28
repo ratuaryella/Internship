@@ -49,8 +49,11 @@ module.exports = (sequelize, type) => {
     deskripsi: {
         type: type.STRING
       },
+    alamat: {
+        type: type.STRING
+      },
     gambar: {
-        type: type.BLOB
+        type: type.STRING
       },
     created_at: {
         type: 'TIMESTAMP',
@@ -68,6 +71,7 @@ module.exports = (sequelize, type) => {
         allowNull: true,
       },
       created_by: type.INTEGER,
+      creator_role: type.INTEGER,
       updated_by: type.INTEGER,
       deleted_by: type.INTEGER
 

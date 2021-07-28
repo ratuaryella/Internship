@@ -58,6 +58,7 @@ const doLogin = (req, res, next) => {
                 const response = {
                     message: 'Auth Successfully',
                     username: user.username,
+                    role: user.role,
                     token: token,
                     request: {
                         type: 'POST',
@@ -141,6 +142,7 @@ const createUser = async (req, res, next) => {
                 id_role: req.body.id_role,
                 email: req.body.email,
                 password: req.body.password,
+                password_confirmation: req.body.password_confirmation,
                 username: req.body.username,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
@@ -230,6 +232,8 @@ const getAllUser = (req, res, next) => {
                         total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
+                        currentPage: docs.pagination.currentPage,
+                        totalPages: Math.ceil(docs.data.count / 10),
                         results: docs.data.rows.map((doc) => {
                             return {
                                 id: doc.id,

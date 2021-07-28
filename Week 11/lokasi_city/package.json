@@ -1,0 +1,32 @@
+{
+  "name": "lokasi_city",
+  "version": "1.0.0",
+  "description": "Lokasi City",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Lokasi",
+    "City"
+  ],
+  "author": "Intern Del 2021",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "leaflet": "^1.7.1",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

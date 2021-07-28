@@ -5,6 +5,18 @@ const config = require('../../config/config');
 const jwt = require('jsonwebtoken');
 const globalVariable = require('../helper/globalVarible');
 const { Tatanan } = require('../../sequelize');
+const multer = require('multer');
+const URL = "http://localhost:8083/kegiatan?name=";
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../api_services/api/uploads');
+      },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+var uploadImg = multer({storage: storage});
 
 //Create Kegiatan
 const createKegiatan = async (req, res, next) => {
@@ -12,10 +24,10 @@ const createKegiatan = async (req, res, next) => {
 
     try{
     
-    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
 
     const dataKegiatan = {
-        id_tatanan: req.body.id_tatanan,
+        id_tatanan: "",
         nama_kegiatan: req.body.nama_kegiatan,
         nama_tatanan: req.body.nama_tatanan,
         jenis_indikator: req.body.jenis_indikator,
@@ -27,9 +39,10 @@ const createKegiatan = async (req, res, next) => {
         longitude: req.body.longitude,
         latitude: req.body.latitude,
         deskripsi: req.body.deskripsi,
-        gambar: req.body.gambar,
         created_at: currentDate.dateAsiaJakarta,
-        created_by: req.userData.id
+        created_by: req.userData.id,
+        creator_role: req.userData.role.id,
+        gambar: URL + req.file.filename,
     }
 
     KegiatanServices.createKegiatan(dataKegiatan)
@@ -67,21 +80,26 @@ const getKegiatan = (req, res, next) => {
 
     try{
     
-    if (req.userData.role.id == globalVariable.ROLE_ADMIN || globalVariable.ROLE_USER) {
+
     KegiatanServices.getKegiatan(req)
     .then(docs => {
         if (docs.data.rows.length > 0) {
             const response = {
-                total: docs.data.count,
+                        total: docs.data.count,
                         nextPage: docs.pagination.nextPage,
                         prevPage: docs.pagination.prevPage,
+                        currentPage: docs.pagination.currentPage,
+                        totalPages: Math.ceil(docs.data.count / 5),
                         results: docs.data.rows.map((doc) => {
                             return {
+                                id: doc.id,
                                 nama_kegiatan: doc.nama_kegiatan,
-                                nama_tatanan: doc.nama_tatanan,
-                                jenis_indikator: doc.jenis_indikator,
                                 pelaksana: doc.pelaksana,
                                 tanggal_kegiatan: doc.tanggal_kegiatan,
+                                gambar: doc.gambar,
+                                deskripsi: doc.deskripsi,
+                                longitude: doc.longitude,
+                                latitude: doc.latitude,
                                 created_at: doc.created_at,
                                 created_by: doc.created_by
                             };
@@ -105,13 +123,6 @@ const getKegiatan = (req, res, next) => {
         })
     })
 }
-else {
-    return res.status(403).json({
-        status: 'Forbidden',
-        message: 'Only registered users can access!'
-        });
-        }
-    }
     catch(err) {
     next(err);
     }
@@ -123,7 +134,7 @@ const updateKegiatan = async (req, res, next) => {
       const currentDate = getCurrentDate();
       const id = req.query.id;
   
-      if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER) {
+      if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
 
       let detailKegiatan = await KegiatanServices.getKegiatanById(id);
       if (detailKegiatan.length > 0) {
@@ -141,7 +152,6 @@ const updateKegiatan = async (req, res, next) => {
           longitude: req.body.longitude,
           latitude: req.body.latitude,
           deskripsi: req.body.deskripsi,
-          gambar: req.body.gambar,
           updated_at: currentDate.dateAsiaJakarta,
           updated_by: req.userData.id
         };
@@ -221,7 +231,6 @@ const getKegiatanById = (req, res, next) => {
   
   try {
 
-  if (req.userData.id == id || req.userData.role.id == globalVariable.ROLE_ADMIN) {
   KegiatanServices.getKegiatanById(id)
   .then(docs => {
       if (docs.length > 0) {
@@ -241,11 +250,12 @@ const getKegiatanById = (req, res, next) => {
                     longitude: doc.longitude,
                     latitude: doc.latitude,
                     deskripsi: doc.deskripsi,
-                    gambar: doc.gambar,
+                    alamat: doc.alamat,
                     pelaksana: doc.pelaksana,
                     tanggal_kegiatan: doc.tanggal_kegiatan,
                     created_at: doc.created_at,
                     created_by: doc.created_by,
+                    gambar: doc.gambar,
 
                 }
             }),
@@ -263,22 +273,195 @@ const getKegiatanById = (req, res, next) => {
       }
   })
 }
-else {
-    return res.status(403).json({
-        status: 'Forbidden',
-        message: 'Only registered users can access!'
-    });
-}
-}
 catch(err) {
 next(err);
 }
 };
+
+//Download Image
+const downloadFiles = (req, res) => {
+    const fileName = req.query.name;
+    const path = __dirname + "/../uploads/";
+  
+    res.download(path + fileName, (err) => {
+      if (err) {
+        res.status(500).send({
+          message: "File can not be downloaded: " + err,
+        });
+      }
+    });
+};
+
+//Get All Kegiatan (No Paging)
+const getAllKegiatan = (req, res, next) => {
+
+    try{
+    KegiatanServices.getAllKegiatan(req)
+    .then(docs => {
+        if (docs.data.rows.length > 0) {
+            const response = {
+                        total: docs.data.count,
+                        results: docs.data.rows.map((doc) => {
+                            return {
+                                id: doc.id,
+                                nama_kegiatan: doc.nama_kegiatan,
+                                pelaksana: doc.pelaksana,
+                                tanggal_kegiatan: doc.tanggal_kegiatan,
+                                gambar: doc.gambar,
+                                deskripsi: doc.deskripsi,
+                                longitude: doc.longitude,
+                                latitude: doc.latitude,
+                                created_at: doc.created_at,
+                                created_by: doc.created_by
+                            };
+                        }),
+                request: {
+                    type: 'GET',
+                    url: '/Kegiatan/getAllKegiatan/' ,
+                }
+            }
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: `No Records Found with id: ${id}`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    })
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
+//Create Kegiatan (Tanpa Gambar)
+const createKegiatanNon = async (req, res, next) => {
+    const currentDate = getCurrentDate();
+
+    try{
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
+
+    const dataKegiatanNon = {
+        id_tatanan: "",
+        nama_kegiatan: req.body.nama_kegiatan,
+        nama_tatanan: req.body.nama_tatanan,
+        jenis_indikator: req.body.jenis_indikator,
+        kategori: req.body.kategori,
+        nama_indikator: req.body.nama_indikator,
+        subindikator: req.body.subindikator,
+        pelaksana: req.body.pelaksana,
+        tanggal_kegiatan: req.body.tanggal_kegiatan,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        deskripsi: req.body.deskripsi,
+        alamat: req.body.alamat,
+        created_at: currentDate.dateAsiaJakarta,
+        created_by: req.userData.id,
+        creator_role: req.userData.role.id,
+    }
+
+    KegiatanServices.createKegiatanNon(dataKegiatanNon)
+    .then(() => {
+        res.status(201).json({
+            status: 'Created',
+            message: 'Successfully Created Kegiatan',
+            dataKegiatan: dataKegiatanNon,
+            request: {
+                type: "POST",
+                url: "/Kegiatan/create-Kegiatan"
+            }
+        }); 
+    })
+    .catch(err => {
+        res.status(500).json({
+            error : err
+        });
+    });
+}
+else {
+    return res.status(403).json({
+        status: 'Forbidden',
+        message: 'Only registered users can access!'
+        });
+        }
+    }
+    catch(err) {
+    next(err);
+    }
+};
+
+//Get Kegiatan By Role
+const getKegiatanByRole = async (req, res, next) => {
+    try {
+  
+        const role = req.query.role;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
+    KegiatanServices.getKegiatanByRole(role, req)
+    .then(docs => {
+        if (docs.data.rows.length > 0 > 0) {
+            const response = {
+                total: docs.data.count,
+                nextPage: docs.pagination.nextPage,
+                prevPage: docs.pagination.prevPage,
+                currentPage: docs.pagination.currentPage,
+                totalPages: Math.ceil(docs.data.count / 5),
+                results: docs.data.rows.map((doc) => {
+                    return {
+                        id: doc.id,
+                        nama_kegiatan: doc.nama_kegiatan,
+                        pelaksana: doc.pelaksana,
+                        tanggal_kegiatan: doc.tanggal_kegiatan,
+                        gambar: doc.gambar,
+                        deskripsi: doc.deskripsi,
+                        longitude: doc.longitude,
+                        latitude: doc.latitude,
+                        created_at: doc.created_at,
+                        created_by: doc.created_by
+                    };
+                }),
+        request: {
+            type: 'GET',
+            url: '/Kegiatan/viewKegiatanbyRole/' ,
+        }
+    }
+    res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                message: `Data not found`
+            });
+        }
+    })
+  }
+  else {
+      return res.status(403).json({
+          status: 'Forbidden',
+          message: 'Only registered users can access!'
+      });
+  }
+  }
+  catch(err) {
+  next(err);
+  }
+  };
+
+
 
 module.exports = {
     createKegiatan,
     getKegiatanById,
     getKegiatan,
     updateKegiatan,
-    deleteKegiatan
+    deleteKegiatan,
+    uploadImg,
+    downloadFiles,
+    getAllKegiatan,
+    createKegiatanNon,
+    getKegiatanByRole
 }

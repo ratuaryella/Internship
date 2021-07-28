@@ -1,0 +1,384 @@
+<% layout('layout') %>
+
+<%- include('../../partials/navbar.ejs'); %>
+<div class="container-fluid px-4">
+  <div class="row my-4">
+    <div>
+      <h3 class=""><strong>Data Tatanan</strong></h3>
+    </div>
+      <div class="ms-auto float-end">
+        <button type="button" class="btn-dflt float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-plus-circle"></i> Tambah Tatanan</button>
+      </div>
+  </div>
+
+  <!-- Modal Add -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Tatanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/api-v1/intern/create-tatanan" id="addTatanan">
+            <div class="mb-3">
+              <h6>Nama Tatanan</h6>
+              <input type="text" class="form-control" id="recipient-nama_tatanan" name="nama_tatanan">
+            </div>
+            <div class="mb-3">
+              <h6>Jenis Indikator</h6>
+              <input type="text" class="form-control" id="recipient-jenis" name="jenis_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Kategori</h6>
+              <input type="text" class="form-control" id="recipient-kategori" name="kategori">
+            </div>
+            <div class="mb-3">
+              <h6>Nama Indikator</h6>
+              <input type="text" class="form-control" id="recipient-nama_indikator" name="nama_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Sub Indikator</h6>
+              <input type="text" class="form-control" id="recipient-subindikator" name="subindikator">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="form_submit()" class="btn btn-green" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div>
+    <div>
+      <div>
+              <table id="tabel_tatanan" class="table bg-light rounded shadow-sm  table-hover">
+                  <thead>
+                      <tr>
+                          <th>Nama Tatanan</th>
+                          <th>Jenis Indikator</th>
+                          <th>Kategori</th>
+                          <th>Nama Indikator</th>
+                          <th>SubIndikator</th>
+                          <th>Aksi</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+              <ul class="pagination justify-content-center" style="margin:20px 0">
+              </ul>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal Edit -->
+  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Tatanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="#" id="editTatanan">
+            <div class="mb-3">
+              <h6>Nama Tatanan</h6>
+              <input type="text" class="form-control" id="recipient-nama_tatanan" name="get_nama_tatanan">
+            </div>
+            <div class="mb-3">
+              <h6>Jenis Indikator</h6>
+              <input type="text" class="form-control" id="recipient-jenis" name="get_jenis_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Kategori</h6>
+              <input type="text" class="form-control" id="recipient-kategori" name="get_kategori">
+            </div>
+            <div class="mb-3">
+              <h6>Nama Indikator</h6>
+              <input type="text" class="form-control" id="recipient-nama_indikator" name="get_nama_indikator">
+            </div>
+            <div class="mb-3">
+              <h6>Sub Indikator</h6>
+              <input type="text" class="form-control" id="recipient-subindikator" name="get_subindikator">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="btn-submit-edit" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Anda yakin ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+          <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  function fetchCustomers(page){
+    let pageNumber = (typeof page !== 'undefined') ?  page : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-all-tatanan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              page: pageNumber
+          },
+          success: function(data) {
+              console.log(data, "ini data tatanan")
+              let dataCoba = data.data.result
+  
+              // ITERATING THROUGH OBJECTS
+              $('#tabel_tatanan tbody').empty();
+             // add table rows
+              $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value")
+                  let tatananRow = '<tr>' +
+                                      '<td>' + value.nama_tatanan + '</td>' +
+                                      '<td>' + value.jenis_indikator + '</td>' +
+                                      '<td>' + value.kategori + '</td>' +
+                                      '<td>' + value.nama_indikator + '</td>' +
+                                      '<td>' + value.subindikator + '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id= ' + value.id + '><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                    '</tr>';
+              $('#tabel_tatanan tbody').append(tatananRow);
+            });
+  
+              if ($('ul.pagination li').length - 2 != data.data.totalPages){
+                    // build pagination list at the first time loading
+                    $('ul.pagination').empty();
+                    buildPagination(data.data.totalPages);
+                }   
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+      })
+  }
+   /* Build Pagination Bar*/
+   function buildPagination(totalPages){
+          // Build paging navigation
+          let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
+          $("ul.pagination").append(pageIndex);
+          
+          // create pagination
+          for(let i=1; i <= totalPages; i++){
+            // adding .active class on the first pageIndex for the loading time
+            if(i==1){
+                pageIndex = "<li class='page-item active'><a class='page-link'>"
+                      + i + "</a></li>"                     
+            } else {
+                pageIndex = "<li class='page-item'><a class='page-link'>"
+                          + i + "</a></li>"
+            }
+            $("ul.pagination").append(pageIndex);
+          }
+          
+          pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
+          $("ul.pagination").append(pageIndex);
+      }
+  
+  /*Fetching in initial time*/
+  (function(){
+          // get first-page at initial time
+          fetchCustomers(1);
+      })();
+  
+  /*Fetch data when clicking*/
+  $(document).on("click", "ul.pagination li a", function() {
+          let val = $(this).text();
+          
+          if(val.toUpperCase()==="NEXT"){
+              let activeValue = parseInt($("ul.pagination li.active").text());
+              let totalPages = $("ul.pagination li").length - 2; // -2 beacause 1 for Previous and 1 for Next 
+              if(activeValue < totalPages){
+                  let currentActive = $("li.active");
+                  fetchCustomers(activeValue); // get next page value
+                  // remove .active class for the old li tag
+                  $("li.active").removeClass("active");
+                  // add .active to next-pagination li
+                  currentActive.next().addClass("active");
+              }
+          } else if(val.toUpperCase()==="PREVIOUS"){
+              let activeValue = parseInt($("ul.pagination li.active").text());
+              if(activeValue > 1){
+                  // get the previous page
+                  fetchCustomers(activeValue-2);
+                  let currentActive = $("li.active");
+                  currentActive.removeClass("active");
+                  // add .active to previous-pagination li
+                  currentActive.prev().addClass("active");
+              }
+          } else {
+              fetchCustomers(parseInt(val));
+              // add focus to the li tag
+              $("li.active").removeClass("active");
+              $(this).parent().addClass("active");
+          }
+      });
+  });
+  
+  </script>
+
+  <script type="text/javascript">
+    function form_submit() {
+      document.getElementById("addTatanan").submit();
+      swal("Data ditambahkan", "Anda telah berhasil menambah data tatanan!", "success")
+            .then(function(){ 
+            location.reload();
+          });
+     }    
+  </script>
+
+  <script>
+  $(document).ready(function(){
+      function deleteRow(id){
+      let del_id = (typeof id !== 'undefined') ?  id : 1;
+
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/delete-tatanan?id=" + id,
+      dataType: 'JSON',
+      data: { 
+        id: del_id
+      },
+      success: function(data){
+        swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+          }
+        })
+      }
+
+      $("body").on("click", "#btn-delete", function(){
+        let del = $(this).attr('data-id');
+        $("#modalDelete").modal('show');
+        
+        $("#modalDelete .modal-footer").on("click", "#btn-yakin", function(){   
+        let delete_int = parseInt(del);
+
+        deleteRow(delete_int);
+        })
+      })
+  })
+  </script>
+
+<script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-tatanan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data tatanan id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini tatanan id")
+
+                $("#modalEdit .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
+                $("#modalEdit .modal-body #recipient-jenis").val(value.jenis_indikator);
+                $("#modalEdit .modal-body #recipient-kategori").val(value.kategori);
+                $("#modalEdit .modal-body #recipient-nama_indikator").val(value.nama_indikator);
+                $("#modalEdit .modal-body #recipient-subindikator").val(value.subindikator);
+
+                $("#modalEdit").modal();
+                $("#modalEdit").modal('show');  
+              })
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      function saveEdit(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      let nama_tatanan = $("input[name='get_nama_tatanan']").val();
+      let jenis_indikator = $("input[name='get_jenis_indikator']").val();
+      let kategori = $("input[name='get_kategori']").val();
+      let nama_indikator = $("input[name='get_nama_indikator']").val();
+      let subindikator = $("input[name='get_submindikator']").val();
+
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/update-tatanan?id=" + id,
+      dataType: 'JSON',
+          data: { 
+          id: edt_id,
+          nama_tatanan: nama_tatanan,
+          jenis_indikator: jenis_indikator,
+          kategori: kategori,
+          nama_indikator: nama_indikator,
+          subindikator: subindikator,
+        },
+      success: function(data){
+        swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+        }
+        })
+      
+    }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
+
+        $("#modalEdit .modal-footer").on("click", "#btn-submit-edit", function(){   
+        saveEdit(edit_int);
+        })
+      })
+  })
+  </script>
+
+
+
