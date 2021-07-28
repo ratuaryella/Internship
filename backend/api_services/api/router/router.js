@@ -18,6 +18,7 @@ router.post('/create-kegiatan-non', checkAuth, KegiatanController.createKegiatan
 router.get('/get-all-kegiatan', checkAuth, KegiatanController.getKegiatan);
 router.get('/get-full-kegiatan', checkAuth, KegiatanController.getAllKegiatan);
 router.get('/get-role-kegiatan', checkAuth, KegiatanController.getKegiatanByRole);
+router.get('/get-user-kegiatan', checkAuth, KegiatanController.getKegiatanByUser);
 router.get('/get-kegiatan', checkAuth, KegiatanController.getKegiatanById);
 router.get('/kegiatan', KegiatanController.downloadFiles)
 router.patch('/delete-kegiatan', checkAuth, KegiatanController.deleteKegiatan);

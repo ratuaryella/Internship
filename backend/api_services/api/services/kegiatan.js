@@ -138,6 +138,25 @@ const getKegiatanByRole = (role, req) => {
     });
 }
 
+const getKegiatanByUser = (user_id, req) => {
+    const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
+    const limit = pagination.limit;
+    const offset = pagination.offset;
+    return Kegiatan.findAndCountAll({
+        where: { 
+            created_by: user_id,
+            deleted_at: null },
+        limit, 
+        offset,
+        order: [['created_at', 'DESC']]
+    }).then(docs => {
+        return {
+            data: docs,
+            pagination: pagination
+        }
+    });
+}
+
 module.exports = {
     createKegiatan,
     getKegiatan,
@@ -146,5 +165,6 @@ module.exports = {
     deleteKegiatan,
     getAllKegiatan,
     createKegiatanNon,
-    getKegiatanByRole
+    getKegiatanByRole,
+    getKegiatanByUser
 }

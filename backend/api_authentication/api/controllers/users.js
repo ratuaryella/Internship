@@ -58,6 +58,7 @@ const doLogin = (req, res, next) => {
                 const response = {
                     message: 'Auth Successfully',
                     username: user.username,
+                    id: user.id,
                     role: user.role,
                     token: token,
                     request: {

@@ -451,6 +451,61 @@ const getKegiatanByRole = async (req, res, next) => {
   }
   };
 
+  //Get Kegiatan By Role
+const getKegiatanByUser = async (req, res, next) => {
+    try {
+  
+        const user_id = req.query.user_id;
+    
+    if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
+    KegiatanServices.getKegiatanByUser(user_id, req)
+    .then(docs => {
+        if (docs.data.rows.length > 0 > 0) {
+            const response = {
+                total: docs.data.count,
+                nextPage: docs.pagination.nextPage,
+                prevPage: docs.pagination.prevPage,
+                currentPage: docs.pagination.currentPage,
+                totalPages: Math.ceil(docs.data.count / 5),
+                results: docs.data.rows.map((doc) => {
+                    return {
+                        id: doc.id,
+                        nama_kegiatan: doc.nama_kegiatan,
+                        pelaksana: doc.pelaksana,
+                        tanggal_kegiatan: doc.tanggal_kegiatan,
+                        gambar: doc.gambar,
+                        deskripsi: doc.deskripsi,
+                        longitude: doc.longitude,
+                        latitude: doc.latitude,
+                        created_at: doc.created_at,
+                        created_by: doc.created_by
+                    };
+                }),
+        request: {
+            type: 'GET',
+            url: '/Kegiatan/viewKegiatanbyRole/' ,
+        }
+    }
+    res.status(200).json(response);
+        } else {
+            res.status(404).json({
+                message: `Data not found`
+            });
+        }
+    })
+  }
+  else {
+      return res.status(403).json({
+          status: 'Forbidden',
+          message: 'Only registered users can access!'
+      });
+  }
+  }
+  catch(err) {
+  next(err);
+  }
+  };
+
 
 
 module.exports = {
@@ -463,5 +518,6 @@ module.exports = {
     downloadFiles,
     getAllKegiatan,
     createKegiatanNon,
-    getKegiatanByRole
+    getKegiatanByRole,
+    getKegiatanByUser
 }

@@ -191,6 +191,29 @@ const getKegiatanByRole = (req) => {
     })
 }
 
+const getKegiatanByUser = (req) => {
+    let status;
+
+    var url = `${config.API_URL_SERVICES}/get-user-kegiatan?user_id=`+req.cookies.id
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        }
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 const deleteKegiatan = (req) => {
     let status;
 
@@ -271,5 +294,6 @@ module.exports = {
     createKegiatanNon,
     getKegiatanByRole,
     deleteKegiatan,
-    editKegiatan
+    editKegiatan,
+    getKegiatanByUser
 }

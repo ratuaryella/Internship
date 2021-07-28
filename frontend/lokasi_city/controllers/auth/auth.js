@@ -18,6 +18,7 @@ const login = (req, res) => {
       .then((response) => {
         if (response.status == 200) {
           res.cookie("username", response.data.username, { httpOnly: true });
+          res.cookie("id", response.data.id, { httpOnly: true });
           res.cookie("role", response.data.role.id, { httpOnly: true });
           res.cookie("user_token", response.data.token, {
             httpOnly: true,

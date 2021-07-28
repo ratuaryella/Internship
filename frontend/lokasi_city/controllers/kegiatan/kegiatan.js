@@ -111,6 +111,20 @@ const editKegiatan = (req, res) => {
     })
 }
 
+const getKegiatanByUser = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchKegiatan.getKegiatanByUser(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 
 module.exports = {
     getAllKegiatan,
@@ -120,5 +134,6 @@ module.exports = {
     createKegiatanNon,
     getKegiatanByRole,
     deleteKegiatan,
-    editKegiatan
+    editKegiatan,
+    getKegiatanByUser
 }
