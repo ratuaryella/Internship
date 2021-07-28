@@ -119,38 +119,23 @@ const createKegiatanNon = (dataKegiatanNon) => {
 }
 
 //Get Kegiatan by Role
-const getKegiatanByRole = (role, req, res) => {
+const getKegiatanByRole = (role, req) => {
     const pagination = paginator(req.query.page, 5); // set 1 page = 5 length data
     const limit = pagination.limit;
     const offset = pagination.offset;
-    return User.findAll({
-        raw: true,
-        where: {
-        id_role: role
-    },
-    attributes: ['id']
-    })
-        .then((data)=> {
-            console.log(data)
-            return Kegiatan.findAll({
-                where: {
-                created_by: Object.values(data),
-                deleted_at: null
-            },
-            limit, 
-            offset,
-            order: [['created_at', 'DESC']]
-            })
-            .then(docs => {
-                return {
-                data: docs,
-                pagination: pagination
-                }
-            })
-        })
-    .catch(error => {
-        console.log(error);
-    })
+    return Kegiatan.findAndCountAll({
+        where: { 
+            creator_role: role,
+            deleted_at: null },
+        limit, 
+        offset,
+        order: [['created_at', 'DESC']]
+    }).then(docs => {
+        return {
+            data: docs,
+            pagination: pagination
+        }
+    });
 }
 
 module.exports = {

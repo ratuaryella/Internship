@@ -167,11 +167,109 @@ const createKegiatanNon = (req) => {
     })
 }
 
+const getKegiatanByRole = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/get-role-kegiatan?`
+    return fetch(url + params, {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        }
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
+const deleteKegiatan = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/delete-kegiatan?`
+    return fetch(url + params, {
+        method: 'PATCH',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        },
+        body: JSON.stringify({
+            deleted_at: currentDate.dateAsiaJakarta,
+            status: 0,
+            deleted_by: req.userData.id
+    })
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
+const editKegiatan = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/update-kegiatan?`
+    return fetch(url + params, {
+        method: 'PATCH',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        },
+        body: JSON.stringify({
+            id: req.query.id,
+            id_tatanan: req.body.id_tatanan,
+            nama_kegiatan: req.body.nama_kegiatan,
+            nama_tatanan: req.body.nama_tatanan,
+            jenis_indikator: req.body.jenis_indikator,
+            kategori: req.body.kategori,
+            nama_indikator: req.body.nama_indikator,
+            subindikator: req.body.subindikator,
+            pelaksana: req.body.pelaksana,
+            tanggal_kegiatan: req.body.tanggal_kegiatan,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
+            deskripsi: req.body.deskripsi,
+            updated_at: currentDate.dateAsiaJakarta,
+            updated_by: req.userData.id
+    })
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
+
 module.exports = {
     getAllKegiatan,
     getKegiatanById,
     getFullKegiatan,
     createKegiatan,
     uploadImg,
-    createKegiatanNon
+    createKegiatanNon,
+    getKegiatanByRole,
+    deleteKegiatan,
+    editKegiatan
 }
