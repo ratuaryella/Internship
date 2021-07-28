@@ -69,11 +69,56 @@ const createKegiatanNon = (req, res) => {
     })
 }
 
+const getKegiatanByRole = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchKegiatan.getKegiatanByRole(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const deleteKegiatan = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchKegiatan.deleteKegiatan(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const editKegiatan = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchKegiatan.editKegiatan(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
 
 module.exports = {
     getAllKegiatan,
     getKegiatanById,
     getFullKegiatan,
     createKegiatan,
-    createKegiatanNon
+    createKegiatanNon,
+    getKegiatanByRole,
+    deleteKegiatan,
+    editKegiatan
 }

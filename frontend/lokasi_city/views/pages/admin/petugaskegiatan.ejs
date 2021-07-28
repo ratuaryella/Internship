@@ -60,75 +60,74 @@
   </div>
 </div>
 
-<div class="modal fade" id="editKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Kegiatan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Detail Kegiatan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="/api-v1/intern/create-user">
+        <form method="POST" action="#" id="editKegiatan">
           <div class="row g-3">
             <div class="col">
             <h6>Longitude</h6>
-            <input type="text" class="form-control" id="recipient-longitude" readonly>
+            <input type="text" class="form-control" id="recipient-longitude" readonly disabled>
           </div>
           <div class="col">
             <h6>Latitude</h6>
-            <select class="form-control" id="recipient-latitude" readonly>
-            </select>
+            <input type="text" class="form-control" id="recipient-latitude" readonly disabled>
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Nama Kegiatan</h6>
-            <input type="text" class="form-control" id="recipient-nama_kegiatan">
+            <input type="text" class="form-control" id="recipient-nama-kegiatan"readonly disabled>
           </div>
           <div class="col">
             <h6>Pelaksana</h6>
-            <input type="text" class="form-control" id="recipient-pelaksana">
+            <input type="text" class="form-control" id="recipient-pelaksana" readonly disabled>
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Nama Tatanan</h6>
-            <input type="text" class="form-control" >
+            <input type="text" class="form-control" id="recipient-nama-tatanan" readonly disabled>
           </div>
           <div class="col">
             <h6>Jenis Indikator</h6>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="recipient-jenis-indikator" readonly disabled>
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Kategori</h6>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="recipient-kategori" readonly disabled>
           </div>
           <div class="col">
             <h6>Nama Indikator</h6>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="recipient-nama-indikator" readonly disabled>
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Sub Indikator</h6>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="recipient-subindikator" readonly disabled>
           </div>
           <div class="col">
             <h6>Tanggal</h6>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="recipient-tanggal" readonly disabled>
           </div>
           </div><br>
            <div class="mb-3">
             <h6>Deskripsi</h6>
-            <textarea style="resize:none" name="deskripsi" class="form-control"></textarea>
+            <textarea style="resize:none" name="deskripsi" class="form-control" id="recipient-deskripsi" readonly disabled></textarea>
+          </div>
+          <div class="mb-3">
+            <h6>Alamat</h6>
+            <textarea style="resize:none" name="deskripsi" class="form-control" id="recipient-alamat" readonly disabled></textarea>
           </div>
         </form>
-      </div>
-            <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button onclick="form_submit()" class="btn btn-green" type="submit">Edit</button>
       </div>
     </div>
   </div>
@@ -142,7 +141,7 @@
     let pageNumber = (typeof page !== 'undefined') ?  page : 1;
       $.ajax({
           type: "GET",
-          url: '/api-v1/intern/get-all-kegiatan',
+          url: '/api-v1/intern/get-role-kegiatan?role=2',
           //headers: {
           //Authorization: 'Bearer ' + localStorage.getItem('token') },
           dataType: 'JSON',
@@ -162,7 +161,7 @@
                                       '<td>' + value.nama_kegiatan + '</td>' +
                                       '<td>' + value.tanggal_kegiatan + '</td>' +
                                       '<td>' + value.pelaksana + '</td>' +
-                                      '<td>' + '<button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id='+ value.id +'><i class="fas fa-info-circle"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
                                     '</tr>';
               $('#tabel_kegiatan tbody').append(kegiatanRow);
             });
@@ -283,3 +282,68 @@
       })
   })
   </script>
+
+  <script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-kegiatan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data tatanan id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini tatanan id")
+
+                $("#modalKegiatan .modal-body #recipient-longitude").val(value.longitude);
+                $("#modalKegiatan .modal-body #recipient-latitude").val(value.latitude);
+                $("#modalKegiatan .modal-body #recipient-nama-kegiatan").val(value.nama_kegiatan);
+                $("#modalKegiatan .modal-body #recipient-pelaksana").val(value.pelaksana);
+                $("#modalKegiatan .modal-body #recipient-nama-tatanan").val(value.nama_tatanan);
+                $("#modalKegiatan .modal-body #recipient-jenis-indikator").val(value.jenis_indikator);
+                $("#modalKegiatan .modal-body #recipient-kategori").val(value.kategori);
+                $("#modalKegiatan .modal-body #recipient-nama-indikator").val(value.nama_indikator);
+                $("#modalKegiatan .modal-body #recipient-subindikator").val(value.subindikator);
+                $("#modalKegiatan .modal-body #recipient-tanggal").val(value.tanggal_kegiatan);
+                $("#modalKegiatan .modal-body #recipient-deskripsi").val(value.deskripsi);
+                $("#modalKegiatan .modal-body #recipient-alamat").val(value.alamat);
+
+                // $("#modalEdit").modal();
+                $("#modalKegiatan").modal('show');  
+              })
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
+
+      })
+  })
+  </script>
+
+<script>
+	$(document).ready(function(){
+		$("body").on("click", "#buttonKegiatanAdd", function(e){  
+			e.preventDefault();
+			window.location.replace("/addkegiatan-petugas"); 
+		})
+	})
+  
+</script>

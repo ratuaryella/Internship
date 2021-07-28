@@ -71,6 +71,7 @@ module.exports = (sequelize, type) => {
         allowNull: true,
       },
       created_by: type.INTEGER,
+      creator_role: type.INTEGER,
       updated_by: type.INTEGER,
       deleted_by: type.INTEGER
 

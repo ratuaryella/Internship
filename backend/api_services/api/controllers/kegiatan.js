@@ -153,8 +153,7 @@ const updateKegiatan = async (req, res, next) => {
           latitude: req.body.latitude,
           deskripsi: req.body.deskripsi,
           updated_at: currentDate.dateAsiaJakarta,
-          updated_by: req.userData.id,
-          gambar: req.file.path
+          updated_by: req.userData.id
         };
         const updateKegiatan = await KegiatanServices.updateKegiatan(id, updateDataKegiatan);
         const response = {
@@ -251,6 +250,7 @@ const getKegiatanById = (req, res, next) => {
                     longitude: doc.longitude,
                     latitude: doc.latitude,
                     deskripsi: doc.deskripsi,
+                    alamat: doc.alamat,
                     pelaksana: doc.pelaksana,
                     tanggal_kegiatan: doc.tanggal_kegiatan,
                     created_at: doc.created_at,
@@ -362,7 +362,8 @@ const createKegiatanNon = async (req, res, next) => {
         deskripsi: req.body.deskripsi,
         alamat: req.body.alamat,
         created_at: currentDate.dateAsiaJakarta,
-        created_by: req.userData.id
+        created_by: req.userData.id,
+        creator_role: req.userData.role.id,
     }
 
     KegiatanServices.createKegiatanNon(dataKegiatanNon)
@@ -397,14 +398,14 @@ else {
 
 //Get Kegiatan By Role
 const getKegiatanByRole = async (req, res, next) => {
-    const role = req.query.role;
-    
     try {
   
+        const role = req.query.role;
+    
     if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
-    KegiatanServices.getKegiatanByRole(role)
+    KegiatanServices.getKegiatanByRole(role, req)
     .then(docs => {
-        if (docs.length > 0) {
+        if (docs.data.rows.length > 0 > 0) {
             const response = {
                 total: docs.data.count,
                 nextPage: docs.pagination.nextPage,
