@@ -24,117 +24,114 @@
             </style><br>
                       <div>
                         <table id="tabel_kegiatan" class="table bg-light rounded shadow-sm  table-hover">
-                          <thead>
-                              <tr>
-                                  <th>Nama Kegiatan</th>
-                                  <th>Tanggal</th>
-                                  <th>Pelaksana</th>
-                                  <th>Aksi</th>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                      </table>
-                      <ul class="pagination justify-content-center" style="margin:20px 0">
-                      </ul>
-                  </div>
-        </div>
+                            <thead>
+                                <tr>
+                                    <th>Nama Kegiatan</th>
+                                    <th>Tanggal</th>
+                                    <th>Pelaksana</th>
+                                    <th>Aksi</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <ul class="pagination justify-content-center" style="margin:20px 0">
+                        </ul>
+                    </div>
+          </div>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
-
+  
 </div>
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      Anda yakin ingin menghapus data ini?
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-      <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="modal fade" id="modalKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail Kegiatan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="#" id="editKegiatan">
+        Anda yakin ingin menghapus data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+        <button type="button" id="btn-yakin" class="btn btn-primary">Ya</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Kegiatan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/api-v1/intern/create-user">
           <div class="row g-3">
             <div class="col">
             <h6>Longitude</h6>
-            <input type="text" class="form-control" id="recipient-longitude" readonly disabled>
+            <input type="text" class="form-control" id="recipient-longitude" readonly>
           </div>
           <div class="col">
             <h6>Latitude</h6>
-            <input type="text" class="form-control" id="recipient-latitude" readonly disabled>
+            <select class="form-control" id="recipient-latitude" readonly>
+            </select>
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Nama Kegiatan</h6>
-            <input type="text" class="form-control" id="recipient-nama-kegiatan" name="get-nama-kegiatan">
+            <input type="text" class="form-control" id="recipient-nama_kegiatan">
           </div>
           <div class="col">
             <h6>Pelaksana</h6>
-            <input type="text" class="form-control" id="recipient-pelaksana" name="get-pelaksana">
+            <input type="text" class="form-control" id="recipient-pelaksana">
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Nama Tatanan</h6>
-            <input type="text" class="form-control" id="recipient-nama-tatanan" readonly disabled>
+            <input type="text" class="form-control" >
           </div>
           <div class="col">
             <h6>Jenis Indikator</h6>
-            <input type="text" class="form-control" id="recipient-jenis-indikator" readonly disabled>
+            <input type="text" class="form-control">
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Kategori</h6>
-            <input type="text" class="form-control" id="recipient-kategori" readonly disabled>
+            <input type="text" class="form-control">
           </div>
           <div class="col">
             <h6>Nama Indikator</h6>
-            <input type="text" class="form-control" id="recipient-nama-indikator" readonly disabled>
+            <input type="text" class="form-control">
           </div>
           </div><br>
           <div class="row g-3">
           <div class="col">
             <h6>Sub Indikator</h6>
-            <input type="text" class="form-control" id="recipient-subindikator" readonly disabled>
+            <input type="text" class="form-control">
           </div>
           <div class="col">
             <h6>Tanggal</h6>
-            <input type="date" class="form-control" id="recipient-tanggal" name="get-tanggal">
+            <input type="text" class="form-control">
           </div>
           </div><br>
            <div class="mb-3">
             <h6>Deskripsi</h6>
-            <textarea style="resize:none" name="deskripsi" class="form-control" id="recipient-deskripsi" name="get-deskripsi"></textarea>
-          </div>
-          <div class="mb-3">
-            <h6>Alamat</h6>
-            <textarea style="resize:none" name="deskripsi" class="form-control" id="recipient-alamat" readonly disabled></textarea>
+            <textarea style="resize:none" name="deskripsi" class="form-control"></textarea>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button onclick="form_submit()" class="btn btn-green" id="btn-submit-edit" type="submit">Edit</button>
+            <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button onclick="form_submit()" class="btn btn-green" type="submit">Edit</button>
       </div>
     </div>
   </div>
@@ -143,241 +140,246 @@
 <% block('extendScripts').append('<script type="text/javascript" src="/js/maps/maps-home.js"></script>') %>
 
 <script type="text/javascript">
-$(document).ready(function(){
-function fetchCustomers(page){
-  let pageNumber = (typeof page !== 'undefined') ?  page : 1;
-    $.ajax({
-        type: "GET",
-        url: '/api-v1/intern/get-user-kegiatan',
-        //headers: {
-        //Authorization: 'Bearer ' + localStorage.getItem('token') },
-        dataType: 'JSON',
-        data: { 
-            page: pageNumber
-        },
-        success: function(data) {
-            console.log(data, "ini data kegiatan")
-            let dataCoba = data.data.results
-
-            // ITERATING THROUGH OBJECTS
-            $('#tabel_kegiatan tbody').empty();
-           // add table rows
-            $.each(dataCoba, (i, value) => {
-                console.log(value, "ini value")
-                let kegiatanRow = '<tr>' +
-                                    '<td>' + value.nama_kegiatan + '</td>' +
-                                    '<td>' + value.tanggal_kegiatan + '</td>' +
-                                    '<td>' + value.pelaksana + '</td>' +
-                                    '<td>' + '<button type="button" class="btn" id="btn-edit" data-id= ' + value.id + '><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
-                                  '</tr>';
-            $('#tabel_kegiatan tbody').append(kegiatanRow);
-          });
-
-            if ($('ul.pagination li').length - 2 != data.data.totalPages){
-                  // build pagination list at the first time loading
-                  $('ul.pagination').empty();
-                  buildPagination(data.data.totalPages);
-              }   
-        },
-            error : function(e) {
-              alert("ERROR: ", e);
-              console.log("ERROR: ", e);
-            }
-    })
-}
- /* Build Pagination Bar*/
- function buildPagination(totalPages){
-        // Build paging navigation
-        let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
-        $("ul.pagination").append(pageIndex);
-        
-        // create pagination
-        for(let i=1; i <= totalPages; i++){
-          // adding .active class on the first pageIndex for the loading time
-          if(i==1){
-              pageIndex = "<li class='page-item active'><a class='page-link'>"
-                    + i + "</a></li>"                     
-          } else {
-              pageIndex = "<li class='page-item'><a class='page-link'>"
-                        + i + "</a></li>"
-          }
-          $("ul.pagination").append(pageIndex);
-        }
-        
-        pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
-        $("ul.pagination").append(pageIndex);
-    }
-
-/*Fetching in initial time*/
-(function(){
-        // get first-page at initial time
-        fetchCustomers(1);
-    })();
-
-/*Fetch data when clicking*/
-$(document).on("click", "ul.pagination li a", function() {
-        let val = $(this).text();
-        
-        if(val.toUpperCase()==="NEXT"){
-            let activeValue = parseInt($("ul.pagination li.active").text());
-            let totalPages = $("ul.pagination li").length - 2; // -2 beacause 1 for Previous and 1 for Next 
-            if(activeValue < totalPages){
-                let currentActive = $("li.active");
-                fetchCustomers(activeValue); // get next page value
-                // remove .active class for the old li tag
-                $("li.active").removeClass("active");
-                // add .active to next-pagination li
-                currentActive.next().addClass("active");
-            }
-        } else if(val.toUpperCase()==="PREVIOUS"){
-            let activeValue = parseInt($("ul.pagination li.active").text());
-            if(activeValue > 1){
-                // get the previous page
-                fetchCustomers(activeValue-2);
-                let currentActive = $("li.active");
-                currentActive.removeClass("active");
-                // add .active to previous-pagination li
-                currentActive.prev().addClass("active");
-            }
-        } else {
-            fetchCustomers(parseInt(val));
-            // add focus to the li tag
-            $("li.active").removeClass("active");
-            $(this).parent().addClass("active");
-        }
-    });
-});
-
-</script>
-
-<script>
-$(document).ready(function(){
-    function deleteRow(id){
-    let del_id = (typeof id !== 'undefined') ?  id : 1;
-
-    $.ajax({
-    type: "PATCH",
-    url: "/api-v1/intern/delete-kegiatan?id=" + id,
-    dataType: 'JSON',
-    data: { 
-      id: del_id
-    },
-    success: function(data){
-      swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
-      .then(function(){ 
-        location.reload();
-        }
-      );
-    },
-      error : function(e) {
-        alert("ERROR: ", e);
-        console.log("ERROR: ", e);
-        location.reload()
-        }
+  $(document).ready(function(){
+  function fetchCustomers(page){
+    let pageNumber = (typeof page !== 'undefined') ?  page : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-all-kegiatan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              page: pageNumber
+          },
+          success: function(data) {
+              console.log(data, "ini data kegiatan")
+              let dataCoba = data.data.results
+  
+              // ITERATING THROUGH OBJECTS
+              $('#tabel_kegiatan tbody').empty();
+             // add table rows
+              $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value")
+                  let kegiatanRow = '<tr>' +
+                                      '<td>' + value.nama_kegiatan + '</td>' +
+                                      '<td>' + value.tanggal_kegiatan + '</td>' +
+                                      '<td>' + value.pelaksana + '</td>' +
+                                      '<td>' + '<button type="button" class="btn" id="btn-edit" data-id= ' + value.id + '><i class="fas fa-pencil-alt"></i></button> <button class="btn" id="btn-delete" data-id='+ value.id +' ><i class="fas fa-trash"></i></button>'+ '</td>' +
+                                    '</tr>';
+              $('#tabel_kegiatan tbody').append(kegiatanRow);
+            });
+  
+              if ($('ul.pagination li').length - 2 != data.data.totalPages){
+                    // build pagination list at the first time loading
+                    $('ul.pagination').empty();
+                    buildPagination(data.data.totalPages);
+                }   
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
       })
-    }
-
-    $("body").on("click", "#btn-delete", function(){
-      let del = $(this).attr('data-id');
-      $("#modalDelete").modal('show');
-      
-      $("#modalDelete .modal-footer").on("click", "#btn-yakin", function(){   
-      let delete_int = parseInt(del);
-
-      deleteRow(delete_int);
-      })
-    })
-})
-</script>
-
-<script>
-$(document).ready(function(){
-    function editRow(id){
-    let edt_id = (typeof id !== 'undefined') ?  id : 1;
-    $.ajax({
-        type: "GET",
-        url: '/api-v1/intern/get-kegiatan',
-        //headers: {
-        //Authorization: 'Bearer ' + localStorage.getItem('token') },
-        dataType: 'JSON',
-        data: { 
-            id: edt_id
-        },
-        success: function(data) {
-            console.log(data, "ini data tatanan id")
-            let dataCoba = data.data.data;
-
-            $.each(dataCoba, (i, value) => {
-              console.log(value, "ini tatanan id")
-
-              $("#modalKegiatan .modal-body #recipient-longitude").val(value.longitude);
-              $("#modalKegiatan .modal-body #recipient-latitude").val(value.latitude);
-              $("#modalKegiatan .modal-body #recipient-nama-kegiatan").val(value.nama_kegiatan);
-              $("#modalKegiatan .modal-body #recipient-pelaksana").val(value.pelaksana);
-              $("#modalKegiatan .modal-body #recipient-nama-tatanan").val(value.nama_tatanan);
-              $("#modalKegiatan .modal-body #recipient-jenis-indikator").val(value.jenis_indikator);
-              $("#modalKegiatan .modal-body #recipient-kategori").val(value.kategori);
-              $("#modalKegiatan .modal-body #recipient-nama-indikator").val(value.nama_indikator);
-              $("#modalKegiatan .modal-body #recipient-subindikator").val(value.subindikator);
-              $("#modalKegiatan .modal-body #recipient-tanggal").val(value.tanggal_kegiatan);
-              $("#modalKegiatan .modal-body #recipient-deskripsi").val(value.deskripsi);
-              $("#modalKegiatan .modal-body #recipient-alamat").val(value.alamat);
-
-              // $("#modalEdit").modal();
-              $("#modalKegiatan").modal('show');  
-            })
-        },
-            error : function(e) {
-              alert("ERROR: ", e);
-              console.log("ERROR: ", e);
-            }
-      })
-    
-    }
-
-    function saveEdit(id){
-    let edt_id = (typeof id !== 'undefined') ?  id : 1;
-    let nama_kegiatan = $("input[name='get-nama-kegiatan']").val();
-    let pelaksana = $("input[name='get-pelaksana']").val();
-    let deskripsi = $("input[name='get-deskripsi']").val();
-    let tanggal = $("input[name='get-tanggal']").val();
-
-    $.ajax({
-    type: "PATCH",
-    url: "/api-v1/intern/update-kegiatan?id=" + id,
-    dataType: 'JSON',
-        data: { 
-        id: edt_id,
-        nama_kegiatan: nama_kegiatan,
-        pelaksana: pelaksana,
-        deskripsi: deskripsi,
-        tanggal_kegiatan: tanggal
-      },
-    success: function(data){
-      swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
-      .then(function(){ 
-        location.reload();
-        }
-      );
-    },
-      error : function(e) {
-        alert("ERROR: ", e);
-        console.log("ERROR: ", e);
-        location.reload()
-      }
-      })
-    
   }
+   /* Build Pagination Bar*/
+   function buildPagination(totalPages){
+          // Build paging navigation
+          let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
+          $("ul.pagination").append(pageIndex);
+          
+          // create pagination
+          for(let i=1; i <= totalPages; i++){
+            // adding .active class on the first pageIndex for the loading time
+            if(i==1){
+                pageIndex = "<li class='page-item active'><a class='page-link'>"
+                      + i + "</a></li>"                     
+            } else {
+                pageIndex = "<li class='page-item'><a class='page-link'>"
+                          + i + "</a></li>"
+            }
+            $("ul.pagination").append(pageIndex);
+          }
+          
+          pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
+          $("ul.pagination").append(pageIndex);
+      }
+  
+  /*Fetching in initial time*/
+  (function(){
+          // get first-page at initial time
+          fetchCustomers(1);
+      })();
+  
+  /*Fetch data when clicking*/
+  $(document).on("click", "ul.pagination li a", function() {
+          let val = $(this).text();
+          
+          if(val.toUpperCase()==="NEXT"){
+              let activeValue = parseInt($("ul.pagination li.active").text());
+              let totalPages = $("ul.pagination li").length - 2; // -2 beacause 1 for Previous and 1 for Next 
+              if(activeValue < totalPages){
+                  let currentActive = $("li.active");
+                  fetchCustomers(activeValue); // get next page value
+                  // remove .active class for the old li tag
+                  $("li.active").removeClass("active");
+                  // add .active to next-pagination li
+                  currentActive.next().addClass("active");
+              }
+          } else if(val.toUpperCase()==="PREVIOUS"){
+              let activeValue = parseInt($("ul.pagination li.active").text());
+              if(activeValue > 1){
+                  // get the previous page
+                  fetchCustomers(activeValue-2);
+                  let currentActive = $("li.active");
+                  currentActive.removeClass("active");
+                  // add .active to previous-pagination li
+                  currentActive.prev().addClass("active");
+              }
+          } else {
+              fetchCustomers(parseInt(val));
+              // add focus to the li tag
+              $("li.active").removeClass("active");
+              $(this).parent().addClass("active");
+          }
+      });
+  });
+  
+  </script>
 
-    $("body").on("click", "#btn-edit", function(){  
-      let edt = $(this).attr('data-id');
-      let edit_int = parseInt(edt);
+  <script>
+  $(document).ready(function(){
+      function deleteRow(id){
+      let del_id = (typeof id !== 'undefined') ?  id : 1;
 
-      editRow(edit_int);
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/delete-kegiatan?id=" + id,
+      dataType: 'JSON',
+      data: { 
+        id: del_id
+      },
+      success: function(data){
+        swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+          }
+        })
+      }
 
-      $("#modalKegiatan .modal-footer").on("click", "#btn-submit-edit", function(){   
-      saveEdit(edit_int);
+      $("body").on("click", "#btn-delete", function(){
+        let del = $(this).attr('data-id');
+        $("#modalDelete").modal('show');
+        
+        $("#modalDelete .modal-footer").on("click", "#btn-yakin", function(){   
+        let delete_int = parseInt(del);
+
+        deleteRow(delete_int);
+        })
       })
-    })
-})
+  })
+  </script>
+
+  <script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/get-kegiatan',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data tatanan id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini tatanan id")
+
+                // $("#editKegiatan .modal-body #recipient-nama_tatanan").val(value.nama_tatanan);
+                // $("#editKegiatan .modal-body #recipient-jenis").val(value.jenis_indikator);
+                // $("#editKegiatan .modal-body #recipient-kategori").val(value.kategori);
+                // $("#editKegiatan .modal-body #recipient-nama_indikator").val(value.nama_indikator);
+                // $("#editKegiatan .modal-body #recipient-subindikator").val(value.subindikator);
+
+                // $("#modalEdit").modal();
+                $("#editKegiatan").modal('show');  
+              })
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      function saveEdit(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      let nama_tatanan = $("input[name='get_nama_tatanan']").val();
+      let jenis_indikator = $("input[name='get_jenis_indikator']").val();
+      let kategori = $("input[name='get_kategori']").val();
+      let nama_indikator = $("input[name='get_nama_indikator']").val();
+      let subindikator = $("input[name='get_submindikator']").val();
+
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/update-tatanan?id=" + id,
+      dataType: 'JSON',
+          data: { 
+          id: edt_id,
+          nama_tatanan: nama_tatanan,
+          jenis_indikator: jenis_indikator,
+          kategori: kategori,
+          nama_indikator: nama_indikator,
+          subindikator: subindikator,
+        },
+      success: function(data){
+        swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+        }
+        })
+      
+    }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
+
+        $("#modalEdit .modal-footer").on("click", "#btn-submit-edit", function(){   
+        saveEdit(edit_int);
+        })
+      })
+  })
+  </script>
+
+<script>
+	$(document).ready(function(){
+		$("body").on("click", "#buttonKegiatanAdd", function(e){  
+			e.preventDefault();
+			window.location.replace("/addkegiatan-petugas"); 
+		})
+	})
+  
 </script>
