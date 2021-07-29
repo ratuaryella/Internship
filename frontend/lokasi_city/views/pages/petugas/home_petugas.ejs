@@ -1,140 +1,192 @@
 <% layout('layout') %>
 
 <%- include('../../partials/navbar.ejs'); %>
-
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-	<div class="carousel-inner">
-	  <div class="carousel-item active">
-		<img src="images/content/medan2.jpg" class="d-block w-100" alt="...">
-	  </div>
-	  <div class="carousel-item">
-		<img src="images/content/medan3.jpg" class="d-block w-100" alt="...">
-	  </div>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
 	</div>
-	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-	  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	  <span class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-	  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	  <span class="visually-hidden">Next</span>
-	</button>
-  </div>
 
-
-
-	<!-- Services section -->
-	<!-- <section class="service-section spad">
-		<div class="container services">
-            
-			<div class="row">
-				<h3>Grafik Kesehatan Kota</h3>
-                <br>
-                <br><br><br>
-				<div class="col-lg-8 col-sm-6 service-item">
-					<div class="service-icon">
+	<!-- carousel -->
+	<div class="row">
+		<div class="d-flex justify-content-center">
+			<div class="carousel-box">
+				<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+					<div class="carousel-inner">
+					  <div class="carousel-item active">
+						<img src="images/content/medan2.jpg" class="d-block w-100" alt="...">
+					  </div>
+					  <div class="carousel-item">
+						<img src="images/content/medan3.jpg" class="d-block w-100" alt="...">
+					  </div>
 					</div>
-					<div class="service-content">
-						
-                        <script>
-                            window.onload = function () {
-                            
-                            var chart = new CanvasJS.Chart("chartContainer", {
-                                animationEnabled: true,
-                                theme: "light2", // "light1", "light2", "dark1", "dark2"
-                                title:{
-                                    text: ""
-                                },
-                                axisY: {
-                                    title: ""
-                                },
-                                data: [{        
-                                    type: "column",  
-                                    showInLegend: true, 
-                                    legendMarkerColor: "grey",
-                                    legendText: "Indikator",
-                                    dataPoints: [      
-                                        { y: 10, label: "Sarana Prasarana" },
-                                        { y: 20,  label: "Terib lalu lintas" },
-                                        { y: 15,  label: "Kawan Industri dan Perkantoran" },
-                                        { y: 50,  label: "Kawasan Pariwisata" },
-                                        { y: 75,  label: "Kawasan Pertambangan" },
-                                        { y: 30, label: "Kawasan Hutan" },
-                                        { y: 40,  label: "Ketahanan Pangan & Gizi" },
-                                        { y: 40,  label: "Kehidupan Masyarakat" },
-                                        { y: 55,  label: "Kehidupan Sosial" }
-                                    ]
-                                }]
-                            });
-                            chart.render();
-                            
-                            }
-                            </script>
-                            
-                            <body>
-                            <center><div id="chartContainer"></div></center>
-                            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-						</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 service-item"><br>
-					<div class="service-icon">
-					</div><br><br><br>
-                    <div class="service-content">
-                        <button class="site-btn">Jumlah Kegiatan</button>
-                    </div>
-				</div>
-			</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+					  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					  <span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+					  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					  <span class="visually-hidden">Next</span>
+					</button>
+				  </div>
+			</div>		
 		</div>
-	</section> -->
-	<!-- Services section end -->
+	</div>
 
-	<!-- <br><br><br><br><br><br><br><br><br><br> -->
-	<!-- Enroll section -->
-	<!-- <section class="service-section spad">
-		<div class="container services">
-            
-			<div class="row">
-          
-				<div class="col-lg-8 col-sm-6 service-item">
-					<div>
-					</div>
-                    <h4 style="font-size: 40px; color: blue;">Temukan Kegiatan Disekitar Kamu</h4>
-					<div class="service-content1">
-						<p style="font-size: large;"> Kota Medan merupakan pintu gerbang wilayah Indonesia bagian barat dengan keberadaan Pelabuhan Belawan dan Bandar Udara Internasional Kuala Namu yang merupakan bandara terbesar kedua di Indonesia. Akses dari pusat kota menuju pelabuhan dan bandara dilengkapi oleh jalan tol dan kereta api. Medan adalah kota pertama di Indonesia yang mengintegrasikan bandara dengan kereta api. Berbatasan dengan Selat Malaka, Medan menjadi kota perdagangan, industri, dan bisnis yang sangat penting di Indonesia. Pada tahun 2020, kota Medan memiliki penduduk sebanyak 2.524.321 jiwa, dan kepadatan penduduk 9.522,22 jiwa/km2
-                            Sejarah Medan berawal dari sebuah kampung yang didirikan oleh Guru Patimpus di pertemuan Sungai Deli dan Sungai Babura. Hari jadi Kota Medan ditetapkan pada 1 Juli 1590. Selanjutnya pada tahun 1632, Medan dijadikan pusat pemerintahan Kesultanan Deli, sebuah kerajaan Melayu. Bangsa Eropa mulai menemukan Medan sejak kedatangan John Anderson dari Inggris pada tahun 1823.</p>						
-                    </div>
-				</div>
-				<div class="col-lg-4 col-sm-6 service-item"><br>
-                    <div class="">
-						<img src="images/content/kota.png" alt="1">
-					</div>
-				</div>
-                <div class="service-content2">
-                        <button class="site-btn">Tampilkan Kegiatan</button>
-                    </div>
-			</div>
-		</div>
-	</section>
-
-	<br><br><br><br> -->
-
-
-	<!-- Event section -->
-	<!-- <section class="event-section spad">
-		<div class="container">
-			<div class="section-title text-center">
-				<h3 style="color: blue;">Informasi Pada Lokasi City Medan</h3>
-			</div>
-</div>
-</section> -->
-<%- include('../../partials/footer_petugas.ejs'); %>
-	<!--====== Javascripts & Jquery ======-->
-	<!-- <script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.countdown.js"></script>
-	<script src="js/masonry.pkgd.min.js"></script>
-	<script src="js/magnific-popup.min.js"></script>
-	<script src="js/main.js"></script>
+	<div class="row my-5">
+        <h3 class="fs-4 mb-3" style="margin: 1cm">Data Kegiatan</h3>
+        <div class="col">
+            <table class="table" id="tabel_kegiatan">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Jumlah Kegiatan</th>
+                </thead>
+            </table>
+        </div>
+    </div>
 	
-</body>
-</html> -->
+	  <%- include('../../partials/footer_petugas.ejs'); %>
+
+	  <script type="text/javascript">
+        $.ajax({
+            type: "GET",
+            url: '/api-v1/intern/get-full-kegiatan',
+            //headers: {
+            //Authorization: 'Bearer ' + localStorage.getItem('token') },
+            dataType: 'JSON',
+            success: function(data) {
+                
+                console.log(data, "ini data alamat")
+                var tatanan = '';
+                let dataCoba = data.data.results;
+                let jumlah_Barat;
+                let jumlah_Area;
+                let jumlah_Timur;
+                let jumlah_Deli;
+                let jumlah_Amplas;
+                let jumlah_Baru;
+                let jumlah_Belawan;
+                let jumlah_Denai;
+                let jumlah_Helvetia;
+                let jumlah_Johor;
+                let jumlah_Kota;
+                let jumlah_Labuhan;
+                let jumlah_Maimun;
+                let jumlah_Marelan;
+                let jumlah_Perjuangan;
+                let jumlah_Petisah;
+                let jumlah_Polonia;
+                let jumlah_Sunggal;
+                let jumlah_Selayang;
+                let jumlah_Tembung;
+                let jumlah_Tuntungan;
+
+                $.each(dataCoba, (i, value) => {
+                  jumlah_Barat = dataCoba.filter(value => value.alamat.includes("Medan Barat"));
+                  jumlah_Area = dataCoba.filter(value => value.alamat.includes("Medan Area"));
+                  jumlah_Timur = dataCoba.filter(value => value.alamat.includes("Medan Timur"));
+                  jumlah_Deli = dataCoba.filter(value => value.alamat.includes("Medan Deli"));
+                  jumlah_Amplas = dataCoba.filter(value => value.alamat.includes("Medan Amplas"));
+                  jumlah_Baru = dataCoba.filter(value => value.alamat.includes("Medan Baru"));
+                  jumlah_Belawan = dataCoba.filter(value => value.alamat.includes("Medan Belawan"));
+                  jumlah_Denai = dataCoba.filter(value => value.alamat.includes("Medan Denai"));
+                  jumlah_Helvetia = dataCoba.filter(value => value.alamat.includes("Medan Helvetia"));
+                  jumlah_Johor = dataCoba.filter(value => value.alamat.includes("Medan Johor"));
+                  jumlah_Kota = dataCoba.filter(value => value.alamat.includes("Medan Kota"));
+                  jumlah_Labuhan = dataCoba.filter(value => value.alamat.includes("Medan Labuhan"));
+                  jumlah_Maimun = dataCoba.filter(value => value.alamat.includes("Medan Maimun"));
+                  jumlah_Marelan = dataCoba.filter(value => value.alamat.includes("Medan Marelan"));
+                  jumlah_Perjuangan = dataCoba.filter(value => value.alamat.includes("Medan Perjuangam"));
+                  jumlah_Petisah = dataCoba.filter(value => value.alamat.includes("Medan Petisah"));
+                  jumlah_Polonia = dataCoba.filter(value => value.alamat.includes("Medan Polonia"));
+                  jumlah_Sunggal = dataCoba.filter(value => value.alamat.includes("Medan Sunggal"));
+                  jumlah_Selayang = dataCoba.filter(value => value.alamat.includes("Medan Selayang"));
+                  jumlah_Tembung = dataCoba.filter(value => value.alamat.includes("Medan Tembung"));
+                  jumlah_Tuntungan = dataCoba.filter(value => value.alamat.includes("Medan Tuntungan"));
+                })
+
+
+
+               // add table rows
+              let dataRow = '<tbody style="text-align:center">' +
+                            '<tr>' +
+                            '<th>Medan Area</th>' +
+                            '<td>' + jumlah_Area.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Barat</th>' +
+                            '<td>' + jumlah_Barat.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Timur</th>' +
+                            '<td>' + jumlah_Timur.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Deli</th>' +
+                            '<td>' + jumlah_Deli.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Amplas</th>' +
+                            '<td>' + jumlah_Amplas.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Baru</th>' +
+                            '<td>' + jumlah_Baru.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Belawan</th>' +
+                            '<td>' + jumlah_Belawan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Denai</th>' +
+                            '<td>' + jumlah_Denai.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Labuhan</th>' +
+                            '<td>' + jumlah_Labuhan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Maimun</th>' +
+                            '<td>' + jumlah_Maimun.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Marelan</th>' +
+                            '<td>' + jumlah_Marelan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Perjuangan</th>' +
+                            '<td>' + jumlah_Perjuangan.length + '</td>' +
+                            '</tr>' +
+                            '<th>Medan Petisah</th>' +
+                            '<td>' + jumlah_Petisah.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Polonia</th>' +
+                            '<td>' + jumlah_Polonia.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Sunggal</th>' +
+                            '<td>' + jumlah_Sunggal.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Selayang</th>' +
+                            '<td>' + jumlah_Selayang.length + '</td>' +
+                            '</tr>' +
+                            '<th>Medan Tembung</th>' +
+                            '<td>' + jumlah_Tembung.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Tuntungan</th>' +
+                            '<td>' + jumlah_Tuntungan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tbody>'
+                $('#tabel_kegiatan').append(dataRow);
+                
+            },
+                error : function(e) {
+                  alert("ERROR: ", e);
+                  console.log("ERROR: ", e);
+                }
+        })
+  </script>
