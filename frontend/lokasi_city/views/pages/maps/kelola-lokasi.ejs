@@ -6,61 +6,27 @@
     <div id="map-city"></div>
   
     <div class="card-kelola-lokasi">
-      <div class="grid-kelola-lokasi">
-        <div class="daerah-administrasi">
-          <h5 class="fw-bold">Pilih Daerah Administrasi</h5>
-          <div class="search-adminitrasi">
-            <div class="mb-2">
-              <select name="kecamatan" class="selectpicker form-control" id="select-kecamatan" data-live-search="true">
-                <option>Jakarta</option>
-                <option>Banda Aceh</option>
-                <option>Medan</option>
-                <option>Padang</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <select name="kabupaten" class="selectpicker form-control" id="select-kabupaten" data-live-search="true">
-                <option>Jakarta</option>
-                <option>Banda Aceh</option>
-                <option>Medan</option>
-                <option>Padang</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <button type="button" class="btn btn-green">Search</button>
-            </div>
+      <div class="card-find-poi">
+        <h5 class="fw-bold">Find Point Of Interest</h5>
+        <div class="search-poi">
+          <div class="mb-2">
+            <select class="form-control form-control-sm" name="select-kecamatan" id="select-kecamatan" style="width: 100%;">              
+            </select>
           </div>
-        </div>
-        <div class="find-poi">
-          <h5 class="fw-bold">Find Point Of Interest</h5>
-          <div class="search-poi">
-            <div class="mb-2">
-              <select name="poi-kecamatan" class="selectpicker form-control" id="select-poi-kecamatan" data-live-search="true">
-                <option>Jakarta</option>
-                <option>Banda Aceh</option>
-                <option>Medan</option>
-                <option>Padang</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <select name="poi-kabupaten" class="selectpicker form-control" id="select-poi-kabupaten" data-live-search="true">
-                <option>Jakarta</option>
-                <option>Banda Aceh</option>
-                <option>Medan</option>
-                <option>Padang</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <select name="poi-kategori" class="selectpicker form-control" id="select-poi-kategori" data-live-search="true">
-                <option>Jakarta</option>
-                <option>Banda Aceh</option>
-                <option>Medan</option>
-                <option>Padang</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <button type="button" class="btn btn-green">Search</button>
-            </div>
+          <div class="mb-2">
+            <select class="form-control form-control-sm" name="select-desa" id="select-desa" style="width: 100%;">              
+            </select>
+          </div>
+          <div class="mb-2">
+            <select name="poi-kategori" class="selectpicker form-control" id="select-poi-kategori">
+              <option>Jakarta</option>
+              <option>Banda Aceh</option>
+              <option>Medan</option>
+              <option>Padang</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <button type="button" class="btn btn-green" id="btn-search-poi">Search</button>
           </div>
         </div>
       </div>

@@ -14,11 +14,19 @@
   position: absolute;
   z-index: 2;
   top: 10px;
-  width: 100%;
+  width: 30%;
   padding: 20px;
   border-radius: 20px;  
   margin: auto;
 }
+.card-find-poi {
+  background-color: #fff;
+  padding: 20px;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 10px;
+}
+
 .card-kelola-kegiatan {
   position: absolute;
   z-index: 2;
