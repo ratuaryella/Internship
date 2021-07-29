@@ -98,6 +98,7 @@ const getKegiatan = (req, res, next) => {
                                 tanggal_kegiatan: doc.tanggal_kegiatan,
                                 gambar: doc.gambar,
                                 deskripsi: doc.deskripsi,
+                                alamat: doc.alamat,
                                 longitude: doc.longitude,
                                 latitude: doc.latitude,
                                 created_at: doc.created_at,
@@ -311,6 +312,7 @@ const getAllKegiatan = (req, res, next) => {
                                 deskripsi: doc.deskripsi,
                                 longitude: doc.longitude,
                                 latitude: doc.latitude,
+                                alamat: doc.alamat,
                                 created_at: doc.created_at,
                                 created_by: doc.created_by
                             };

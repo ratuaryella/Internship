@@ -150,7 +150,7 @@ const getUserById = (req) => {
 const getUserByIdLogin = (req) => {
     let status;
 
-    var params = req.cookies.role
+    var params = req.cookies.id
     var url = `${config.API_URL_AUTH}/detail-user?id=`
     return fetch(url + params, {
         method: 'GET',

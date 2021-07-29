@@ -280,7 +280,7 @@ const getDetailUser = (req, res, next) => {
     const id = req.query.id;
     try {
 
-        if (req.userData.id == id || req.userData.role.id == globalVariable.ROLE_ADMIN) {
+        if (req.userData.id == id || req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
 
             UserServices.getDetailUser(id)
             .then(docs => {
@@ -378,7 +378,7 @@ const updateUser = async (req, res, next) => {
       const currentDate = getCurrentDate();
       const id = req.query.id;
   
-      if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
+      if (req.userData.id == id || req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM)  {
 
       let detailUser = await UserServices.getDetailUser(id);
       if (detailUser.length > 0) {
