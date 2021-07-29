@@ -31,9 +31,162 @@
 			</div>		
 		</div>
 	</div>
-	
 
-
-
+	<div class="row my-5">
+        <h3 class="fs-4 mb-3" style="margin: 1cm">Data Kegiatan</h3>
+        <div class="col">
+            <table class="table" id="tabel_kegiatan">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Jumlah Kegiatan</th>
+                </thead>
+            </table>
+        </div>
+    </div>
 	
 	  <%- include('../../partials/footer_petugas.ejs'); %>
+
+	  <script type="text/javascript">
+        $.ajax({
+            type: "GET",
+            url: '/api-v1/intern/get-full-kegiatan',
+            //headers: {
+            //Authorization: 'Bearer ' + localStorage.getItem('token') },
+            dataType: 'JSON',
+            success: function(data) {
+                
+                console.log(data, "ini data alamat")
+                var tatanan = '';
+                let dataCoba = data.data.results;
+                let jumlah_Barat;
+                let jumlah_Area;
+                let jumlah_Timur;
+                let jumlah_Deli;
+                let jumlah_Amplas;
+                let jumlah_Baru;
+                let jumlah_Belawan;
+                let jumlah_Denai;
+                let jumlah_Helvetia;
+                let jumlah_Johor;
+                let jumlah_Kota;
+                let jumlah_Labuhan;
+                let jumlah_Maimun;
+                let jumlah_Marelan;
+                let jumlah_Perjuangan;
+                let jumlah_Petisah;
+                let jumlah_Polonia;
+                let jumlah_Sunggal;
+                let jumlah_Selayang;
+                let jumlah_Tembung;
+                let jumlah_Tuntungan;
+
+                $.each(dataCoba, (i, value) => {
+                  jumlah_Barat = dataCoba.filter(value => value.alamat.includes("Medan Barat"));
+                  jumlah_Area = dataCoba.filter(value => value.alamat.includes("Medan Area"));
+                  jumlah_Timur = dataCoba.filter(value => value.alamat.includes("Medan Timur"));
+                  jumlah_Deli = dataCoba.filter(value => value.alamat.includes("Medan Deli"));
+                  jumlah_Amplas = dataCoba.filter(value => value.alamat.includes("Medan Amplas"));
+                  jumlah_Baru = dataCoba.filter(value => value.alamat.includes("Medan Baru"));
+                  jumlah_Belawan = dataCoba.filter(value => value.alamat.includes("Medan Belawan"));
+                  jumlah_Denai = dataCoba.filter(value => value.alamat.includes("Medan Denai"));
+                  jumlah_Helvetia = dataCoba.filter(value => value.alamat.includes("Medan Helvetia"));
+                  jumlah_Johor = dataCoba.filter(value => value.alamat.includes("Medan Johor"));
+                  jumlah_Kota = dataCoba.filter(value => value.alamat.includes("Medan Kota"));
+                  jumlah_Labuhan = dataCoba.filter(value => value.alamat.includes("Medan Labuhan"));
+                  jumlah_Maimun = dataCoba.filter(value => value.alamat.includes("Medan Maimun"));
+                  jumlah_Marelan = dataCoba.filter(value => value.alamat.includes("Medan Marelan"));
+                  jumlah_Perjuangan = dataCoba.filter(value => value.alamat.includes("Medan Perjuangam"));
+                  jumlah_Petisah = dataCoba.filter(value => value.alamat.includes("Medan Petisah"));
+                  jumlah_Polonia = dataCoba.filter(value => value.alamat.includes("Medan Polonia"));
+                  jumlah_Sunggal = dataCoba.filter(value => value.alamat.includes("Medan Sunggal"));
+                  jumlah_Selayang = dataCoba.filter(value => value.alamat.includes("Medan Selayang"));
+                  jumlah_Tembung = dataCoba.filter(value => value.alamat.includes("Medan Tembung"));
+                  jumlah_Tuntungan = dataCoba.filter(value => value.alamat.includes("Medan Tuntungan"));
+                })
+
+
+
+               // add table rows
+              let dataRow = '<tbody style="text-align:center">' +
+                            '<tr>' +
+                            '<th>Medan Area</th>' +
+                            '<td>' + jumlah_Area.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Barat</th>' +
+                            '<td>' + jumlah_Barat.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Timur</th>' +
+                            '<td>' + jumlah_Timur.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Deli</th>' +
+                            '<td>' + jumlah_Deli.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Amplas</th>' +
+                            '<td>' + jumlah_Amplas.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Baru</th>' +
+                            '<td>' + jumlah_Baru.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Belawan</th>' +
+                            '<td>' + jumlah_Belawan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Denai</th>' +
+                            '<td>' + jumlah_Denai.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Labuhan</th>' +
+                            '<td>' + jumlah_Labuhan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Maimun</th>' +
+                            '<td>' + jumlah_Maimun.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Marelan</th>' +
+                            '<td>' + jumlah_Marelan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Perjuangan</th>' +
+                            '<td>' + jumlah_Perjuangan.length + '</td>' +
+                            '</tr>' +
+                            '<th>Medan Petisah</th>' +
+                            '<td>' + jumlah_Petisah.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Polonia</th>' +
+                            '<td>' + jumlah_Polonia.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Sunggal</th>' +
+                            '<td>' + jumlah_Sunggal.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Selayang</th>' +
+                            '<td>' + jumlah_Selayang.length + '</td>' +
+                            '</tr>' +
+                            '<th>Medan Tembung</th>' +
+                            '<td>' + jumlah_Tembung.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<th>Medan Tuntungan</th>' +
+                            '<td>' + jumlah_Tuntungan.length + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tbody>'
+                $('#tabel_kegiatan').append(dataRow);
+                
+            },
+                error : function(e) {
+                  alert("ERROR: ", e);
+                  console.log("ERROR: ", e);
+                }
+        })
+  </script>
