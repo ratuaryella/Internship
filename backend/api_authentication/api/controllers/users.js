@@ -279,9 +279,6 @@ const getAllUser = (req, res, next) => {
 const getDetailUser = (req, res, next) => {
     const id = req.query.id;
     try {
-
-        if (req.userData.id == id || req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
-
             UserServices.getDetailUser(id)
             .then(docs => {
                 if (docs.length > 0) {
@@ -318,12 +315,6 @@ const getDetailUser = (req, res, next) => {
                 next(err);
             });
             
-        } else {
-            return res.status(403).json({
-                status: 'Forbidden',
-                message: 'You cannot see detail another user!'
-            });
-        }
     } catch(err) {
         next(err);
     }
