@@ -21,30 +21,31 @@
                 label {
                     margin: .4rem 0;
                 }
-            </style><br>
-                      <div>
-                        <table id="tabel_kegiatan" class="table bg-light rounded shadow-sm  table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nama Kegiatan</th>
-                                    <th>Tanggal</th>
-                                    <th>Pelaksana</th>
-                                    <th>Aksi</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                        <ul class="pagination justify-content-center" style="margin:20px 0">
-                        </ul>
-                    </div>
+            </style>
+            <br>
+              <div>
+                <table id="tabel_kegiatan" class="table bg-light rounded shadow-sm  table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nama Kegiatan</th>
+                            <th>Tanggal</th>
+                            <th>Pelaksana</th>
+                            <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <ul class="pagination justify-content-center" style="margin:20px 0">
+                </ul>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-  
 </div>
+
+<!-- Modal Delete -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -63,6 +64,7 @@
   </div>
 </div>
 
+<!-- Modal Edit -->
 <div class="modal fade" id="editKegiatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -129,7 +131,7 @@
           </div>
         </form>
       </div>
-            <div class="modal-footer">
+      <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button onclick="form_submit()" class="btn btn-green" type="submit">Edit</button>
       </div>
@@ -138,7 +140,6 @@
 </div>
 
 <% block('extendScripts').append('<script type="text/javascript" src="/js/maps/maps-home.js"></script>') %>
-
 <script type="text/javascript">
   $(document).ready(function(){
   function fetchCustomers(page){

@@ -32,3 +32,16 @@ body {
     background-color: #1f827c;
 	color: white;
 }
+
+.carousel-item{
+    width:100%;
+    max-height: 500px !important;
+}
+
+.carousel-inner{
+    border-radius: 25px;
+}
+
+.carousel-box{
+    width: 95%;
+}

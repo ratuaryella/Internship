@@ -7,6 +7,7 @@ const loginMiddleware = require('../middleware/login');
 const messageValidation = require('../validator/loginValidator');
 const isAuthorization = require('../middleware/is-authorization');
 const adminController = require('../controllers/admin/admin');
+const guestController = require('../controllers/guest/guest');
 const tatananController = require('../controllers/tatanan/tatanan');
 const administrasiController = require('../controllers/adminitrasi/administrasi');
 const kegiatanController = require('../controllers/kegiatan/kegiatan');
@@ -17,7 +18,9 @@ router.get('/login', loginMiddleware, authController.index);
 router.post('/login', loginMiddleware, messageValidation.loginValidator, authController.login);
 router.post('/logout', isAuthorization, authController.logout);
 
-router.get('/', isAuthorization, adminController.index);
+// router.get('/', isAuthorization, adminController.index);
+
+router.get('/',  guestController.index);
 
 router.get('/data-user', isAuthorization, (req, res) => {
     let param = {
@@ -47,8 +50,8 @@ router.post('/api-v1/intern/create-user', isAuthorization, userController.create
 router.patch('/api-v1/intern/delete-user', isAuthorization, userController.deleteUser);
 router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUserById);
 
-router.get('/api-v1/intern/get-all-kegiatan', isAuthorization, kegiatanController.getAllKegiatan);
-router.get('/api-v1/intern/get-full-kegiatan', isAuthorization, kegiatanController.getFullKegiatan);
+router.get('/api-v1/intern/get-all-kegiatan',  kegiatanController.getAllKegiatan);
+router.get('/api-v1/intern/get-full-kegiatan', kegiatanController.getFullKegiatan);
 router.get('/api-v1/intern/get-role-kegiatan', isAuthorization, kegiatanController.getKegiatanByRole);
 router.get('/api-v1/intern/get-user-kegiatan', isAuthorization, kegiatanController.getKegiatanByUser);
 router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
@@ -147,6 +150,15 @@ router.get('/home-guest', isAuthorization,  (req, res) => {
 
 router.get('/kegiatan-guest', isAuthorization,  (req, res) => {
     res.render('./pages/guest/kegiatan_guest');
+});
+
+router.get('/berita-guest', (req, res) => {
+    let param = {
+        active: 'berita',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/guest/berita', param);
 });
 
 router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);

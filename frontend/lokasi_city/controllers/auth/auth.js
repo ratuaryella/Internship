@@ -39,8 +39,8 @@ const login = (req, res) => {
 const logout = (req, res) => {
   res.clearCookie("username");
   res.clearCookie("user_token");
-  res.clearCookie("user_role");
-  res.redirect("/login");
+  res.clearCookie("role");
+  res.redirect("/");
 };
 
 module.exports = {
