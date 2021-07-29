@@ -147,10 +147,72 @@ const getUserById = (req) => {
 }
 
 
+const getUserByIdLogin = (req) => {
+    let status;
+
+    var params = req.cookies.role
+    var url = `${config.API_URL_AUTH}/detail-user?id=`
+    return fetch(url + params, {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        }
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
+const editUser = (req) => {
+    let status;
+
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_AUTH}/edit-user?`
+    return fetch(url + params, {
+        method: 'PATCH',
+        headers: {
+            "Authorization": "Bearer " + req.cookies.user_token,
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8"
+        },
+        body: JSON.stringify({
+            id: req.query.id,
+            email: req.body.email,
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            password: req.body.password,
+            password_confirmation: req.body.password_confirmation,
+            mobile_number: req.body.mobile_number,
+            status: req.body.status,
+            kode_wilayah: req.body.kode_wilayah
+    })
+    }).then(response => {
+        status = response.status;
+        return response.json();
+    }).then(responseJson => {
+        return {
+            status: status,
+            data: responseJson
+        }
+    })
+}
+
 module.exports = {
     getAllUsers,
     getAllRoles,
     createUser,
     deleteUser,
-    getUserById
+    getUserById,
+    getUserByIdLogin,
+    editUser
 }

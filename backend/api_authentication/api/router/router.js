@@ -14,6 +14,7 @@ router.get('/get-roles', checkAuth, getAllRole);
 
 router.post('/create-user', checkAuth, UserControllers.createUser);
 router.get('/get-all-users', checkAuth, UserControllers.getAllUser);
+router.patch('/edit-user', checkAuth, UserControllers.updateUser);
 router.get('/detail-user', checkAuth, UserControllers.getDetailUser);
 router.patch('/delete-user', checkAuth, UserControllers.deleteUser);
 

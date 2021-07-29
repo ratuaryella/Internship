@@ -2,10 +2,6 @@
 
 <%- include('../../partials/navbar.ejs'); %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -51,33 +47,17 @@ button:hover, a:hover {
 <div class="card">
     <div class="b">
   <center><img src="images/content/vector.png" alt="" style="width:40%; margin-top: 40px; padding-bottom: 40px;"></center>
-  <h1>Kevin Aruan</h1>
-  <p class="title">Petugas Kecamatan Medan Barat</p>
+  <h1 id="nama-user"></h1>
   </div>
   <div style="margin-left: 20px;">
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="">Username</th>
-        <th class="">kevin123</th>
-      </tr>
-      <tr>
-        <th class="">email</th>
-        <th class="">kevin@del.ac.id</th>
-      </tr>      <tr>
-        <th class="">No.HP</th>
-        <th class="">098765432</th>
-      </tr>      <tr>
-        <th class="">Role</th>
-        <th class="">Petugas</th>
-      </tr>
-    </thead>
+  <table class="table" id="tabel_profil">
+    <tbody>
+    </tbody>
     
   </table>
 </div>
-  <p><button class="btn-green"type="button" class="btn-dflt float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Edit Profile</button></p>
   <div class="col-md-2">
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="left: 450px;margin-left: -15px; width:500px; margin-right: -15px; height:650px; overflow-y:auto">
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true" style="left: 450px;margin-left: -15px; width:500px; margin-right: -15px; height:650px; overflow-y:auto">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -87,34 +67,23 @@ button:hover, a:hover {
             <div class="modal-body">
               <form>
                 <div class="mb-3">
-                  <h6>Username</h6>
-                  <input type="text" class="form-control" id="recipient-name">
-                </div>
-                <div class="mb-3">
-                  <h6>Nama</h6>
-                  <input type="text" class="form-control" id="recipient-name">
-                </div>
                 <div class="mb-3">
                   <h6>Email</h6>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <input type="text" class="form-control" id="recipient-email" name="get_email">
                 </div>
                 <div class="mb-3">
                     <h6>New Password</h6>
-                    <input type="text" class="form-control" id="recipient-name">
+                    <input type="password" required class="form-control" id="recipient-password" name="get_password">
                   </div>
                 <div class="mb-3">
                   <h6>Telepon</h6>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <input type="text" class="form-control" id="recipient-telepon" name="get_telepon">
                 </div>
-                <div class="mb-3">
-                    <h6>Role</h6>
-                    <input type="text" class="form-control" id="recipient-name">
-                  </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn-green">Save</button>
+              <button type="button" class="btn-green" id="btn-save-edit">Save</button>
             </div>
           </div>
         </div>
@@ -123,5 +92,149 @@ button:hover, a:hover {
 
 </div>
 
-</body>
-</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/detail-user-login',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          success: function(data) {
+              console.log(data, "ini data user")
+              var tatanan = '';
+              let dataCoba = data.data.data
+  
+              // ITERATING THROUGH OBJECTS
+             // add table rows
+              $.each(dataCoba, (i, value) => {
+                  console.log(value, "ini value")
+                  $('#nama-user').append(value.firstname + ' ' + value.lastname);
+                  let profileRow = '<tr>' +
+                                      '<th>Username</th>' +
+                                      '<th>' + value.username + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                      '<th>Email</th>' +
+                                      '<th>' + value.email + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                      '<th>Nomor Ponsel</th>' +
+                                      '<th>' + value.mobile_number + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                      '<th>Role</th>' +
+                                      '<th>' + value.role.name + '</td>' +
+                                    '</tr>' +
+                                    '<tr id="edit">' +
+                                      '<th id="editData" colspan="3"><button id="btn-edit" class="btn-green" type="button" data-id='+ value.id +'>Edit Profile</button></th>'+
+                                    '</tr>'
+              $('#tabel_profil tbody').append(profileRow);
+            }); 
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+      })
+})
+</script>
+
+<script>
+  $(document).ready(function(){
+      function editRow(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      $.ajax({
+          type: "GET",
+          url: '/api-v1/intern/detail-user',
+          //headers: {
+          //Authorization: 'Bearer ' + localStorage.getItem('token') },
+          dataType: 'JSON',
+          data: { 
+              id: edt_id
+          },
+          success: function(data) {
+              console.log(data, "ini data user id")
+              let dataCoba = data.data.data;
+
+              $.each(dataCoba, (i, value) => {
+                console.log(value, "ini user id")
+
+                $("#profileModal .modal-body #recipient-telepon").val(value.mobile_number);
+                $("#profileModal .modal-body #recipient-email").val(value.email);
+                $("#profileModal .modal-body #recipient-password").val(value.password);
+
+                $("#profileModal").modal('show');
+              })
+ 
+          },
+              error : function(e) {
+                alert("ERROR: ", e);
+                console.log("ERROR: ", e);
+              }
+        })
+      
+      }
+
+      function saveEdit(id){
+      let edt_id = (typeof id !== 'undefined') ?  id : 1;
+      let telepon = $("input[name='get_telepon']").val();
+      let email = $("input[name='get_email']").val();
+      let password = $("input[name='get_password']").val();
+
+      if($("input[name='get_password']").val() == ""){
+        swal({
+        title: "No password",
+        text: "Anda harus memasukkan password",
+        icon: "error",
+        buttons: false,
+        timer: 1000
+        })
+      }
+      else{
+      $.ajax({
+      type: "PATCH",
+      url: "/api-v1/intern/update-user?id=" + id,
+      dataType: 'JSON',
+          data: { 
+          id: edt_id,
+          email: email,
+          password: password,
+          password_confirmation: password,
+          mobile_number: telepon
+        },
+      success: function(data){
+        swal({
+        title: "Data tersimpan",
+        text: "Anda telah berhasil mengedit data",
+        icon: "success",
+        buttons: false,
+        timer: 1000
+        })
+        .then(function(){ 
+          location.reload();
+          }
+        );
+      },
+        error : function(e) {
+          alert("ERROR: ", e);
+          console.log("ERROR: ", e);
+          location.reload()
+        }
+        })
+      }
+      
+    }
+
+      $("body").on("click", "#btn-edit", function(){  
+        let edt = $(this).attr('data-id');
+        let edit_int = parseInt(edt);
+
+        editRow(edit_int);
+
+        $("#profileModal .modal-footer").on("click", "#btn-save-edit", function(){   
+        saveEdit(edit_int);
+      })
+  })
+})
+  </script>

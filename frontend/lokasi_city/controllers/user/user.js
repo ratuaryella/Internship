@@ -78,11 +78,40 @@ const getUserById = (req, res) => {
     })
 }
 
+const getUserByIdLogin = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchUser.getUserByIdLogin(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+const editUser = (req, res) => {
+    const statusCode = [200, 201, 400, 401, 403, 404, 500];
+    return fetchUser.editUser(req)
+    .then(responseJson => {
+        if(statusCode.includes(responseJson.status)){
+            res.json(responseJson);
+        } else {
+            return false; 
+        }
+    }).catch(error =>{
+        console.log(error);
+    })
+}
 module.exports = {
   index,
   getAllUsers,
   getAllRoles,
   createUser,
   deleteUser,
-  getUserById
+  getUserById,
+  getUserByIdLogin,
+  editUser
 }

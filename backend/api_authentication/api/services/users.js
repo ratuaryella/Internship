@@ -98,11 +98,19 @@ const deleteUser = (id, deleteData) => {
     });
 }
 
+// Update User
+const updateUser = (id, updateUser) => {
+    return User.update(updateUser, {
+        where: { id: id }
+    });
+}
+
 module.exports = {
     createUser,
     checkUserRegistered,
     checkUsername,
     getAllUser,
     getDetailUser,
-    deleteUser
+    deleteUser,
+    updateUser
 }

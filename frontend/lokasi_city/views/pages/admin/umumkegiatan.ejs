@@ -260,7 +260,13 @@
         id: del_id
       },
       success: function(data){
-        swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
+        swal({
+        title: "Data terhapus",
+        text: "Anda telah berhasil menghapus data",
+        icon: "success",
+        buttons: false,
+        timer: 1000
+        })
         .then(function(){ 
           location.reload();
           }
@@ -351,7 +357,13 @@
           tanggal_kegiatan: tanggal
         },
       success: function(data){
-        swal("Data tersimpan", "Anda telah berhasil mengedit data!", "success")
+        swal({
+        title: "Data tersimpan",
+        text: "Anda telah berhasil mengedit data",
+        icon: "success",
+        buttons: false,
+        timer: 1000
+        })
         .then(function(){ 
           location.reload();
           }

@@ -194,8 +194,9 @@ const getKegiatanByRole = (req) => {
 const getKegiatanByUser = (req) => {
     let status;
 
-    var url = `${config.API_URL_SERVICES}/get-user-kegiatan?user_id=`+req.cookies.id
-    return fetch(url, {
+    var params = new URLSearchParams(req.query);
+    var url = `${config.API_URL_SERVICES}/get-user-kegiatan?user_id=`+req.cookies.id+`&`
+    return fetch(url + params, {
         method: 'GET',
         headers: {
             "Authorization": "Bearer " + req.cookies.user_token,

@@ -49,6 +49,8 @@ router.get('/api-v1/intern/get-all-roles', isAuthorization, userController.getAl
 router.post('/api-v1/intern/create-user', isAuthorization, userController.createUser);
 router.patch('/api-v1/intern/delete-user', isAuthorization, userController.deleteUser);
 router.get('/api-v1/intern/detail-user', isAuthorization, userController.getUserById);
+router.get('/api-v1/intern/detail-user-login', isAuthorization, userController.getUserByIdLogin);
+router.patch('/api-v1/intern/update-user', isAuthorization, userController.editUser);
 
 router.get('/api-v1/intern/get-all-kegiatan',  kegiatanController.getAllKegiatan);
 router.get('/api-v1/intern/get-full-kegiatan', kegiatanController.getFullKegiatan);

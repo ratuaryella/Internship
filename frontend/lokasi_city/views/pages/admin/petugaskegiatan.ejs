@@ -256,7 +256,13 @@
         id: del_id
       },
       success: function(data){
-        swal("Data terhapus", "Anda telah berhasil menghapus data!", "success")
+        swal({
+        title: "Data terhapus",
+        text: "Anda telah berhasil menghapus data",
+        icon: "success",
+        buttons: false,
+        timer: 1000
+        })
         .then(function(){ 
           location.reload();
           }

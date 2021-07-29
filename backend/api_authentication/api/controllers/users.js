@@ -293,6 +293,7 @@ const getDetailUser = (req, res, next) => {
                                 username: doc.username,
                                 firstname: doc.firstname,
                                 lastname: doc.lastname,
+                                password: doc.password,
                                 mobile_number: doc.mobile_number,
                                 status: doc.status,
                                 kode_wilayah: doc.kode_wilayah,
@@ -371,6 +372,65 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+//Update Kegiatan
+const updateUser = async (req, res, next) => {
+    try{
+      const currentDate = getCurrentDate();
+      const id = req.query.id;
+  
+      if (req.userData.role.id == globalVariable.ROLE_ADMIN || req.userData.role.id == globalVariable.ROLE_USER || req.userData.role.id == globalVariable.ROLE_UMUM) {
+
+      let detailUser = await UserServices.getDetailUser(id);
+      if (detailUser.length > 0) {
+        const updateDataUser = {
+          id: req.query.id,
+          email: req.body.email,
+          username: req.body.username,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          password: req.body.password,
+          mobile_number: req.body.mobile_number,
+          status: req.body.status,
+          kode_wilayah: req.body.kode_wilayah
+        };
+        bcrypt.hash(updateDataUser.password, 10, (err, hash) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'Internal Server Error',
+                    message: err
+                });
+            } else {
+                updateDataUser.password = hash;
+                const updateUser = UserServices.updateUser(id, updateDataUser);
+                const response = {
+                    message: `Successfully Updated Kegiatan with id: ${id}`,
+                    totalUpdated: updateUser[0],
+                    request: {
+                        type: 'PATCH',
+                        url: `/update-user?id=${id}`
+                      }
+                };
+                    res.status(200).json(response);
+            }
+        })
+    }
+    else {
+        res.status(404).json({
+            message: `Can't find Kegiatan with id: ${id}`
+                });
+            }
+        }
+        else {
+              return res.status(403).json({
+                  status: 'Forbidden',
+                  message: 'Only registered users can access!'
+              });
+          }
+      } catch (err) {
+          next(err);
+      }
+  }
+
 module.exports = {
     doLogin,
     checkToken,
@@ -379,4 +439,5 @@ module.exports = {
     getAllUser,
     getDetailUser,
     deleteUser,
+    updateUser
 }
