@@ -1,14 +1,6 @@
-
 <% layout('layout') %>
 
 <%- include('../../partials/navbar.ejs'); %>
-
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-
 	<!-- Blog page section  -->
 		<div class="container">
 			<div class="row">
@@ -225,7 +217,7 @@
 				$.each(dataCoba, (i, value) => {
 					console.log(value, "ini value yaaaak")
 					if(value.gambar == undefined){
-						$('.rp-item').append('<img src=https://puprpkpp.riau.go.id/asset/img/default-image.png width="50" height="50"></img>');
+						$('.rp-item').append('<img src=https://cima-afrique.org/cima/images/not-available.png width="80" height="50"></img>');
 					}else{
 						$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
 					}

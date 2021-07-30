@@ -1,13 +1,6 @@
 <% layout('layout') %>
 
 <%- include('../../partials/navbar.ejs'); %>
-
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-
 	<!-- Blog page section  -->
 		<div class="container">
 			<div class="row">
@@ -38,39 +31,39 @@
 			</div>
 		</div>
 
-    <%- include('../../partials/footer_petugas.ejs'); %>	
+	<%- include('../../partials/footer_petugas.ejs'); %>	
 
 <script type="text/javascript">
 	function getName(id){
-      let usr_id = (typeof id !== 'undefined') ?  id : 1;
-	  var nama;
-      $.ajax({
-          type: "GET",
-          url: '/api-v1/intern/detail-user',
-          //headers: {
-          //Authorization: 'Bearer ' + localStorage.getItem('token') },
-          dataType: 'JSON',
-          data: { 
-              id: usr_id
-          },
-          async: false,
-		  success: function(data) {
-              console.log(data, "ini data user id")
-              let dataCoba = data.data.data;
+		let usr_id = (typeof id !== 'undefined') ?  id : 1;
+		var nama;
+		$.ajax({
+			type: "GET",
+			url: '/api-v1/intern/detail-user',
+			//headers: {
+			//Authorization: 'Bearer ' + localStorage.getItem('token') },
+			dataType: 'JSON',
+			data: { 
+				id: usr_id
+			},
+			async: false,
+			success: function(data) {
+				console.log(data, "ini data user id")
+				let dataCoba = data.data.data;
 
-              $.each(dataCoba, (i, value) => {
-                console.log(value.firstname, "ini user id")
+				$.each(dataCoba, (i, value) => {
+				console.log(value.firstname, "ini user id")
 
 				nama = value.firstname + ' ' + value.lastname;
-              })
-          },
-        })
+				})
+			},
+		})
 		return nama;
-      }
+		}
 
 	$(document).ready(function(){
 	function fetchCustomers(page){
-	  let pageNumber = (typeof page !== 'undefined') ?  page : 1;
+		let pageNumber = (typeof page !== 'undefined') ?  page : 1;
 		$.ajax({
 			type: "GET",
 			url: '/api-v1/intern/get-all-kegiatan',
@@ -87,10 +80,29 @@
 				// ITERATING THROUGH OBJECTS
 				$('.post-item').empty();
 
-			   // add content
+				// add content
 				$.each(dataCoba, (i, value) => {
 					console.log(value, "ini value")
-					$('.post-item').append('<div class="post-content">'+
+					if(value.gambar == undefined){
+						$('.post-item').append('<div class="post-content">'+
+						'<div class="card">'+
+						'<img src=https://cima-afrique.org/cima/images/not-available.png alt= ' + value.nama_kegiatan + ' class="card-img-top"></img>'+
+						'<div class="card-body">'+
+						'<h4 class="card-title">' + value.nama_kegiatan + '</h4>'+
+						'<div class="card-subtitle">'+
+						'<span><i class="fas fa-calendar-alt"></i>'+ "  " + value.tanggal_kegiatan +'</span>'+
+						'<br>'+
+						'<span><i class="fas fa-user"></i>'+ "  " + getName(value.created_by) +'</span>'+
+						'</div>'+
+						'<p class="card-text">' + value.deskripsi + '</p>'+
+						'<p id="moreBerita" data-id=' + value.id + '><a href="" class="btn-dflt">Lihat Berita</a></p>'+
+						'</div>'+
+						'</div>'+
+						'</div>'+
+						'<br>');
+					}
+					else{
+						$('.post-item').append('<div class="post-content">'+
 						'<div class="card">'+
 						'<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' class="card-img-top"></img>'+
 						'<div class="card-body">'+
@@ -106,37 +118,38 @@
 						'</div>'+
 						'</div>'+
 						'<br>');
-			  });
+					}
+				});
 	
 				if ($('ul.pagination li').length - 2 != data.data.totalPages){
-					  // build pagination list at the first time loading
-					  $('ul.pagination').empty();
-					  buildPagination(data.data.totalPages);
-				  }   
+						// build pagination list at the first time loading
+						$('ul.pagination').empty();
+						buildPagination(data.data.totalPages);
+					}   
 			},
 				error : function(e) {
-				  alert("ERROR: ", e);
-				  console.log("ERROR: ", e);
+					alert("ERROR: ", e);
+					console.log("ERROR: ", e);
 				}
 		})
 	}
-	 /* Build Pagination Bar*/
-	 function buildPagination(totalPages){
+		/* Build Pagination Bar*/
+		function buildPagination(totalPages){
 			// Build paging navigation
 			let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
 			$("ul.pagination").append(pageIndex);
 			
 			// create pagination
 			for(let i=1; i <= totalPages; i++){
-			  // adding .active class on the first pageIndex for the loading time
-			  if(i==1){
-				  pageIndex = "<li class='page-item active'><a class='page-link'>"
+				// adding .active class on the first pageIndex for the loading time
+				if(i==1){
+					pageIndex = "<li class='page-item active'><a class='page-link'>"
 						+ i + "</a></li>"                     
-			  } else {
-				  pageIndex = "<li class='page-item'><a class='page-link'>"
+				} else {
+					pageIndex = "<li class='page-item'><a class='page-link'>"
 							+ i + "</a></li>"
-			  }
-			  $("ul.pagination").append(pageIndex);
+				}
+				$("ul.pagination").append(pageIndex);
 			}
 			
 			pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
@@ -200,19 +213,23 @@
 				// ITERATING THROUGH OBJECTS
 				$('.rp-item').empty();
 
-			   // add content
+				// add content
 				$.each(dataCoba, (i, value) => {
 					console.log(value, "ini value yaaaak")
-					$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
+					if(value.gambar == undefined){
+						$('.rp-item').append('<img src=https://cima-afrique.org/cima/images/not-available.png width="80" height="50"></img>');
+					}else{
+						$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
+					}
 					$('.rp-item').append('<div class="rp-content">');
 					$('.rp-item').append('<h6 id="moreBerita" data-id=' + value.id + '><a href="#">' + value.nama_kegiatan + '</a></h6>');
 					$('.rp-item').append('<span><i class="fas fa-clock-o"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
 					$('.rp-item').append('<br>');
-			  }); 
+				}); 
 			},
 				error : function(e) {
-				  alert("ERROR: ", e);
-				  console.log("ERROR: ", e);
+					alert("ERROR: ", e);
+					console.log("ERROR: ", e);
 				}
 			})
 	})
@@ -225,5 +242,5 @@
 			window.location.replace("/detail-berita?id=" + $(this).attr('data-id')); 
 		})
 	})
-  
+	
 </script>

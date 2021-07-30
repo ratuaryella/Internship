@@ -19,7 +19,7 @@ router.get('/get-all-kegiatan', KegiatanController.getKegiatan);
 router.get('/get-full-kegiatan',  KegiatanController.getAllKegiatan);
 router.get('/get-role-kegiatan', checkAuth, KegiatanController.getKegiatanByRole);
 router.get('/get-user-kegiatan', checkAuth, KegiatanController.getKegiatanByUser);
-router.get('/get-kegiatan', checkAuth, KegiatanController.getKegiatanById);
+router.get('/get-kegiatan', KegiatanController.getKegiatanById);
 router.get('/kegiatan', KegiatanController.downloadFiles)
 router.patch('/delete-kegiatan', checkAuth, KegiatanController.deleteKegiatan);
 router.patch('/update-kegiatan', checkAuth, KegiatanController.updateKegiatan);

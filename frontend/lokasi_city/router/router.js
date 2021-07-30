@@ -101,11 +101,14 @@ router.get('/berita-petugas', isAuthorization, (req, res) => {
     res.render('./pages/petugas/berita_petugas', param);
 });
 
-router.get('/detail-berita', isAuthorization, (req, res) => {
+router.get('/detail-berita', (req, res) => {
     let param = {
         active: 'berita',
         role: req.cookies.role,
         username: req.cookies.username
+    }
+    if(req.cookies.role == 'undefined'){
+        res.render('./pages/guest/detail_berita', param);
     }
     res.render('./pages/petugas/detail_berita', param);
 });
@@ -150,8 +153,13 @@ router.get('/home-guest', isAuthorization,  (req, res) => {
     res.render('./pages/guest/home_guest');
 });
 
-router.get('/kegiatan-guest', isAuthorization,  (req, res) => {
-    res.render('./pages/guest/kegiatan_guest');
+router.get('/kegiatan-guest', (req, res) => {
+    let param = {
+        active: 'kegiatan',
+        role: req.cookies.role,
+        username: req.cookies.username
+    }
+    res.render('./pages/guest/kegiatan_guest', param);
 });
 
 router.get('/berita-guest', (req, res) => {
