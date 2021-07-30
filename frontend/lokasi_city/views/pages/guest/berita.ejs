@@ -17,9 +17,13 @@
 					<!-- widget -->
 					<div class="widget">
 						<h5 class="widget-title">Berita Terbaru</h5>
+						<hr style="color: #1f827c; border-style:solid">
 						<div class="recent-post-widget">
 							<!-- recent post -->
-							<div class="rp-item">
+							<div class="card">
+								<div class="card-body">
+									<div class="rp-item"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -217,14 +221,15 @@
 				$.each(dataCoba, (i, value) => {
 					console.log(value, "ini value yaaaak")
 					if(value.gambar == undefined){
-						$('.rp-item').append('<img src=https://cima-afrique.org/cima/images/not-available.png width="80" height="50"></img>');
+						$('.rp-item').append('<center><img src=https://cima-afrique.org/cima/images/not-available.png width="200" height="95"></img></center>');
 					}else{
-						$('.rp-item').append('<img src='+ value.gambar +' width="50" height="50"></img>');
+						$('.rp-item').append('<img src='+ value.gambar +' width="200" height="95"></img>');
 					}
 					$('.rp-item').append('<div class="rp-content">');
 					$('.rp-item').append('<h6 id="moreBerita" data-id=' + value.id + '><a href="#">' + value.nama_kegiatan + '</a></h6>');
 					$('.rp-item').append('<span><i class="fas fa-clock-o"></i>'+ "  " + value.tanggal_kegiatan +'</span>');
 					$('.rp-item').append('<br>');
+					$('.rp-item').append('<center><hr style="width: 90%;"></center>');
 				}); 
 			},
 				error : function(e) {

@@ -1,13 +1,6 @@
 <% layout('layout') %>
 
 <%- include('../../partials/navbar.ejs'); %>
-
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-
 	<!-- Blog page section  -->
 	<div class="container">
 		<div class="row">
@@ -89,7 +82,11 @@
                $.each(dataCoba, (i, value) => {
 					console.log(value, "ini value")
 					$('.post-item').append('<div class="post-content">');
-					$('.post-item').append('<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' width="500" height="250"></img>');
+					if(value.gambar == undefined){
+						$('.rp-item').append('<img src=https://cima-afrique.org/cima/images/not-available.png width="500" height="250"></img>');
+					}else{
+						$('.post-item').append('<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' width="500" height="250"></img>');
+					}
 					$('.post-item').append('<br><br>');	
 					$('.post-item').append('<h4>' + value.nama_kegiatan + '</h4>');
 					$('.post-item').append('<div class="post-meta">');

@@ -55,3 +55,10 @@ body {
     margin-right:auto;
     display:block;
  }
+
+ .pagination > .active > a
+ {
+     color: white;
+     background-color: #1f827c !Important;
+     border: solid 1px #1f827c !Important;
+ }

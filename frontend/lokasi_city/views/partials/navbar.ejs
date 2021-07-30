@@ -37,13 +37,13 @@
       <span class="tooltip">Dokumentasi Kegiatan</span>
       <ul class="collapse nav flex-column ms-1" id="submenu" data-bs-parent="#menu">
           <li class="w-100">
-              <a href="/petugas-kegiatan" class="nav-link px-0 <% if(typeof active != 'undefined') { if (active == 'kegiatan') { %> active <% } } %> <% if(typeof role != 'undefined') %> "> 
+              <a href="/petugas-kegiatan" class="nav-link px-0 <% if(typeof active != 'undefined') { if (active == 'kegiatan-petugas') { %> active <% } } %> <% if(typeof role != 'undefined') %> "> 
                 <i class="fas fa-users-cog"></i>
                 <span class="links_name">Petugas</span> 
               </a>
           </li>
           <li class="w-100">
-              <a href="/kegiatan-umum" class="nav-link px-0"> 
+              <a href="/kegiatan-umum" class="nav-link px-0 <% if(typeof active != 'undefined') { if (active == 'kegiatan-umum') { %> active <% } } %> <% if(typeof role != 'undefined') %> "> 
                 <i class="fas fa-users"></i>
                 <span class="links_name">Umum</span> 
               </a>
@@ -126,6 +126,13 @@
     </a>
     <span class="tooltip">Peta</span>
   </li>
+  <li class="<% if(typeof role != 'undefined') { %> hide <% }  %>">
+    <a href="/kelola-lokasi" class="<% if(typeof active != 'undefined') { if (active == 'lokasi') { %> active <% } } %> <% if(typeof role != 'undefined') %> ">
+      <i class='fas fa-map-marker-alt me-2' ></i>
+      <span class="links_name">Lokasi</span>
+    </a>
+    <span class="tooltip">Lokasi</span>
+  </li>
 
   </ul>
 </div>
@@ -143,25 +150,25 @@
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <% if ( typeof role == 'undefined') { %>
+            <a class="button-login" href="/login">Log In</a>
+          <% }else{ %>
             <li class="nav-item dropdown" >
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                     <i class="fas fa-user me-2"></i><%= username || '' %>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <% if ( typeof role == 'undefined') { %>
-                    <li><a class="dropdown-item" href="/login">Log In</a></li>
-                    <% }else{ %>
                     <li><a class="dropdown-item" href="/profile-petugas">Profile</a></li>
                     <li>
                       <form method="POST" action="/logout">
                         <button class="dropdown-item" type="submit">Logout</button>
                       </form>
                     </li>
-                    <% } %>
                 </ul>
             </li>
         </ul>
+        <% } %>
     </div>
 </nav>
  

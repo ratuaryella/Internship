@@ -29,7 +29,17 @@ $(document).ready(function () {
             $.each(dataCoba, (i, value) => {
                 console.log(value, "ini value")
                 var marker = L.marker([value.latitude, value.longitude]).addTo(mapCity);
-                marker.bindPopup(
+                if(value.gambar == undefined){
+                  marker.bindPopup(
+                    '<img src=https://cima-afrique.org/cima/images/not-available.png alt= ' + value.nama_kegiatan + ' width="300" height="180"></img>'
+                    + '<br><br>'
+                    + '<h6>' + value.nama_kegiatan + '</h6>'
+                    + '<span><i class="fas fa-calendar-alt"></i>'+ "  " + value.tanggal_kegiatan +'</span>',
+                {
+                    maxWidth : 300
+                });
+                }else{
+                  marker.bindPopup(
                     '<img src=' + value.gambar + ' alt= ' + value.nama_kegiatan + ' width="300" height="150"></img>'
                     + '<br><br>'
                     + '<h6>' + value.nama_kegiatan + '</h6>'
@@ -37,6 +47,8 @@ $(document).ready(function () {
                 {
                     maxWidth : 300
                 });
+                }
+                
           });   
         },
             error : function(e) {

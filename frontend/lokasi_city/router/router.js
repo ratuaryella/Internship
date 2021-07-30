@@ -77,7 +77,7 @@ router.get('/petugas-kegiatan', isAuthorization, (req, res) => {
 });
 router.get('/kegiatan-umum', isAuthorization, (req, res) => {
     let param = {
-        active: 'kegiatan',
+        active: 'kegiatan-umum',
         role: req.cookies.role,
         username: req.cookies.username
     }
@@ -125,7 +125,7 @@ router.get('/profile-petugas', isAuthorization, (req, res) => {
 
 router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
     let param = {
-        active: 'kegiatan',
+        active: 'kegiatan-petugas',
         role: req.cookies.role,
         username: req.cookies.username
     }
@@ -134,7 +134,7 @@ router.get('/kegiatan-petugas', isAuthorization, (req, res) => {
 
 router.get('/addkegiatan-petugas', isAuthorization, (req, res) => {
     let param = {
-        active: 'kegiatan',
+        active: 'kegiatan-petugas',
         role: req.cookies.role,
         username: req.cookies.username
     }
@@ -172,11 +172,11 @@ router.get('/berita-guest', (req, res) => {
     res.render('./pages/guest/berita', param);
 });
 
-router.get('/kelola-lokasi', isAuthorization, mapsController.kelolaLokasi);
-router.get('/get-kecamatan', isAuthorization, administrasiController.getAllKecamatan); //get-kecamatan?kodeprov=12&kodekabkot=75&page=1
-router.get('/get-desa', isAuthorization, administrasiController.getAllDesa); //get-desa?kodeprov=12&kodekabkot=75&kodekec=060&page=1
-router.get('/get-geom-kecamatan', isAuthorization, administrasiController.getKecamatanGeometri); //get-geom-kecamatan?kodeprov=12&kodekabkot=75&kodekec=050
-router.get('/get-geom-desa', isAuthorization, administrasiController.getDesaGeometri); //get-geom-desa?kodeprov=12&kodekabkot=75&kodekec=060&kodedesa=007
+router.get('/kelola-lokasi', mapsController.kelolaLokasi);
+router.get('/get-kecamatan',  administrasiController.getAllKecamatan); //get-kecamatan?kodeprov=12&kodekabkot=75&page=1
+router.get('/get-desa',  administrasiController.getAllDesa); //get-desa?kodeprov=12&kodekabkot=75&kodekec=060&page=1
+router.get('/get-geom-kecamatan', administrasiController.getKecamatanGeometri); //get-geom-kecamatan?kodeprov=12&kodekabkot=75&kodekec=050
+router.get('/get-geom-desa',  administrasiController.getDesaGeometri); //get-geom-desa?kodeprov=12&kodekabkot=75&kodekec=060&kodedesa=007
 router.post('/get-poi-region', getPoiRegion);
 
 module.exports = router;
