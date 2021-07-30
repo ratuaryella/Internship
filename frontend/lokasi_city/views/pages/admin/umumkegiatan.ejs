@@ -342,7 +342,7 @@
       let edt_id = (typeof id !== 'undefined') ?  id : 1;
       let nama_kegiatan = $("input[name='get-nama-kegiatan']").val();
       let pelaksana = $("input[name='get-pelaksana']").val();
-      let deskripsi = $("input[name='get-deskripsi']").val();
+      let deskripsi = $("#recipient-deskripsi").val();
       let tanggal = $("input[name='get-tanggal']").val();
 
       $.ajax({
