@@ -57,7 +57,7 @@ router.get('/api-v1/intern/get-all-kegiatan',  kegiatanController.getAllKegiatan
 router.get('/api-v1/intern/get-full-kegiatan', kegiatanController.getFullKegiatan);
 router.get('/api-v1/intern/get-role-kegiatan', isAuthorization, kegiatanController.getKegiatanByRole);
 router.get('/api-v1/intern/get-user-kegiatan', isAuthorization, kegiatanController.getKegiatanByUser);
-router.get('/api-v1/intern/get-kegiatan', isAuthorization, kegiatanController.getKegiatanById);
+router.get('/api-v1/intern/get-kegiatan', kegiatanController.getKegiatanById);
 router.post('/api-v1/intern/create-kegiatan', isAuthorization, kegiatanFetch.uploadImg.single("gambar"), kegiatanController.createKegiatan);
 router.post('/api-v1/intern/create-kegiatan-non', isAuthorization, kegiatanController.createKegiatanNon);
 router.patch('/api-v1/intern/delete-kegiatan', isAuthorization, kegiatanController.deleteKegiatan);
