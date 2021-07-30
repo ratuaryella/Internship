@@ -45,3 +45,13 @@ body {
 .carousel-box{
     width: 95%;
 }
+
+.inf{
+    padding-top: 25px;
+}
+
+.center-block {
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+ }

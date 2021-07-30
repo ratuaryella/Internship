@@ -183,11 +183,6 @@ ul{
   padding: 0;
 }
 
-/* .active{
-  background-color: white;
-  color: black;
-} */
-
 .sidebar li i{
   height: 50px;
   line-height: 50px;
@@ -264,6 +259,7 @@ ul{
 #main {
   transition: margin-left .5s;
   margin-left: 78px;
+  width:auto;
 }
 
 .hide{
@@ -274,6 +270,14 @@ ul{
   border-style: none;
 }
 
+.navbar{
+  width: 100%;
+  margin: 0%;
+}
+
+.dropdown-menu{
+  width: 50%;
+}
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
