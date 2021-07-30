@@ -13,6 +13,7 @@ const administrasiController = require('../controllers/adminitrasi/administrasi'
 const kegiatanController = require('../controllers/kegiatan/kegiatan');
 const kegiatanFetch = require('../fetch/kegiatan/kegiatan');
 const userController = require('../controllers/user/user');
+const {getPoiRegion} = require('../controllers/poi/poi-bvarta');
 
 router.get('/login', loginMiddleware, authController.index);
 router.post('/login', loginMiddleware, messageValidation.loginValidator, authController.login);
@@ -168,5 +169,6 @@ router.get('/get-kecamatan', isAuthorization, administrasiController.getAllKecam
 router.get('/get-desa', isAuthorization, administrasiController.getAllDesa); //get-desa?kodeprov=12&kodekabkot=75&kodekec=060&page=1
 router.get('/get-geom-kecamatan', isAuthorization, administrasiController.getKecamatanGeometri); //get-geom-kecamatan?kodeprov=12&kodekabkot=75&kodekec=050
 router.get('/get-geom-desa', isAuthorization, administrasiController.getDesaGeometri); //get-geom-desa?kodeprov=12&kodekabkot=75&kodekec=060&kodedesa=007
+router.post('/get-poi-region', getPoiRegion);
 
 module.exports = router;
