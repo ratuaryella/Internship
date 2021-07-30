@@ -77,10 +77,10 @@
                   </div>
                 </div>
                   <br>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <h6>Foto</h6>
                   <input type="file" id="gambar" name="gambar"/>
-                </div>
+                </div> -->
         </form>
         <div class="mb-2">
           <button onclick="form_submit()" class="btn btn-green" type="submit">Tambah</button>
@@ -341,7 +341,13 @@ $(document).ready(function(){
 <script type="text/javascript">
   function form_submit() {
     document.getElementById("formKegiatan").submit();
-    swal("Data ditambahkan", "Anda telah berhasil menambah kegiatan!", "success")
+    swal({
+        title: "Data ditambahkan",
+        text: "Anda telah berhasil menambah data",
+        icon: "success",
+        buttons: false,
+        timer: 1000
+        })
           .then(function(){ 
           location.reload();
         });
